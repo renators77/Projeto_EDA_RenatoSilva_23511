@@ -35,7 +35,7 @@ typedef struct gestor
 typedef struct veiculo
 {
     char tipo[20]; // tipo de veiculo (ex: bicicleta, scooter, patinete)
-    int battery; // bateria (em %)
+    int bateria; // bateria (em %)
     float custo; // custo por minuto reservado
     char localizacao[20]; // localização do meio de mobilidade (utilizando o what3words.com)
 }veiculo;
