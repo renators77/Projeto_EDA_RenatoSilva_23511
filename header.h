@@ -20,9 +20,11 @@
 //Estrutura de dados para os clientes
 typedef struct cliente
 {
-    char id [3]; //id do cliente
-    char nome [20]; //nome do cliente
+    int nif [10]; //id do cliente
+    char nome [30]; //nome do cliente
     float saldo; //saldo do cliente
+    char morada [100];
+    struct cliente *next, *prev; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
 
 }cliente;
 
@@ -30,6 +32,7 @@ typedef struct gestor
 {
     char nome[50]; // nome de usuário do gestor
     char password[50]; // senha do gestor
+    struct gestor *next, *prev; //aponta para o proximo nó da lista e para o anterior nó da lista podendo assim percorre-la 
 }gestor;
 
 typedef struct veiculo
@@ -38,8 +41,25 @@ typedef struct veiculo
     int bateria; // bateria (em %)
     float custo; // custo por minuto reservado
     char localizacao[20]; // localização do meio de mobilidade (utilizando o what3words.com)
+    struct veiculo *next, *prev;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 }veiculo;
 
 
 
 #endif
+
+/**
+ * @brief Funções para o gerenciamento de Clientes
+ * 
+ * @return 
+ */
+
+void registar_cliente(cliente *clientes, int nif, char nome, char morada);
+void informacao_cliente(cliente *clientes, int nif);
+
+/**
+ * @brief Funções para o gerenciamento de Gestores
+ * 
+ * @return 
+ */
+void registar_Gestor(gestor *gestores, char nome, char password);
