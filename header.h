@@ -22,11 +22,18 @@ typedef struct cliente
 {
     int nif [10]; //id do cliente
     char nome [30]; //nome do cliente
-    float saldo; //saldo do cliente
+    carteira carteira; //saldo do cliente
     char morada [100];
     struct cliente *next, *prev; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
 
 }cliente;
+
+typedef struct carteira
+{
+    int id;
+    float saldo;
+}carteira;
+
 
 typedef struct gestor
 {
@@ -38,7 +45,8 @@ typedef struct gestor
 typedef struct veiculo
 {
     char tipo[20]; // tipo de veiculo (ex: bicicleta, scooter, patinete)
-    int bateria; // bateria (em %)
+    float bateria; // bateria (em %)
+    float autonomia; // autonomia do veiculo
     float custo; // custo por minuto reservado
     char localizacao[20]; // localização do meio de mobilidade (utilizando o what3words.com)
     struct veiculo *next, *prev;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
