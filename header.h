@@ -17,7 +17,7 @@
 #define MAX_GESTOR 5
 
 
-//Estrutura de dados para os clientes
+
 typedef struct cliente
 {
     int nif [10]; //id do cliente
@@ -28,6 +28,7 @@ typedef struct cliente
 
 }cliente;
 
+
 typedef struct carteira
 {
     int id;
@@ -37,13 +38,16 @@ typedef struct carteira
 
 typedef struct gestor
 {
+    int id; //id do gestor
     char nome[50]; // nome de usuário do gestor
     char password[50]; // senha do gestor
     struct gestor *next, *prev; //aponta para o proximo nó da lista e para o anterior nó da lista podendo assim percorre-la 
 }gestor;
 
+
 typedef struct veiculo
 {
+    int codigo; //codigo do meio de mobilidade eletrica
     char tipo[20]; // tipo de veiculo (ex: bicicleta, scooter, patinete)
     float bateria; // bateria (em %)
     float autonomia; // autonomia do veiculo
@@ -62,12 +66,57 @@ typedef struct veiculo
  * @return 
  */
 
-void registar_cliente(cliente *clientes, int nif, char nome, char morada);
-void informacao_cliente(cliente *clientes, int nif);
+// Inserção de um novo registo
+cliente* registarCliente(cliente *clientes, int nif, char nome, char morada);
+
+// listar na consola o conteúdo da lista ligada `clientes´
+void informacaoCliente(cliente *clientes, int nif, char nome, char morada);
+
+// Determinar existência do 'cliente' na lista ligada 'clientes'
+int existeCliente(cliente *clientes, int nif);
+
+// Remover um Cliente a partir do seu Nif
+cliente* removerCliente(cliente *clientes, int nif);
+
+
+
+
 
 /**
  * @brief Funções para o gerenciamento de Gestores
  * 
  * @return 
  */
-void registar_Gestor(gestor *gestores, char nome, char password);
+
+// Inserção de um novo registo de gestor na lista ligada `gestores´
+gestor* registarGestor(gestor *gestores, char nome, char password);
+
+// listar na consola o conteúdo da lista ligada `gestores´
+void informacaoGestor(gestor *gestores, int id, char nome);
+
+// Determinar existência do 'gestor' na lista ligada 'gestores'
+int existeGestor(gestor *gestores, int id);
+
+// Remover um gestor a partir do seu id
+gestor* removerGestor(gestor *gestores, int id);
+
+/**
+ * @brief Funções para o gerenciamento de Veiculos
+ * 
+ * @return 
+ */
+
+// Inserção de um novo registo de gestor na lista ligada `veiculos´
+veiculo* registarVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+
+// listar na consola o conteúdo da lista ligada `veiculos´
+void informacaoVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+
+// Determinar existência do 'veiculo' na lista ligada 'veiculos'
+int existeVeiculo(veiculo *veiculos, int codigo);
+
+// Remover um Cliente a partir do seu Nif
+veiculo* removerVeiculo(veiculo *veiculos, int codigo);
+
+
+
