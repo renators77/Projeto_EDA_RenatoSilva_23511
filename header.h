@@ -65,16 +65,16 @@ typedef struct veiculo
  */
 
 // Inserção de um novo registo
-cliente* registarCliente(cliente *clientes, int nif, char nome, char morada);
+cliente *inserirCliente(cliente *clientes, int nif, char nome, char morada);
 
 // listar na consola o conteúdo da lista ligada `clientes´
-cliente* dadosCliente(cliente *listaClientes);
+cliente *dadosCliente(cliente *listaClientes);
 
 // Determinar existência do 'cliente' na lista ligada 'clientes'
 int existeCliente(cliente *clientes, int nif);
 
 // Remover um Cliente a partir do seu Nif
-cliente* removerCliente(cliente *clientes, int nif);
+cliente *removerCliente(cliente *clientes, int nif);
 
 
 /**
@@ -84,7 +84,7 @@ cliente* removerCliente(cliente *clientes, int nif);
  */
 
 // Inserção de um novo registo de gestor na lista ligada `gestores´
-gestor* registarGestor(gestor *gestores, char nome, char password);
+gestor *registarGestor(gestor *gestores, char nome, char password);
 
 // listar na consola o conteúdo da lista ligada `gestores´
 void informacaoGestor(gestor *gestores, int id, char nome);
@@ -93,7 +93,7 @@ void informacaoGestor(gestor *gestores, int id, char nome);
 int existeGestor(gestor *gestores, int id);
 
 // Remover um gestor a partir do seu id
-gestor* removerGestor(gestor *gestores, int id);
+gestor *removerGestor(gestor *gestores, int id);
 
 
 /**
@@ -103,7 +103,7 @@ gestor* removerGestor(gestor *gestores, int id);
  */
 
 // Inserção de um novo registo de gestor na lista ligada `veiculos´
-veiculo* registarVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+veiculo *registarVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
 
 // listar na consola o conteúdo da lista ligada `veiculos´
 void informacaoVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
@@ -112,7 +112,7 @@ void informacaoVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria
 int existeVeiculo(veiculo *veiculos, int codigo);
 
 // Remover um Cliente a partir do seu Nif
-veiculo* removerVeiculo(veiculo *veiculos, int codigo);
+veiculo *removerVeiculo(veiculo *veiculos, int codigo);
 
 #endif
 
