@@ -17,6 +17,12 @@
 #define MAX_GESTOR 5
 
 
+typedef struct carteira
+{
+    int id;
+    float saldo;
+}carteira;
+
 
 typedef struct cliente
 {
@@ -28,12 +34,6 @@ typedef struct cliente
 
 }cliente;
 
-
-typedef struct carteira
-{
-    int id;
-    float saldo;
-}carteira;
 
 
 typedef struct gestor
@@ -67,8 +67,8 @@ typedef struct veiculo
 cliente* registarCliente(cliente *clientes, int nif, char nome, char morada);
 
 // listar na consola o conteúdo da lista ligada `clientes´
-void informacaoCliente(cliente *clientes, int nif, char nome, char mora);
-da
+void informacaoCliente(cliente *clientes, int nif, char nome, char morada);
+
 // Determinar existência do 'cliente' na lista ligada 'clientes'
 int existeCliente(cliente *clientes, int nif);
 
