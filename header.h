@@ -45,6 +45,7 @@ typedef struct gestor
 }gestor;
 
 
+
 typedef struct veiculo
 {
     int codigo; //codigo do meio de mobilidade eletrica
@@ -67,7 +68,7 @@ typedef struct veiculo
 cliente* registarCliente(cliente *clientes, int nif, char nome, char morada);
 
 // listar na consola o conteúdo da lista ligada `clientes´
-void informacaoCliente(cliente *clientes, int nif, char nome, char morada);
+cliente* dadosCliente(cliente *listaClientes);
 
 // Determinar existência do 'cliente' na lista ligada 'clientes'
 int existeCliente(cliente *clientes, int nif);

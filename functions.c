@@ -1,28 +1,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <header.h>
+#include "header.h"
 
 /**
- * @brief Função para criar o ficheiro txt 
+ * @brief Função para Ler os dados do ficheiro listaClientes.txt
  * 
  * @return 
  */
-void informacaocliente(cliente *clientes, int nif, char nome, char morada)
+cliente* dadosCliente(cliente *listaClientes)
 {
-    char* nome_ficheiro = "clientesLista.txt";
     FILE *ficheiro;
-    //abre o arquivo de texto para leitura
-    ficheiro = fopen(nome_ficheiro, "r");
-    //verificação do ficheiro
-    if (ficheiro == NULL) 
+    char line[20];
+    int nif; char nome; char morada;
+    ficheiro = fopen("listaClientes.txt", "r");
+
+    while (!feof(ficheiro))
     {
-        printf("Erro ao abrir o arquivo.");
-        return 1;
+        fgets(line, 20,ficheiro);
+        sscanf(line, "%d,%d,%d", &nif, &nome, &morada);
+        listaClientes = headops_insert(listaClientes, nif);
+        listaClientes = insert(listaClientes, nif, nome, morada);
     }
-    fscanf(ficheiro, "%d %d", &nif,&nome, &morada);
-    // fecha o arquivo
+
     fclose(ficheiro);
-    printf("Dados armazenados no arquivo com sucesso.");
-    return 0;
+    return ficheiro;
 }
