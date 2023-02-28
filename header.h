@@ -57,9 +57,6 @@ typedef struct veiculo
 }veiculo;
 
 
-
-#endif
-
 /**
  * @brief Funções para o gerenciamento de Clientes
  * 
@@ -70,16 +67,13 @@ typedef struct veiculo
 cliente* registarCliente(cliente *clientes, int nif, char nome, char morada);
 
 // listar na consola o conteúdo da lista ligada `clientes´
-void informacaoCliente(cliente *clientes, int nif, char nome, char morada);
-
+void informacaoCliente(cliente *clientes, int nif, char nome, char mora);
+da
 // Determinar existência do 'cliente' na lista ligada 'clientes'
 int existeCliente(cliente *clientes, int nif);
 
 // Remover um Cliente a partir do seu Nif
 cliente* removerCliente(cliente *clientes, int nif);
-
-
-
 
 
 /**
@@ -100,6 +94,7 @@ int existeGestor(gestor *gestores, int id);
 // Remover um gestor a partir do seu id
 gestor* removerGestor(gestor *gestores, int id);
 
+
 /**
  * @brief Funções para o gerenciamento de Veiculos
  * 
@@ -118,5 +113,5 @@ int existeVeiculo(veiculo *veiculos, int codigo);
 // Remover um Cliente a partir do seu Nif
 veiculo* removerVeiculo(veiculo *veiculos, int codigo);
 
-
+#endif
 
