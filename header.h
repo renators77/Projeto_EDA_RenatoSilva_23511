@@ -64,8 +64,14 @@ typedef struct veiculo
 // Inserção de um novo registo
 cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morada[]);
 
-// listar na consola o conteúdo da lista ligada `clientes´
-cliente* dadosCliente(cliente* listaClientes);
+// Faz o load dos dados da lista ligada `listaClientes´ em ficheiro.
+cliente* loadDadosCliente(cliente* listaClientes);
+
+// Criar Dados  da lista ligada `listaClientes´ em ficheiro.
+void criarDadosCliente(cliente *listaClientes);
+
+// Mostrar Dados  da lista ligada `listaClientes´ em ficheiro.
+void showDadosCliente(cliente *listaClientes);
 
 // Determinar existência do 'cliente' na lista ligada 'listaClientes'
 int existeCliente(cliente* listaClientes, int nif);

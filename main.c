@@ -21,59 +21,61 @@
  */
 int main()
 {
-  
-  /**
- * @brief Lê os dados atualiza e os 
- * 
- * @return 
- */
-
   //Lista ligada vazia
   cliente *listaClientes = NULL;
-
-  listaClientes = inserirCliente(listaClientes,123456789,"Renato Silva", "Rua Manuel Lopes");
-
-  dadosCliente(listaClientes);
-  
+  int opcao = 0, opNif=0;
+  char nome, morada;
+// listaClientes = loadDadosCliente(listaClientes); // preenche a lista a partir do arquivo
 
 
-//     system("pause");
-//     system("cls");
-//   do
-//     {
-//       printf("|-------------------------------------------|\n");
-//       printf("|   Escolha uma das seguintes opcoes:   	  |\n");     
-//       printf("|-------------------------------------------|\n");
-//       printf("| 1-     Dados Clientes                     |\n");          
-//       printf("| 2-             	                          |\n");  
-//       printf("|--                                     	  |\n");		
-//       printf("| 3-                 	                      |\n"); 
-// 	  printf("| 4-                    	                    |\n"); 
-// 	  printf("| 5-                    	                    |\n");
-// 	  printf("|--                                     	  |\n");
-// 	  printf("| 6-                                        |\n");          
-//       printf("| 7-                                        |\n");   
-//       printf("| 8-                                        |\n");  
-// 	  printf("|--                                         |\n");
-//       printf("|        Selecione 0 para sair          	  |\n");                     
-//       printf("|-------------------------------------------|\n");
+  system("pause");
+  system("cls");
+ do
+   {
+    printf("|-------------------------------------------|\n");
+    printf("|   Escolha uma das seguintes opcoes:   	  |\n");     
+    printf("|-------------------------------------------|\n");
+    printf("| 1-     Dados Clientes                     |\n");          
+    printf("| 2-             	                          |\n");  
+    printf("|--                                     	  |\n");		
+    printf("| 3-                 	                      |\n"); 
+	  printf("| 4-                    	                  |\n"); 
+	  printf("| 5-                    	                  |\n");
+	  printf("|--                                     	  |\n");
+	  printf("| 6-                                        |\n");          
+    printf("| 7-                                        |\n");   
+    printf("| 8-                                        |\n");  
+	  printf("|--                                         |\n");
+    printf("|        Selecione 0 para sair          	  |\n");                     
+    printf("|-------------------------------------------|\n");
 
-// 	    printf("Indique qual a opcao:\n");
-//       scanf("%d", &opcao);
-//       system("cls");
-//       switch (opcao)
-//       {
-//       case 1:
-//         system("cls");
-// 			  Show(listaClientes); 
-// 			  system("pause"); 
-//         break;
-      
-//       default:
-//         break;
-//       }
+	    printf("Indique qual a opcao:\n");
+      scanf("%d", &opcao);
+      system("cls");
+      switch (opcao)
+      {
+      case 1:
+        system("cls");
+			  criarDadosCliente(listaClientes); 
+			  system("pause"); 
+        break;
+      // case 2:
+      //       system("cls"); 
+      //       printf("nif do cliente -> "); 
+      //       scanf("%d",&opNif);
+      //       printf("Nome do cliente -> "); 
+      //       scanf("%s",&nome);
+      //       printf("Morada do cliente -> "); 
+      //       scanf("%s",&morada);
 
-//     } while (opcao != 0);
-//     system("cls");
-//     return 0;
+      //       listaClientes = inserirCliente(listaClientes, opNif, nome, morada);
+      //       system("pause");
+      //       break;
+      default:
+        break;
+      }
+
+    } while (opcao != 0);
+    system("cls");
+    return 0;
 }
