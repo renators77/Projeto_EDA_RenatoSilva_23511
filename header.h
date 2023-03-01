@@ -12,7 +12,7 @@
 //permite que o código gerado entre o parametro #ifndef e #endif seja excluido durante o processo de compilação sendo compilado apenas 1 vez
 #ifndef _HEADER
 #define _HEADER
-
+#include <stdio.h>
 
 typedef struct carteira
 {
@@ -23,7 +23,7 @@ typedef struct carteira
 
 typedef struct cliente
 {
-    int nif [10]; //id do cliente
+    int nif; //id do cliente
     char nome [30]; //nome do cliente
     carteira carteira; //saldo do cliente
     char morada [100];
@@ -67,7 +67,7 @@ cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morad
 // listar na consola o conteúdo da lista ligada `clientes´
 cliente* dadosCliente(cliente* listaClientes);
 
-// Determinar existência do 'cliente' na lista ligada 'clientes'
+// Determinar existência do 'cliente' na lista ligada 'listaClientes'
 int existeCliente(cliente* listaClientes, int nif);
 
 // Remover um Cliente a partir do seu Nif

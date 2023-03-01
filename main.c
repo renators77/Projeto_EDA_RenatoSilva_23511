@@ -22,14 +22,20 @@
 int main()
 {
   
-//   /**
-//  * @brief Lê os dados atualiza e os 
-//  * 
-//  * @return 
-//  */
-//     cliente *listaClientes = NULL;
-//     int opcao = 0; int nif = 0, nome = 0, morada = 0;
-//     listaClientes = dadosCliente(listaClientes); 
+  /**
+ * @brief Lê os dados atualiza e os 
+ * 
+ * @return 
+ */
+
+  //Lista ligada vazia
+  cliente *listaClientes = NULL;
+
+  listaClientes = inserirCliente(listaClientes,123456789,"Renato Silva", "Rua Manuel Lopes");
+
+  dadosCliente(listaClientes);
+  
+
 
 //     system("pause");
 //     system("cls");
