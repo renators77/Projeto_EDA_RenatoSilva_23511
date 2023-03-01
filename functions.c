@@ -19,37 +19,12 @@ cliente* dadosCliente(cliente *listaClientes)
     {
         fgets(line, 100,ficheiro);
         sscanf(line, "%d,%d,%d", &nif, &nome, &morada);
-        listaClientes = inserirCliente(listaClientes, int nif, char nome, char morada);
+        listaClientes = inserirCliente(listaClientes, nif, nome, morada);
     }
 
     fclose(ficheiro);
-    return ficheiro;
 
-
-// /**
-//  * @brief salva dados do ficheiro txt
-//  * 
-//  * @param listaClientes 
-//  * @return  
-//  */
-// void saveData(cliente *listaClientes)
-// {
-//     FILE *ficheiro;
-//     ficheiro = fopen("saveddata.txt", "w+");
-
-//     for (; list; list = list->next)
-//     {
-//         prod *ptr = list->first;
-//         for (; ptr;)
-//         {
-//             fprintf(fp, "%d,%d,%d\n", list->opID, ptr->machine, ptr->time);
-//             ptr = ptr->next;
-//         }
-//     }
-//     fclose(fp);
-// }
-
-
+}
 /**
  * @brief  inserçao de clientes.
  * 
@@ -59,14 +34,38 @@ cliente* dadosCliente(cliente *listaClientes)
  * @param morada 
  * @return novo
  */
-cliente *inserirCliente(cliente *listaClientes, int nif, char nome, char morada)
+cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[])
 {
-    cliente *novo = (cliente *)malloc(sizeof(cliente)); //aloca dinamicamente um novo bloco de memória de tamanho da estrutura cliente esse bloco memoria atribuido como novo
-    novo->nif = nif;
-    novo->nome = nome;
-    novo->morada = morada;
-    novo->next = listaClientes;//faz com que o novo elemento aponte para o antigo início da lista, fica o novo início da lista.
+ if (!existeCliente(listaClientes, nif))
+ { 
+    cliente* novo = malloc(sizeof(struct cliente));//aloca dinamicamente um novo bloco de memória de tamanho da estrutura cliente esse bloco memoria atribuido como novo
+    if (novo != NULL)
+    {
+        novo->nif = nif;
+        strcpy(novo->nome,nome);
+        strcpy(novo->morada,morada);
+        novo->next=listaClientes;//faz com que o novo elemento aponte para o antigo início da lista, fica o novo início da lista.
+        return(novo);
+    }
+    
+ } else return(listaClientes); //função retorna o * para o novo início da lista listaClientes.
+ 
+}
 
-    return novo; //função retorna o * para o novo início da lista listaClientes.
+// Determinar existência do 'codigo' na lista ligada 'listaClientes'
+// devolve 1 se existir ou 0 caso contrário
+int existeCliente(cliente* listaClientes, int nif)
+{
+    while (listaClientes != NULL)
+    {
+      if (listaClientes->nif == nif)
+      {
+        return(1);
+        listaClientes = listaClientes->next;
+      }
+     return(0);   
+    }
+    
 }
-}
+
+

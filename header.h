@@ -12,9 +12,6 @@
 //permite que o código gerado entre o parametro #ifndef e #endif seja excluido durante o processo de compilação sendo compilado apenas 1 vez
 #ifndef _HEADER
 #define _HEADER
-#define MAX_VEICULO 20
-#define MAX_CLIENTE 10
-#define MAX_GESTOR 5
 
 
 typedef struct carteira
@@ -41,7 +38,7 @@ typedef struct gestor
     int id; //id do gestor
     char nome[50]; // nome de usuário do gestor
     char password[50]; // senha do gestor
-    struct gestor *next, *prev; //aponta para o proximo nó da lista e para o anterior nó da lista podendo assim percorre-la 
+    struct gestor *next; //aponta para o proximo nó da lista e para o anterior nó da lista podendo assim percorre-la 
 }gestor;
 
 
@@ -54,7 +51,7 @@ typedef struct veiculo
     float autonomia; // autonomia do veiculo
     float custo; // custo por minuto reservado
     char localizacao[20]; // localização do meio de mobilidade (utilizando o what3words.com)
-    struct veiculo *next, *prev;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
+    struct veiculo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 }veiculo;
 
 
@@ -65,16 +62,16 @@ typedef struct veiculo
  */
 
 // Inserção de um novo registo
-cliente *inserirCliente(cliente *clientes, int nif, char nome, char morada);
+cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morada[]);
 
 // listar na consola o conteúdo da lista ligada `clientes´
-cliente *dadosCliente(cliente *listaClientes);
+cliente* dadosCliente(cliente* listaClientes);
 
 // Determinar existência do 'cliente' na lista ligada 'clientes'
-int existeCliente(cliente *clientes, int nif);
+int existeCliente(cliente* listaClientes, int nif);
 
 // Remover um Cliente a partir do seu Nif
-cliente *removerCliente(cliente *clientes, int nif);
+cliente *removerCliente(cliente* clientes, int nif);
 
 
 /**
@@ -84,7 +81,7 @@ cliente *removerCliente(cliente *clientes, int nif);
  */
 
 // Inserção de um novo registo de gestor na lista ligada `gestores´
-gestor *registarGestor(gestor *gestores, char nome, char password);
+gestor* registarGestor(gestor *gestores, char nome[], char password[]);
 
 // listar na consola o conteúdo da lista ligada `gestores´
 void informacaoGestor(gestor *gestores, int id, char nome);

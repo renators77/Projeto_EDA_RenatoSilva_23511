@@ -22,52 +22,52 @@
 int main()
 {
   
-  /**
- * @brief Lê os dados atualiza e os 
- * 
- * @return 
- */
-    cliente *listaClientes = NULL;
-    int opcao = 0; int nif = 0, nome = 0, morada = 0;
-    listaClientes = loadData(listaClientes); 
+//   /**
+//  * @brief Lê os dados atualiza e os 
+//  * 
+//  * @return 
+//  */
+//     cliente *listaClientes = NULL;
+//     int opcao = 0; int nif = 0, nome = 0, morada = 0;
+//     listaClientes = dadosCliente(listaClientes); 
 
-    system("pause");
-    system("cls");
-  do
-    {
-      printf("|-------------------------------------------|\n");
-      printf("|   Escolha uma das seguintes opcoes:   	  |\n");     
-      printf("|-------------------------------------------|\n");
-      printf("| 1-     Dados Clientes                     |\n");          
-      printf("| 2-             	                          |\n");  
-      printf("|--                                     	  |\n");		
-      printf("| 3-                 	                      |\n"); 
-	  printf("| 4-                    	                  |\n"); 
-	  printf("| 5-                    	                  |\n");
-	  printf("|--                                     	  |\n");
-	  printf("| 6-                                        |\n");          
-      printf("| 7-                                        |\n");   
-      printf("| 8-                                        |\n");  
-	  printf("|--                                         |\n");
-      printf("|        Selecione 0 para sair          	  |\n");                     
-      printf("|-------------------------------------------|\n");
+//     system("pause");
+//     system("cls");
+//   do
+//     {
+//       printf("|-------------------------------------------|\n");
+//       printf("|   Escolha uma das seguintes opcoes:   	  |\n");     
+//       printf("|-------------------------------------------|\n");
+//       printf("| 1-     Dados Clientes                     |\n");          
+//       printf("| 2-             	                          |\n");  
+//       printf("|--                                     	  |\n");		
+//       printf("| 3-                 	                      |\n"); 
+// 	  printf("| 4-                    	                    |\n"); 
+// 	  printf("| 5-                    	                    |\n");
+// 	  printf("|--                                     	  |\n");
+// 	  printf("| 6-                                        |\n");          
+//       printf("| 7-                                        |\n");   
+//       printf("| 8-                                        |\n");  
+// 	  printf("|--                                         |\n");
+//       printf("|        Selecione 0 para sair          	  |\n");                     
+//       printf("|-------------------------------------------|\n");
 
-	    printf("Indique qual a opcao:\n");
-      scanf("%d", &opcao);
-      system("cls");
-      switch (opcao)
-      {
-      case 1:
-        system("cls");
-			  Show(listaClientes); 
-			  system("pause"); 
-        break;
+// 	    printf("Indique qual a opcao:\n");
+//       scanf("%d", &opcao);
+//       system("cls");
+//       switch (opcao)
+//       {
+//       case 1:
+//         system("cls");
+// 			  Show(listaClientes); 
+// 			  system("pause"); 
+//         break;
       
-      default:
-        break;
-      }
+//       default:
+//         break;
+//       }
 
-    } while (opcao != 0);
-    system("cls");
-    return 0;
+//     } while (opcao != 0);
+//     system("cls");
+//     return 0;
 }
