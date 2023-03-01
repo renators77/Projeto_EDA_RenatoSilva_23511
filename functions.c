@@ -4,32 +4,32 @@
 #include "header.h"
 
 // /**
-//  * @brief Função para criar ficheiro listaClientes.txt
+//  * @brief Função para ler os dados do ficheiro listaClientes.txt
 //  * 
 //  * @return listaClientes atualizada
 //  */
-// cliente* loadDadosCliente(cliente *listaClientes)
-// {
-//     FILE *ficheiro;
-//     char line[100];
-//     int nif;
-//     char nome[50];
-//     char morada[100];
-//     ficheiro = fopen("listaClientes.txt", "r");
-//     if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
-//     printf("Erro ao abrir o arquivo.");
-//     return;
-//   }
-//     while (!feof(ficheiro))
-//     {
-//         fgets(line, 100, ficheiro);
-//         sscanf(line, "%d,%s,%s \n", &nif, nome, morada);
-//         listaClientes = inserirCliente(listaClientes, nif, nome, morada);
-//     }
+cliente* loadDadosCliente(cliente *listaClientes)
+{
+    FILE *ficheiro;
+    char line[100];
+    int nif;
+    char nome[50];
+    char morada[100];
+    ficheiro = fopen("listaClientes.txt", "r");
+    if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
+    printf("Erro ao abrir o arquivo.");
+    return ;
+  }
+    while (!feof(ficheiro))
+    {
+        fgets(line, 100, ficheiro);
+        sscanf(line, "%d,%s,%s \n", &nif, nome, morada);
+        listaClientes = inserirCliente(listaClientes, nif, nome, morada);
+    }
 
-//     fclose(ficheiro);
-//     return listaClientes;
-// }
+    fclose(ficheiro);
+    return listaClientes;
+}
 
 /// @brief criar dados da lista cliente em Ficheiro.
 /// @param listaClientes 
@@ -37,28 +37,27 @@ void criarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro;
      ficheiro = fopen("listaClientes.txt", "w");
-     
-     char dados[] = "Exemplo de dados para o arquivo.\n";
-     
-     fputs(dados, ficheiro);
-    // for (;listaClientes; listaClientes = listaClientes->next)
-    // {
-    //     fprintf(ficheiro, "%d,%s,%s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
-    // }
+     if (ficheiro != NULL)
+     {
+        for (cliente* atual = listaClientes; atual != NULL; atual = atual->next) 
+        {
+            fprintf(ficheiro, "%d,%s,%s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+        }
+     }
     fclose(ficheiro);
     
 }
 
-// /// @brief Mostrar dados do cliente
-// /// @param listaClientes 
-// void showDadosCliente(cliente *listaClientes)
-// {
-//     for (; listaClientes; listaClientes = listaClientes->next)
-//     {
-//         printf("nif -> %d | nome -> %s | morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
-//     }
+/// @brief Mostrar dados do cliente
+/// @param listaClientes 
+void showDadosCliente(cliente *listaClientes)
+{
+    for (; listaClientes; listaClientes = listaClientes->next)
+    {
+        printf("nif -> %d | nome -> %s | morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+    }
     
-// }
+}
 
 
 /**
@@ -89,16 +88,6 @@ cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morad
  
 }
 
-// cliente* dadosCliente(cliente* listaClientes)
-// {
-//     while (listaClientes != NULL)
-//     {
-//         printf("%d %s %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
-//         listaClientes = listaClientes->next;
-//     }
-    
-// }
-
 
 /**
  * @brief  Existe clientes.
@@ -120,4 +109,13 @@ int existeCliente(cliente* listaClientes, int nif)
         
 }
 
+// cliente* dadosCliente(cliente* listaClientes)
+// {
+//     while (listaClientes != NULL)
+//     {
+//         printf("%d %s %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+//         listaClientes = listaClientes->next;
+//     }
+    
+// }
 
