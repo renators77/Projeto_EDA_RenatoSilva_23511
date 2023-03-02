@@ -26,7 +26,7 @@ int main()
 cliente *listaClientes = NULL;
   int opcao = 0, opNif = 0;
   char nome[50], morada[50];
-  // listaClientes = loadDadosCliente(listaClientes);
+  listaClientes = loadDadosCliente(listaClientes);
 
   do
   {
@@ -75,7 +75,7 @@ cliente *listaClientes = NULL;
         showDadosCliente(listaClientes);
         system("pause");
         
-      // Adicione casos para opções 3 a 8, se necessário
+      // Adicionar casos para opções 4 a ..
       default:
         break;
     }

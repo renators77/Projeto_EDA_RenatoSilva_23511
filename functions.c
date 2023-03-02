@@ -18,7 +18,7 @@ cliente* loadDadosCliente(cliente *listaClientes)
     ficheiro = fopen("listaClientes.txt", "r");
     if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
     printf("Erro ao abrir o arquivo.");
-    return ;
+    return NULL;
   }
     while (!feof(ficheiro))
     {
@@ -109,13 +109,4 @@ int existeCliente(cliente* listaClientes, int nif)
         
 }
 
-// cliente* dadosCliente(cliente* listaClientes)
-// {
-//     while (listaClientes != NULL)
-//     {
-//         printf("%d %s %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
-//         listaClientes = listaClientes->next;
-//     }
-    
-// }
 
