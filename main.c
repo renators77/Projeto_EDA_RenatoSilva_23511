@@ -26,7 +26,7 @@ int main()
 cliente *listaClientes = NULL;
   int opcao = 0, opNif = 0;
   char nome[50], morada[50];
-  listaClientes = loadDadosCliente(listaClientes);
+  // listaClientes = loadDadosCliente(listaClientes);
 
   do
   {

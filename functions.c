@@ -8,35 +8,35 @@
 //  * 
 //  * @return listaClientes atualizada
 //  */
-cliente* loadDadosCliente(cliente *listaClientes)
-{
-    FILE *ficheiro;
-    char line[100];
-    int nif;
-    char nome[50];
-    char morada[100];
-    ficheiro = fopen("listaClientes.txt", "r");
-    if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
-    printf("Erro ao abrir o arquivo.");
-    return NULL;
-  }
-    while (!feof(ficheiro))
-    {
-        fgets(line, 100, ficheiro);
-        sscanf(line, "%d,%s,%s \n", &nif, nome, morada);
-        listaClientes = inserirCliente(listaClientes, nif, nome, morada);
-    }
+// cliente* loadDadosCliente(cliente *listaClientes)
+// {
+//     FILE *ficheiro;
+//     char line[100];
+//     int nif;
+//     char nome[50];
+//     char morada[100];
+//     ficheiro = fopen("listaClientes.txt", "r");
+//     if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
+//     printf("Erro ao abrir o arquivo.");
+//     return NULL;
+//   }
+//     while (!feof(ficheiro))
+//     {
+//         fgets(line, 100, ficheiro);
+//         sscanf(line, "%d,%s,%s \n", &nif, nome, morada);
+//         listaClientes = inserirCliente(listaClientes, nif, nome, morada);
+//     }
 
-    fclose(ficheiro);
-    return listaClientes;
-}
+//     fclose(ficheiro);
+//     return listaClientes;
+// }
 
 /// @brief criar dados da lista cliente em Ficheiro.
 /// @param listaClientes 
 void criarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro;
-     ficheiro = fopen("listaClientes.txt", "w");
+     ficheiro = fopen("listaClientes.txt", "a");
      if (ficheiro != NULL)
      {
         for (cliente* atual = listaClientes; atual != NULL; atual = atual->next) 
