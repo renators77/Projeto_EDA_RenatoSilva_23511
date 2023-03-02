@@ -1,3 +1,0 @@
-234567899,ruben,mario
-234567899,ruben,mario
-345678921,renato,ruben

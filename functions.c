@@ -3,33 +3,6 @@
 #include <stdio.h>
 #include "header.h"
 
-// /**
-//  * @brief Função para ler os dados do ficheiro listaClientes.txt
-//  * 
-//  * @return listaClientes atualizada
-//  */
-// cliente* loadDadosCliente(cliente *listaClientes)
-// {
-//     FILE *ficheiro;
-//     char line[100];
-//     int nif;
-//     char nome[50];
-//     char morada[100];
-//     ficheiro = fopen("listaClientes.txt", "r");
-//     if (ficheiro == NULL) { // verifica se ocorreu um erro ao abrir o arquivo
-//     printf("Erro ao abrir o arquivo.");
-//     return NULL;
-//   }
-//     while (!feof(ficheiro))
-//     {
-//         fgets(line, 100, ficheiro);
-//         sscanf(line, "%d,%s,%s \n", &nif, nome, morada);
-//         listaClientes = inserirCliente(listaClientes, nif, nome, morada);
-//     }
-
-//     fclose(ficheiro);
-//     return listaClientes;
-// }
 
 /// @brief criar dados da lista cliente em Ficheiro.
 /// @param listaClientes 
@@ -59,6 +32,26 @@ void showDadosCliente(cliente *listaClientes)
     
 }
 
+/**
+ * @brief  Existe clientes.
+ * 
+ * @param listaClientes
+ * @param nif
+ * @return 1 se existir ou 0 caso não exista
+ */
+int existeCliente(cliente* listaClientes, int nif)
+{
+    //percorre todos os elementos da lista ate o * apontar para NULL
+    while (listaClientes != NULL)
+    {
+        //compara valor do campo nif da lista com o parametro nif atribuido
+        if (listaClientes->nif == nif)
+        return (1); //se forem iguais afirma que cliente foi encontrado
+        listaClientes = listaClientes->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+    }
+     return(0); //retorna 0, indicando que o cliente não existe na lista.
+        
+}
 
 /**
  * @brief  inserçao de clientes.
@@ -89,24 +82,5 @@ cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morad
 }
 
 
-/**
- * @brief  Existe clientes.
- * 
- * @param listaClientes
- * @param nif
- * @return 1 se existir ou 0 caso não exista
- */
-int existeCliente(cliente* listaClientes, int nif)
-{
-    //percorre todos os elementos da lista ate o * apontar para NULL
-    while (listaClientes != NULL)
-    {
-        //compara valor do campo nif da lista com o parametro nif atribuido
-        if (listaClientes->nif == nif) return(1); //se forem iguais afirma que cliente foi encontrado
-        listaClientes = listaClientes->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
-    }
-     return(0); //retorna 0, indicando que o cliente não existe na lista.
-        
-}
 
 

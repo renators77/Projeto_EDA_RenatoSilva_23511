@@ -26,26 +26,19 @@ int main()
 cliente *listaClientes = NULL;
   int opcao = 0, opNif = 0;
   char nome[50], morada[50];
-  // listaClientes = loadDadosCliente(listaClientes);
 
   do
   {
     system("cls");
     printf("|-------------------------------------------|\n");
-    printf("|   Escolha uma das seguintes opcoes:   	  |\n");
+    printf("|   Escolha uma das seguintes opcoes:       |\n");
     printf("|-------------------------------------------|\n");
     printf("| 1-      Dados Clientes                    |\n");
-    printf("| 2-      Inserir Cliente       	          |\n");
-    printf("|--                                     	  |\n");
-    printf("| 3-        Mostrar Dados         	        |\n");
-    printf("| 4-                    	                  |\n");
-    printf("| 5-                    	                  |\n");
-    printf("|--                                     	  |\n");
-    printf("| 6-                                        |\n");
-    printf("| 7-                                        |\n");
-    printf("| 8-                                        |\n");
+    printf("| 2-      Inserir Cliente                   |\n");
     printf("|--                                         |\n");
-    printf("|        Selecione 0 para sair          	  |\n");
+    printf("| 3-        Mostrar Dados                   |\n");
+    printf("|--                                         |\n");
+    printf("|        Selecione 0 para sair              |\n");
     printf("|-------------------------------------------|\n");
 
     printf("Indique qual a opcao:\n");
@@ -62,10 +55,11 @@ cliente *listaClientes = NULL;
         system("cls");
         printf("nif do novo cliente -> "); 
         scanf("%d", &opNif);
+        getchar(); // consumir o caractere \n restante no buffer de entrada
         printf("Nome do novo cliente -> "); 
-        scanf("%s", nome);
+        fgets(nome, sizeof(nome), stdin);
         printf("Morada do novo cliente -> "); 
-        scanf("%s", morada);
+        fgets(morada, sizeof(morada), stdin);
 
         listaClientes = inserirCliente(listaClientes, opNif, nome, morada);
         system("pause");
