@@ -4,9 +4,9 @@
 #include "header.h"
 
 
-/// @brief criar dados da lista cliente em Ficheiro.
+/// @brief Salvar dados da lista cliente em Ficheiro.
 /// @param listaClientes 
-void criarDadosCliente(cliente *listaClientes)
+void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro;
      ficheiro = fopen("listaClientes.txt", "a");

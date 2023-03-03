@@ -68,7 +68,7 @@ cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morad
 cliente* loadDadosCliente(cliente* listaClientes);
 
 // Criar Dados  da lista ligada `listaClientes´ em ficheiro.
-void criarDadosCliente(cliente *listaClientes);
+void salvarDadosCliente(cliente *listaClientes);
 
 // Mostrar Dados  da lista ligada `listaClientes´ em ficheiro.
 void showDadosCliente(cliente *listaClientes);
