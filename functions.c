@@ -3,6 +3,32 @@
 #include <stdio.h>
 #include "header.h"
 
+/// @brief Visualizar dados do ficheiro
+/// @param listaClientes 
+void loadDadosCliente(cliente* listaClientes)
+{
+      FILE *ficheiro;
+    char linha[100]; //declara uma string de tamanho 100, que será usada para armazenar cada linha do arquivo de texto.
+
+    // Abre o ficheiro em modo leitura
+    ficheiro = fopen("listaClientes.txt", "r");
+
+    // Verifica se o arquivo foi aberto com sucesso
+    if (ficheiro == NULL) 
+    {
+        printf("Erro ao abrir o Ficheiro\n");
+        return;
+    }
+
+    // Ler e imprimir cada linha do ficheiro
+    while (fgets(linha, sizeof(linha), ficheiro) != NULL) {
+        printf("%s", linha);
+    }
+
+    // Fecha o ficheiro
+    fclose(ficheiro);  
+}
+
 
 /// @brief Salvar dados da lista cliente em Ficheiro.
 /// @param listaClientes 

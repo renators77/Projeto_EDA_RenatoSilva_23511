@@ -27,7 +27,7 @@ typedef struct cliente
     char nome [30]; //nome do cliente
     carteira carteira; //saldo do cliente
     char morada [100];
-    struct cliente *next, *prev; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
+    struct cliente *next; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
 
 }cliente;
 
@@ -65,7 +65,7 @@ typedef struct veiculo
 cliente* inserirCliente(cliente* listaClientes, int nif, char nome[], char morada[]);
 
 // Faz o load dos dados da lista ligada `listaClientes´ em ficheiro.
-cliente* loadDadosCliente(cliente* listaClientes);
+void loadDadosCliente(cliente* listaClientes);
 
 // Criar Dados  da lista ligada `listaClientes´ em ficheiro.
 void salvarDadosCliente(cliente *listaClientes);
