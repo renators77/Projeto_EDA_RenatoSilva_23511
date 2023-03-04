@@ -1,6 +1,3 @@
-123456788,Mario Pinto
-,Rua dos gays
-
-123456788,Mario Pinto
-,Rua dos gays
+Nif -> 123456789| Nome -> Renato Silva
+| Morada -> Rua Mnauel Lopes
 

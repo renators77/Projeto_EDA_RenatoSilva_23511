@@ -91,6 +91,7 @@ cliente *listaClientes = NULL;
              }
              break;
             } while (1);
+        
             
         listaClientes = inserirCliente(listaClientes, opNif, nome, morada);
 
@@ -111,6 +112,28 @@ cliente *listaClientes = NULL;
         default:
         printf("Opcao Invalida!!!");
         system("cls");
+        break;
+      case 5:
+        system("cls");
+        do {
+             printf("nif do cliente que deseja remover (9 digitos) -> "); 
+             scanf("%d", &opNif);
+             getchar(); 
+             if (opNif < 100000000 || opNif > 999999999) // Verifica se o NIF tem 9 digitos
+             { 
+               printf("NIF invalido! Insira um NIF valido com 9 digitos.\n");
+               continue; // Reinicia o loop para pedir um novo NIF
+             } 
+             else if (!existeCliente(listaClientes, opNif)) // Verifica se o NIF não existe
+             {
+               printf("Não existe um cliente com esse NIF! Insira um NIF existente.\n");
+               continue; // Reinicia o loop para pedir um novo NIF
+             }
+             break; // Sai do loop quando o NIF for valido e nao existir na lista
+           }  while (1);
+
+        listaClientes = removerCliente(listaClientes, opNif);
+        system("pause");
         break;
     }
 
