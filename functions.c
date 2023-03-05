@@ -7,7 +7,7 @@
 /// @param listaClientes //lista ligada
 void loadDadosCliente(cliente *listaClientes)
 {
-      FILE *ficheiro; //declara um * para um ficheiro
+    FILE *ficheiro; //declara um * para um ficheiro
     char linha[100]; //declara uma string de tamanho 100, que será usada para armazenar cada linha do arquivo de texto.
 
     // Abre o ficheiro em modo leitura
@@ -21,7 +21,8 @@ void loadDadosCliente(cliente *listaClientes)
     }
 
     // Ler e imprimir cada linha do ficheiro
-    while (fgets(linha, sizeof(linha), ficheiro) != NULL) {
+    while (fgets(linha, sizeof(linha), ficheiro) != NULL) 
+    {
         printf("%s", linha);
     }
 
@@ -127,49 +128,30 @@ cliente *removerCliente(cliente *listaclientes, int nif)
          free(atual); //Liberta a memoria que estava a ser ocupada
          return(aux); //atualiza para o endereço seguinte 
         }
-    else
-    {
-        while ((atual != NULL) && (atual->nif != nif)) //percorre a listaClientes ate encontrar o nif a ser removido ou até chegar ao final da listaClientes
-        {
-            anterior = atual;
-            atual = atual->next;
-        }
-        if (atual == NULL) return(listaclientes); //percorre a lista ligada listaClientes caso não exista o cliente return inicio listaClientes
         else
         {
-            anterior->next = atual->next; //* atual encontrar nif a ser removido | função atualiza os endereços dos * anterior e seguinte 
-            free(atual); //Liberta a memoria que estava a ser ocupada
-            return(listaclientes); //retorna o *lista ligada listaClientes para o seu inicio 
-        }        
-    }
-    }  else return(listaclientes);
+         while ((atual != NULL) && (atual->nif != nif)) //percorre a listaClientes ate encontrar o nif a ser removido ou até chegar ao final da listaClientes
+           {
+             anterior = atual;
+             atual = atual->next;
+            }
+         if (atual == NULL) return(listaclientes); //percorre a lista ligada listaClientes caso não exista o cliente return inicio listaClientes
+         else
+           {
+             anterior->next = atual->next; //* atual encontrar nif a ser removido | função atualiza os endereços dos * anterior e seguinte 
+             free(atual); //Liberta a memoria que estava a ser ocupada
+             return(listaclientes); //retorna o *lista ligada listaClientes para o seu inicio 
+            }        
+        }
+    }  else return(listaclientes); //devolve o inicio da lista ligada listaClientes
 }
 
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[])
+{
+    if (existeCliente(listaClientes, nif))
+    {
+        
+    } else return(listaClientes);
+    
+}
 
-
-
-
-    // cliente *anterior=listaclientes, *atual=listaclientes, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
-
-    // if (atual=NULL) return (NULL); //verifica se a lista ligada listaClientes está vazia
-    // else if (atual->nif == nif) //remoção do 1º Registo
-    // {
-    //     aux = atual->next;
-    //     free(atual); //Liberta a memoria que estava a ser ocupada
-    //     return(aux); //atualiza para o endereço seguinte 
-    // }
-    // else
-    // {
-    //     while ((atual != NULL) && (atual->nif != nif)) //percorre a listaClientes ate encontrar o nif a ser removido ou até chegar ao final da listaClientes
-    //     {
-    //         anterior = atual;
-    //         atual = atual->next;
-    //     }
-    //     if (atual == NULL) return(listaclientes); //percorre a lista ligada listaClientes caso não exista o cliente return inicio listaClientes
-    //     else
-    //     {
-    //         anterior->next = atual->next; //* atual encontrar nif a ser removido | função atualiza os endereços dos * anterior e seguinte 
-    //         free(atual); //Liberta a memoria que estava a ser ocupada
-    //         return(listaclientes); //retorna o *lista ligada listaClientes para o seu inicio 
-    //     }        
-    // }   

@@ -80,6 +80,9 @@ int existeCliente(cliente *listaClientes, int nif);
 // Remover um Cliente a partir do seu Nif
 cliente *removerCliente(cliente *listaclientes, int nif);
 
+// Alterar dados de um Cliente
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[]);
+
 
 /**
  * @brief Funções para o gerenciamento de Gestores

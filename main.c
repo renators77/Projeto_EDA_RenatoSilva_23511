@@ -37,6 +37,7 @@ cliente *listaClientes = NULL;
     printf("| 2 - Inserir Novo Cliente                         |\n");
     printf("| 3 - Mostrar Dados Novos clientes inseridos       |\n");
     printf("| 4 - Consultar Dados Cliente Guardados em Ficheiro|\n");
+    printf("| 5 - Remover Cliente                              |\n");
     printf("|--------------------------------------------------|\n");
     printf("|        Selecione 0 para sair                     |\n");
     printf("|--------------------------------------------------|\n");
