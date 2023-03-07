@@ -70,10 +70,10 @@ cliente *listaClientes = NULL;
                continue; // Reinicia o loop para pedir um novo NIF
              }
              break; // Sai do loop quando o NIF for valido e nao existir na lista
-           }  while (1); 
+        }  while (1); 
         do {
              printf("Nome do novo cliente -> ");
-             fgets(nome, sizeof(nome), stdin);
+             scanf(" %[^\n]", nome);
              if (nome[0] == '\n') //Verifica se o nome está vazio
              {
                printf("Nome invalido! Insira um Nome valido com pelo menos 1 caracter.\n");
@@ -81,17 +81,17 @@ cliente *listaClientes = NULL;
              }
              break;
           
-            } while (1);
+        } while (1);
         do  {
              printf("Morada do novo cliente -> ");
-             fgets(morada, sizeof(morada), stdin);
+             scanf(" %[^\n]", morada);
              if (morada[0] == '\n') //Verifica se a morada está vazia
              {
                printf("Morada invalida! Insira um Nome valido com pelo menos 1 caracter.\n");
                continue;// Reinicia o loop para pedir uma nova Morada
              }
              break;
-            } while (1);
+        } while (1);
         
             
         listaClientes = inserirCliente(listaClientes, opNif, nome, morada);
@@ -106,13 +106,8 @@ cliente *listaClientes = NULL;
         break;
       case 4:
         system("cls");
-        loadDadosCliente(listaClientes);
+        listaClientes = loadDadosCliente(listaClientes);
         system("pause");
-        
-        // Adicionar casos para opções 5 a ..
-        default:
-        printf("Opcao Invalida!!!");
-        system("cls");
         break;
       case 5:
         system("cls");
@@ -131,12 +126,13 @@ cliente *listaClientes = NULL;
                continue; // Reinicia o loop para pedir um novo NIF
              }
              break; // Sai do loop quando o NIF for valido e nao existir na lista
-           }  while (1);
+        }  while (1);
 
         listaClientes = removerCliente(listaClientes, opNif);
         system("pause");
         break;
     }
+
 
   } while (opcao != 0);
   system("cls");

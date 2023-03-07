@@ -3,47 +3,45 @@
 #include <stdio.h>
 #include "header.h"
 
-/// @brief Visualizar dados do ficheiro
+/// @brief Load dados do ficheiro
 /// @param listaClientes //lista ligada
-void loadDadosCliente(cliente *listaClientes)
+/// @return listaClientes devolve inicio da lista
+cliente* loadDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
-    char linha[100]; //declara uma string de tamanho 100, que será usada para armazenar cada linha do arquivo de texto.
 
-    // Abre o ficheiro em modo leitura
-    ficheiro = fopen("listaClientes.txt", "r");
-
-    // Verifica se o arquivo foi aberto com sucesso
-    if (ficheiro == NULL) 
+    char linha[100]; //string para ler cada linha do ficheiro.
+    int opNif; 
+    char nome[50], morada[50];
+    
+    if ((ficheiro = fopen("listaClientes.txt", "r")) == NULL) // abre o arquivo "listaClientes.txt" em modo de leitura "r"
     {
-        printf("Erro ao abrir o Ficheiro\n");
-        return;
+        printf("Erro ao abrir o arquivo listaClientes.txt\n");
+        return listaClientes;
     }
 
-    // Ler e imprimir cada linha do ficheiro
-    while (fgets(linha, sizeof(linha), ficheiro) != NULL) 
+    while (fgets(linha, 100, ficheiro) != NULL) //loop que percorre ficheiro até encontrar linha = NULL.
     {
-        printf("%s", linha);
+        sscanf(linha, "Nif -> %d | Nome -> %[^\n]s | Morada -> %[^\n]s\n", &opNif, nome, morada); //escreve os dados de cada cliente linha por linha
+        listaClientes = inserirCliente(listaClientes, opNif, nome, morada); //passa os dados obtidos em ficheiro para a lista ligada listaClientes
     }
-
-    // Fecha o ficheiro
-    fclose(ficheiro);  
+    fclose(ficheiro);//fecha o ficheiro
+    return listaClientes; //devolve o inicio da lista ligada
 }
-
 
 /// @brief Salvar dados da lista cliente em Ficheiro.
 /// @param listaClientes 
 void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
-     ficheiro = fopen("listaClientes.txt", "a"); // abre o arquivo "listaClientes.txt" em modo de escrita "a"
+     ficheiro = fopen("listaClientes.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de escrita "a"
      
      // Verifica se o arquivo foi aberto com sucesso
      if (ficheiro != NULL)
      {
         for (cliente *atual = listaClientes; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Nif -> %d| Nome -> %s| Morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada); //escreve os dados de cada cliente no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -54,11 +52,11 @@ void salvarDadosCliente(cliente *listaClientes)
 /// @param listaClientes 
 void showDadosCliente(cliente *listaClientes)
 {
-    for (;listaClientes; listaClientes = listaClientes->next) //percorre a listaClientes ate chegar a NULL
+    while (listaClientes != NULL)
     {
-        printf("nif -> %d | nome -> %s | morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada); //Mostra os dados do cliente
-    }
-    
+        printf("nif -> %d | nome -> %s | morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+        listaClientes = listaClientes->next; // Avança para o próximo nó da lista
+    }   
 }
 
 /**
@@ -74,8 +72,7 @@ int existeCliente(cliente *listaClientes, int nif)
     while (listaClientes != NULL)
     {
         //compara valor do campo nif da lista com o parametro nif atribuido
-        if (listaClientes->nif == nif)
-        return (1); //se forem iguais afirma que cliente foi encontrado
+        if (listaClientes->nif == nif) return (1); //se forem iguais afirma que cliente foi encontrado
         listaClientes = listaClientes->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
     }
      return(0); //retorna 0, indicando que o cliente não existe na lista.
@@ -107,9 +104,8 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
     }
     
  } else return(listaClientes); //função retorna o * para o início da listaClientes caso o nif exista.
- 
+
 }
-//TODO:Só remove dentro da lista ligada quero remover em ficheiro.
 /// @brief Remover Cliente por Nif
 /// @param listaclientes * para o inicio da listaClientes
 /// @param nif do cliente a ser removido
@@ -154,4 +150,8 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
     } else return(listaClientes);
     
 }
+
+
+
+
 

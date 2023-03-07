@@ -1,6 +1,0 @@
-Nif -> 123456789| Nome -> Renato Silva
-| Morada -> Rua Mnauel Lopes
-
-Nif -> 123456789| Nome -> Renato Silva
-| Morada -> Rua Manuel Lopes
-
