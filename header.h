@@ -25,7 +25,7 @@ typedef struct carteira
 typedef struct cliente
 {
     int nif; //id do cliente
-    char nome [30]; //nome do cliente
+    char nome [50]; //nome do cliente
     carteira carteira; //saldo do cliente
     char morada [100];
     struct cliente *next; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 

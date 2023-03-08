@@ -25,7 +25,7 @@ int main()
   //Lista ligada vazia
 cliente *listaClientes = NULL;
   int opcao = 0, opNif = 0;
-  char nome[50], morada[50];
+  char opNome[50], opMorada[100];
 
   do
   {
@@ -73,28 +73,20 @@ cliente *listaClientes = NULL;
         }  while (1); 
         do {
              printf("Nome do novo cliente -> ");
-             scanf(" %[^\n]", nome);
-             if (nome[0] == '\n') //Verifica se o nome está vazio
-             {
-               printf("Nome invalido! Insira um Nome valido com pelo menos 1 caracter.\n");
-               continue;// Reinicia o loop para pedir um novo Nome
-             }
+             scanf(" %[^\n]s", opNome);
+             getchar(); 
              break;
           
         } while (1);
         do  {
              printf("Morada do novo cliente -> ");
-             scanf(" %[^\n]", morada);
-             if (morada[0] == '\n') //Verifica se a morada está vazia
-             {
-               printf("Morada invalida! Insira um Nome valido com pelo menos 1 caracter.\n");
-               continue;// Reinicia o loop para pedir uma nova Morada
-             }
+             scanf(" %[^\n]s", opMorada);
+             getchar(); 
              break;
         } while (1);
         
             
-        listaClientes = inserirCliente(listaClientes, opNif, nome, morada);
+        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada);
 
         system("pause");
         break;

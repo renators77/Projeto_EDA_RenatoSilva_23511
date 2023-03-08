@@ -10,9 +10,9 @@ cliente* loadDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
 
-    char linha[100]; //string para ler cada linha do ficheiro.
+    char linha[200]; //string para ler cada linha do ficheiro.
     int opNif; 
-    char nome[50], morada[50];
+    char opNome[50], opMorada[100];
     
     if ((ficheiro = fopen("listaClientes.txt", "r")) == NULL) // abre o arquivo "listaClientes.txt" em modo de leitura "r"
     {
@@ -20,10 +20,12 @@ cliente* loadDadosCliente(cliente *listaClientes)
         return listaClientes;
     }
 
-    while (fgets(linha, 100, ficheiro) != NULL) //loop que percorre ficheiro até encontrar linha = NULL.
+    while (fgets(linha, 200, ficheiro) != NULL) //loop que percorre ficheiro até encontrar linha = NULL.
     {
-        sscanf(linha, "Nif -> %d | Nome -> %[^\n]s | Morada -> %[^\n]s\n", &opNif, nome, morada); //escreve os dados de cada cliente linha por linha
-        listaClientes = inserirCliente(listaClientes, opNif, nome, morada); //passa os dados obtidos em ficheiro para a lista ligada listaClientes
+       sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^\n]", &opNif, opNome, opMorada); //escreve os dados de cada cliente linha por linha
+        opNome[strlen(opNome)] = '\0';
+        opMorada[strlen(opMorada)] = '\0';
+        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada); //passa os dados obtidos em ficheiro para a lista ligada listaClientes
     }
     fclose(ficheiro);//fecha o ficheiro
     return listaClientes; //devolve o inicio da lista ligada
@@ -41,7 +43,7 @@ void salvarDadosCliente(cliente *listaClientes)
      {
         for (cliente *atual = listaClientes; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s\n", atual->nif, atual->nome, atual->morada); //escreve os dados de cada cliente no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -54,7 +56,7 @@ void showDadosCliente(cliente *listaClientes)
 {
     while (listaClientes != NULL)
     {
-        printf("nif -> %d | nome -> %s | morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+        printf("nif -> %d | nome -> %s | Morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
         listaClientes = listaClientes->next; // Avança para o próximo nó da lista
     }   
 }
