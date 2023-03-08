@@ -23,8 +23,6 @@ cliente* loadDadosCliente(cliente *listaClientes)
     while (fgets(linha, 200, ficheiro) != NULL) //loop que percorre ficheiro até encontrar linha = NULL.
     {
        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^\n]", &opNif, opNome, opMorada); //escreve os dados de cada cliente linha por linha
-        opNome[strlen(opNome)] = '\0';
-        opMorada[strlen(opMorada)] = '\0';
         listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada); //passa os dados obtidos em ficheiro para a lista ligada listaClientes
     }
     fclose(ficheiro);//fecha o ficheiro
