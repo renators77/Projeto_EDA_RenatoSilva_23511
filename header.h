@@ -81,7 +81,7 @@ void showDadosCliente(cliente *listaClientes);
 int existeCliente(cliente *listaClientes, int nif);
 
 // Remover um Cliente a partir do seu Nif
-cliente *removerCliente(cliente *listaclientes, int nif);
+cliente *removerCliente(cliente *listaClientes, int nif);
 
 // Alterar dados de um Cliente
 cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[]);
@@ -125,4 +125,5 @@ int existeVeiculo(veiculo *veiculos, int codigo);
 veiculo *removerVeiculo(veiculo *veiculos, int codigo);
 
 #endif
+
 

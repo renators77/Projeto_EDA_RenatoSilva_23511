@@ -38,6 +38,7 @@ cliente *listaClientes = NULL;
     printf("| 3 - Mostrar Dados Novos clientes inseridos       |\n");
     printf("| 4 - Consultar Dados Cliente Guardados em Ficheiro|\n");
     printf("| 5 - Remover Cliente                              |\n");
+    printf("| 6 - Alterar Cliente                              |\n");
     printf("|--------------------------------------------------|\n");
     printf("|        Selecione 0 para sair                     |\n");
     printf("|--------------------------------------------------|\n");
@@ -114,13 +115,50 @@ cliente *listaClientes = NULL;
              } 
              else if (!existeCliente(listaClientes, opNif)) // Verifica se o NIF não existe
              {
-               printf("Não existe um cliente com esse NIF! Insira um NIF existente.\n");
+               printf("Nao existe um cliente com esse NIF! Insira um NIF existente.\n");
                continue; // Reinicia o loop para pedir um novo NIF
              }
              break; // Sai do loop quando o NIF for valido e nao existir na lista
         }  while (1);
 
         listaClientes = removerCliente(listaClientes, opNif);
+        system("pause");
+        break;
+      case 6:
+        system("cls");
+        do {
+             printf("nif do cliente que deseja alterar (9 digitos) -> "); 
+             scanf("%d", &opNif);
+             getchar(); 
+             if (opNif < 100000000 || opNif > 999999999) // Verifica se o NIF tem 9 digitos
+             { 
+               printf("NIF invalido! Insira um NIF valido com 9 digitos.\n");
+               continue; // Reinicia o loop para pedir um novo NIF
+             } 
+             else if (!existeCliente(listaClientes, opNif)) // Verifica se o NIF não existe
+             {
+               printf("Nao existe um cliente com esse NIF! Insira um NIF existente.\n");
+               continue; // Reinicia o loop para pedir um novo NIF
+             }
+             break; // Sai do loop quando o NIF for valido e nao existir na lista
+        }  while (1);
+        do {
+             printf("Novo Nome do cliente -> ");
+             scanf(" %[^\n]s", opNome);
+             getchar(); 
+             break;
+          
+        } while (1);
+        do  {
+             printf("Nova Morada do cliente -> ");
+             scanf(" %[^\n]s", opMorada);
+             getchar(); 
+             break;
+        } while (1);
+        
+            
+        listaClientes = alterarCliente(listaClientes, opNif, opNome, opMorada);
+
         system("pause");
         break;
     }
@@ -130,3 +168,4 @@ cliente *listaClientes = NULL;
   system("cls");
   return 0;
 }
+

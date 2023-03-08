@@ -110,12 +110,12 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
 /// @param listaclientes * para o inicio da listaClientes
 /// @param nif do cliente a ser removido
 /// @return * atualizado para o inicio da listaClientes 
-cliente *removerCliente(cliente *listaclientes, int nif)
+cliente *removerCliente(cliente *listaClientes, int nif)
 {
     // verifica se o cliente a ser removido existe na lista ligada listaClientes
-    if (existeCliente(listaclientes, nif)) 
+    if (existeCliente(listaClientes, nif)) 
     {
-        cliente *anterior=listaclientes, *atual=listaclientes, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
+        cliente *anterior=listaClientes, *atual=listaClientes, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
 
         if (atual== NULL) return (NULL); //verifica se a lista ligada listaClientes está vazia
         else if (atual->nif == nif) //remoção do 1º Registo
@@ -131,25 +131,42 @@ cliente *removerCliente(cliente *listaclientes, int nif)
              anterior = atual;
              atual = atual->next;
             }
-         if (atual == NULL) return(listaclientes); //percorre a lista ligada listaClientes caso não exista o cliente return inicio listaClientes
+         if (atual == NULL) return(listaClientes); //percorre a lista ligada listaClientes caso não exista o cliente return inicio listaClientes
          else
            {
              anterior->next = atual->next; //* atual encontrar nif a ser removido | função atualiza os endereços dos * anterior e seguinte 
              free(atual); //Liberta a memoria que estava a ser ocupada
-             return(listaclientes); //retorna o *lista ligada listaClientes para o seu inicio 
+             return(listaClientes); //retorna o *lista ligada listaClientes para o seu inicio 
             }        
         }
-    }  else return(listaclientes); //devolve o inicio da lista ligada listaClientes
+    }  else return(listaClientes); //devolve o inicio da lista ligada listaClientes
 }
 
 cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[])
 {
+    // verifica se o cliente a ser alterado existe na lista ligada listaClientes
     if (existeCliente(listaClientes, nif))
     {
+        cliente *atual = listaClientes;
+
+        // percorre a lista até encontrar o cliente a ser alterado
+        while ((atual != NULL) && (atual->nif != nif))
+        {
+            atual = atual->next;
+        }
+
+        if (atual != NULL)
+        {
+            // atualiza os dados do cliente
+            strcpy(atual->nome, nome);
+            strcpy(atual->morada, morada);
+        }
+        return listaClientes;
         
-    } else return(listaClientes);
-    
+    } else return (listaClientes);
 }
+
+
 
 
 
