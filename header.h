@@ -63,7 +63,7 @@ typedef struct veiculo
  */
 
 // Inserção de um novo registo
-cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[]);
+cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
 
 // // Faz o load dos dados da lista ligada `listaClientes´ em ficheiro.
 // void loadDadosCliente(cliente *listaClientes);

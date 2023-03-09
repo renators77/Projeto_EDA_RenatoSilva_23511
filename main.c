@@ -26,6 +26,7 @@ int main()
 cliente *listaClientes = NULL;
   int opcao = 0, opNif = 0;
   char opNome[50], opMorada[100];
+  float opSaldo;
 
   do
   {
@@ -85,9 +86,15 @@ cliente *listaClientes = NULL;
              getchar(); 
              break;
         } while (1);
+        do {
+             printf("Saldo da carteira do novo cliente -> ");
+             scanf("%f", &opSaldo);
+             getchar(); 
+             break;
+        } while (1);
         
             
-        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada);
+        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
 
         system("pause");
         break;
@@ -168,4 +175,3 @@ cliente *listaClientes = NULL;
   system("cls");
   return 0;
 }
-

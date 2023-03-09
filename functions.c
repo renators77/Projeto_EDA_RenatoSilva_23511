@@ -13,6 +13,7 @@ cliente* loadDadosCliente(cliente *listaClientes)
     char linha[200]; //string para ler cada linha do ficheiro.
     int opNif; 
     char opNome[50], opMorada[100];
+    float opSaldo;
     
     if ((ficheiro = fopen("listaClientes.txt", "r")) == NULL) // abre o arquivo "listaClientes.txt" em modo de leitura "r"
     {
@@ -20,11 +21,11 @@ cliente* loadDadosCliente(cliente *listaClientes)
         return listaClientes;
     }
 
-    while (fgets(linha, 200, ficheiro) != NULL) //loop que percorre ficheiro até encontrar linha = NULL.
-    {
-       sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^\n]", &opNif, opNome, opMorada); //escreve os dados de cada cliente linha por linha
-        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada); //passa os dados obtidos em ficheiro para a lista ligada listaClientes
-    }
+while (fgets(linha, 200, ficheiro) != NULL) {
+    sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
+
+    listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
+}
     fclose(ficheiro);//fecha o ficheiro
     return listaClientes; //devolve o inicio da lista ligada
 }
@@ -41,7 +42,7 @@ void salvarDadosCliente(cliente *listaClientes)
      {
         for (cliente *atual = listaClientes; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s\n", atual->nif, atual->nome, atual->morada); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s | Saldo -> %.2f\n", atual->nif, atual->nome, atual->morada, atual->carteira.saldo); //escreve os dados de cada cliente no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -54,7 +55,7 @@ void showDadosCliente(cliente *listaClientes)
 {
     while (listaClientes != NULL)
     {
-        printf("nif -> %d | nome -> %s | Morada -> %s\n", listaClientes->nif, listaClientes->nome, listaClientes->morada);
+        printf("nif -> %d | nome -> %s | Morada -> %s | Saldo -> %.2f\n", listaClientes->nif, listaClientes->nome, listaClientes->morada, listaClientes->carteira.saldo);
         listaClientes = listaClientes->next; // Avança para o próximo nó da lista
     }   
 }
@@ -88,7 +89,7 @@ int existeCliente(cliente *listaClientes, int nif)
  * @param morada 
  * @return novo
  */
-cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[])
+cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
 {
     //verifica se já existe um cliente com o mesmo nif
  if (!existeCliente(listaClientes, nif))
@@ -99,6 +100,7 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
         novo->nif = nif;
         strcpy(novo->nome,nome);
         strcpy(novo->morada,morada);
+        novo->carteira.saldo = saldo;
         novo->next=listaClientes;//faz com que o novo cliente aponte para o antigo início da lista, fica o novo início da lista.
         return(novo); //return do *
     }
@@ -165,7 +167,6 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
         
     } else return (listaClientes);
 }
-
 
 
 
