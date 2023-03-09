@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include "header.h"
 
-/// @brief Load dados do ficheiro
-/// @param listaClientes //lista ligada
+/// @brief Função Load dados do ficheiro
+/// @param listaClientes * para o inicio da listaClientes
 /// @return listaClientes devolve inicio da lista
 cliente* loadDadosCliente(cliente *listaClientes)
 {
@@ -30,8 +30,8 @@ while (fgets(linha, 200, ficheiro) != NULL) {
     return listaClientes; //devolve o inicio da lista ligada
 }
 
-/// @brief Salvar dados da lista cliente em Ficheiro.
-/// @param listaClientes 
+/// @brief Função Salvar dados da lista cliente em Ficheiro.
+/// @param listaClientes * para o inicio da listaClientes
 void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
@@ -49,8 +49,8 @@ void salvarDadosCliente(cliente *listaClientes)
     
 }
 
-/// @brief Mostrar dados do cliente
-/// @param listaClientes 
+/// @brief Função Mostrar dados do cliente
+/// @param listaClientes * para o inicio da listaClientes
 void showDadosCliente(cliente *listaClientes)
 {
     while (listaClientes != NULL)
@@ -63,8 +63,8 @@ void showDadosCliente(cliente *listaClientes)
 /**
  * @brief  Existe clientes.
  * 
- * @param listaClientes
- * @param nif
+ * @param listaClientes * para o inicio da listaClientes
+ * @param nif do cliente a ser verificado
  * @return 1 se existir ou 0 caso não exista
  */
 int existeCliente(cliente *listaClientes, int nif)
@@ -81,13 +81,13 @@ int existeCliente(cliente *listaClientes, int nif)
 }
 
 /**
- * @brief  inserçao de clientes.
+ * @brief  Função inserir clientes.
  * 
- * @param listaClientes
- * @param nif
- * @param nome
- * @param morada 
- * @return novo
+ * @param listaClientes * para o inicio da listaClientes
+ * @param nif do cliente a ser inserido
+ * @param nome do cliente a ser inserido
+ * @param morada do cliente a ser inserido
+ * @return novo que aponta para o inicio da listaClientes
  */
 cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
 {
@@ -108,7 +108,7 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
  } else return(listaClientes); //função retorna o * para o início da listaClientes caso o nif exista.
 
 }
-/// @brief Remover Cliente por Nif
+/// @brief Função Remover Cliente por Nif
 /// @param listaclientes * para o inicio da listaClientes
 /// @param nif do cliente a ser removido
 /// @return * atualizado para o inicio da listaClientes 
@@ -144,19 +144,26 @@ cliente *removerCliente(cliente *listaClientes, int nif)
     }  else return(listaClientes); //devolve o inicio da lista ligada listaClientes
 }
 
+/// @brief Função alterar Cliente por Nif
+/// @param listaClientes * para o inicio da listaClientes
+/// @param nif do cliente a ser removido
+/// @param nome nome a ser alterado
+/// @param morada morada a ser alterada
+/// @param saldo saldo a ser alterado
+/// @return * atualizado para o inicio da listaClientes 
 cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
 {
     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
     if (existeCliente(listaClientes, nif))
     {
-        cliente *atual = listaClientes;
+        cliente *atual = listaClientes; //cria-se *atual para percorrer lista
 
         // percorre a lista até encontrar o cliente a ser alterado
         while ((atual != NULL) && (atual->nif != nif))
         {
             atual = atual->next;
         }
-
+        //verificação caso seja diferente de NULL modifica
         if (atual != NULL)
         {
             // atualiza os dados do cliente
@@ -164,12 +171,12 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
             strcpy(atual->morada, morada);
             atual->carteira.saldo = saldo;
         }
-        return listaClientes;
+        return listaClientes; //* atualizado para o inicio da listaClientes 
         
     } else return (listaClientes);
 }
 
-
+//--------------------------------------------------------------FUNÇÕES PARA O CLIENTE------------------------------------------------------------------------------------------------
 
 
 
