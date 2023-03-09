@@ -162,9 +162,14 @@ cliente *listaClientes = NULL;
              getchar(); 
              break;
         } while (1);
-        
+        do {
+             printf("Saldo da carteira do novo cliente -> ");
+             scanf("%f", &opSaldo);
+             getchar(); 
+             break;
+        } while (1);
             
-        listaClientes = alterarCliente(listaClientes, opNif, opNome, opMorada);
+        listaClientes = alterarCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
 
         system("pause");
         break;

@@ -84,7 +84,7 @@ int existeCliente(cliente *listaClientes, int nif);
 cliente *removerCliente(cliente *listaClientes, int nif);
 
 // Alterar dados de um Cliente
-cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[]);
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
 
 
 /**

@@ -144,7 +144,7 @@ cliente *removerCliente(cliente *listaClientes, int nif)
     }  else return(listaClientes); //devolve o inicio da lista ligada listaClientes
 }
 
-cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[])
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
 {
     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
     if (existeCliente(listaClientes, nif))
@@ -162,6 +162,7 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
             // atualiza os dados do cliente
             strcpy(atual->nome, nome);
             strcpy(atual->morada, morada);
+            atual->carteira.saldo = saldo;
         }
         return listaClientes;
         
