@@ -1,0 +1,1 @@
+Codigo -> 1 | Tipo -> Trotinete | Bateria -> 80.20 | Autonomia -> 30.33 | Custo -> 0.00

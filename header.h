@@ -65,9 +65,6 @@ typedef struct veiculo
 // Inserção de um novo registo
 cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
 
-// // Faz o load dos dados da lista ligada `listaClientes´ em ficheiro.
-// void loadDadosCliente(cliente *listaClientes);
-
 //Faz o load dos dados do ficheiro listaClientes.txt para a lista ligada.
 cliente* loadDadosCliente(cliente *listaClientes);
 
@@ -94,7 +91,7 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
  */
 
 // Inserção de um novo registo de gestor na lista ligada `gestores´
-gestor* registarGestor(gestor *gestores, char nome[], char password[]);
+gestor* inserirGestor(gestor *gestores, char nome[], char password[]);
 
 // listar na consola o conteúdo da lista ligada `gestores´
 void informacaoGestor(gestor *gestores, int id, char nome);
@@ -112,18 +109,26 @@ gestor *removerGestor(gestor *gestores, int id);
  * @return 
  */
 
-// Inserção de um novo registo de gestor na lista ligada `veiculos´
-veiculo *registarVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+// Inserção de um novo registo de gestor na lista ligada `listaVeiculos´
+veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
 
-// listar na consola o conteúdo da lista ligada `veiculos´
-void informacaoVeiculo(veiculo *veiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+//Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
+veiculo* loadDadosVeiculo(veiculo *listaVeiculos);
 
-// Determinar existência do 'veiculo' na lista ligada 'veiculos'
-int existeVeiculo(veiculo *veiculos, int codigo);
+// Criar Dados  da lista ligada `listaClientes´ em ficheiro.
+void salvarDadosVeiculo(veiculo *listaVeiculos);
+
+// Mostrar Dados  da lista ligada `listaClientes´ em ficheiro.
+void showDadosVeiculo(veiculo *listaVeiculos);
+
+// Determinar existência do 'cliente' na lista ligada 'listaClientes'
+int existeVeiculo(veiculo *listaVeiculos, int codigo);
 
 // Remover um Cliente a partir do seu Nif
-veiculo *removerVeiculo(veiculo *veiculos, int codigo);
+veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
 
+// Alterar dados de um Cliente
+veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
 #endif
 
 

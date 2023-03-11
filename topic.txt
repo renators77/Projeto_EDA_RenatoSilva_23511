@@ -7,3 +7,7 @@ dos meios de mobilidade elétrica, clientes e gestores;
 6. Registo do aluguer de um determinado meio de mobilidade elétrica;
 7. Listagem dos meios de mobilidade elétrica por ordem decrescente de autonomia;
 8. Listagem dos meios de mobilidade elétrica existentes numa localização com determinado geocódigo.
+
+
+
+    

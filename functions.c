@@ -108,6 +108,8 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
  } else return(listaClientes); //função retorna o * para o início da listaClientes caso o nif exista.
 
 }
+
+
 /// @brief Função Remover Cliente por Nif
 /// @param listaclientes * para o inicio da listaClientes
 /// @param nif do cliente a ser removido
@@ -178,6 +180,115 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS------------------------------------------------------------------------------------------------
 
 
+/// @brief Função Load dados do ficheiro
+/// @param listaVeiculos * para o inicio da listaClientes
+/// @return listaVeiculos devolve inicio da lista
+veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
+{
+    FILE *ficheiro; //declara um * para um ficheiro
+
+    char linha[200]; //string para ler cada linha do ficheiro.
+    int opCodigo; 
+    char opTipo[50];
+    float opBateria, opAutonomia, opCusto;
+    
+    if ((ficheiro = fopen("listaVeiculos.txt", "r")) == NULL) // abre o arquivo "listaVeiculo.txt" em modo de leitura "r"
+    {
+        printf("Erro ao abrir o arquivo listaVeiculos.txt\n");
+        return listaVeiculos;
+    }
+
+    while (fgets(linha, 200, ficheiro) != NULL) 
+    {
+     sscanf(linha, "Codigo -> %d | Tipo -> %[^|]| Bateria -> %f | Autonomia -> %f | Custo -> %f\n", &opCodigo, opTipo, &opBateria, &opAutonomia, &opCusto);
+
+     listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opBateria, opAutonomia, opCusto);
+    }
+    fclose(ficheiro);//fecha o ficheiro
+    return listaVeiculos; //devolve o inicio da lista ligada
+}
+
+
+/// @brief Função Salvar dados da lista Veiculos em ficheiro.
+/// @param listaVeiculos * para o inicio da lista ligada
+void salvarDadosVeiculo(veiculo *listaVeiculos)
+{
+    FILE *ficheiro; //declara um * para um ficheiro
+     ficheiro = fopen("listaVeiculos.txt", "w"); // abre o arquivo "listaVeiculo.txt" em modo de ... "w"
+     
+     // Verifica se o arquivo foi aberto com sucesso
+     if (ficheiro != NULL)
+     {
+        for (veiculo *atual = listaVeiculos; atual != NULL; atual = atual->next) //percorrer a listaClientes
+        {
+            fprintf(ficheiro,"Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo); //escreve os dados de cada cliente no ficheiro
+        }
+     }
+    fclose(ficheiro); //fecha o ficheiro
+}
+
+
+/// @brief Função Mostrar Dados Veiculos
+/// @param listaVeiculos * para o inicio da listaVeiculos
+void showDadosVeiculo(veiculo *listaVeiculos)
+{
+    while (listaVeiculos != NULL)
+    {
+        printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
+        listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
+    }
+    
+}
+
+/// @brief Existe Veiculos
+/// @param listaVeiculos * para o inicio da listaVeiculos
+/// @param codigo do veiculo a ser verificado
+/// @return 1 se existir ou 0 caso não exista
+int existeVeiculo(veiculo *listaVeiculos, int codigo)
+{
+    //percorre todos os elementos da lista ate o * apontar para NULL
+    while (listaVeiculos != NULL)
+    {
+        //Compara o valor do campo codigo da lista ligada com o parametro do codigo atribuido.
+        if(listaVeiculos->codigo) return(1); //se forem iguais afirma que veiculo foi encontrado
+        listaVeiculos = listaVeiculos->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+    }
+     return(0);  //retorna 0, indicando que o veiculo não existe na lista.
+}
+
+
+
+/// @brief Função Inserir Veiculo
+/// @param listaVeiculos * para o inicio da listaVeiculos
+/// @param codigo identificação do veiculo
+/// @param tipo do veiculo associado
+/// @param bateria do veiculo associado
+/// @param autonomia do veiculo associado
+/// @param custo do veiculo associado
+/// @return novo que aponta para o inicio da listaVeiculos
+veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo)
+{
+    //Verifica se já existe um Veiculo com o mesmo Codigo
+    if (!existeVeiculo(listaVeiculos, codigo))
+    {
+
+        veiculo *novo = malloc(sizeof(struct veiculo)); //aloca dinamicamente um novo bloco de memoria do tamanho da struct Veiculo esse bloco de memoria é atribuido como novo
+        if (novo != NULL)//verifica
+        {
+            novo->codigo = codigo;
+            strcpy(novo->tipo,tipo);
+            novo->bateria = bateria;
+            novo->autonomia = autonomia;
+            novo->custo;
+            novo->next=listaVeiculos; //faz com que o novo veiculo aponte para o antigo inicio da lista ligada, fica o novo inicio da lista.
+            return(novo); //retur do *
+
+        }
+
+    } else return(listaVeiculos); //função retorna o * para o inicio da listaVeiculos caso o codigo exista.
+    
+}
 
