@@ -50,6 +50,7 @@ cliente *listaClientes = NULL;
     printf("| 7 - Salvar Dados Veiculos                        |\n");
     printf("| 8 - Inserir Novo Veiculo                         |\n");
     printf("| 9 - Mostrar Dados Novos Veiculos Inseridos       |\n");
+    printf("| 10 - Consultar Dados Veiculo Guardado em Ficheiro|\n");
     printf("|--------------------------------------------------|\n");
     printf("|        Selecione 0 para sair                     |\n");
     printf("|--------------------------------------------------|\n");
@@ -206,15 +207,24 @@ cliente *listaClientes = NULL;
              break; // Sai do loop quando o codigo for valido e nao existir na lista
         }  while (1); 
         do {
-             printf("Tipo do novo veiculo -> ");
+             printf("Tipo do novo veiculo(bicicleta, trotinete ou scooter) -> ");
              scanf(" %[^\n]s", opTipo);
              getchar(); 
+             // Verifica se o tipo de veiculo e valido
+             if (strcmp(opTipo, "bicicleta") != 0 && strcmp(opTipo, "trotinete") != 0 && strcmp(opTipo, "scooter") != 0)
+             {
+               printf("Tipo de veiculo invalido! Insira um tipo de veiculo valido (bicicleta, trotinete ou scooter).\n");
+               continue; // Reinicia o loop para pedir um novo tipo de veiculo
+             }
              break;
-          
         } while (1);
-        do  {
-             printf("Bateria do novo veiculo -> ");
-             scanf("%f", &opBateria);
+        do {
+             printf("Bateria do novo veiculo (0-100) -> ");
+             if (scanf("%f", &opBateria) != 1 || opBateria < 0 || opBateria > 100) 
+             {
+               printf("Valor invalido! Insira um valor entre 0 e 100.\n");
+               continue; // Reinicia o loop para pedir um novo valor
+             }
              getchar(); 
              break;
         } while (1);
@@ -239,6 +249,12 @@ cliente *listaClientes = NULL;
       case 9:
         system("cls");
         showDadosVeiculo(listaVeiculos);
+        system("pause");
+        break;
+      
+      case 10:
+        system("cls");
+        listaVeiculos = loadDadosVeiculo(listaVeiculos);
         system("pause");
         break;
     }

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "header.h"
 
+//--------------------------------------------------------------FUNÇÕES PARA O CLIENTE------------------------------------------------------------------------------------------------
+
 /// @brief Função Load dados do ficheiro
 /// @param listaClientes * para o inicio da listaClientes
 /// @return listaClientes devolve inicio da lista
@@ -180,6 +182,7 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE------------------------------------------------------------------------------------------------
 
+
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS------------------------------------------------------------------------------------------------
 
 
@@ -282,7 +285,7 @@ veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
             strcpy(novo->tipo,tipo);
             novo->bateria = bateria;
             novo->autonomia = autonomia;
-            novo->custo;
+            novo->custo = custo;
             novo->next=listaVeiculos; //faz com que o novo veiculo aponte para o antigo inicio da lista ligada, fica o novo inicio da lista.
             return(novo); //retur do *
 
@@ -291,4 +294,68 @@ veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
     } else return(listaVeiculos); //função retorna o * para o inicio da listaVeiculos caso o codigo exista.
     
 }
+
+
+/// @brief Função Remover Veiculo por Codigo
+/// @param listaVeiculos * para o inicio da listaVeiculos
+/// @param codigo codigo do veiculo
+/// @return 
+veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo)
+{
+    //verifica se o veiculo a ser removido existe na lista ligada listaVeiculos
+    if (existeVeiculo(listaVeiculos,codigo))
+    {
+        veiculo *anterior=listaVeiculos, *atual=listaVeiculos, *aux; *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
+
+        if (atual == NULL) return (NULL); //verifica se a lista ligada listaVeiculos está vazia 
+        else if (atual->codigo == codigo) //remoção do 1ºRegisto
+        {
+         aux = atual->next;
+         free(atual); //Liberta a memoria que estava a ser ocupada
+         return(aux); //atualiza para o endereço seguinte 
+        }
+        else
+        {
+            while ((atual != NULL) && (atual->codigo != codigo)) //percorre a lista ligada listaVeiculos ate encontrar o codigo a ser removido ou ate chegar ao final da listaVeiculos
+            {
+              anterior->next = atual->next; // * atual encontra codigo a ser removido | Função atualiza os endereços dos * anterior e seguinte 
+              free(atual); //Liberta a memoria que estava a ser ocupada
+              return(listaVeiculos); //retorna o *listaVeiculos para o seu inicio
+            }   
+        } 
+    } else return(listaVeiculos); //devolve o inicio da lista ligada listaVeiculos
+    
+}
+
+// /// @brief Função alterar Cliente por Nif
+// /// @param listaClientes * para o inicio da listaClientes
+// /// @param nif do cliente a ser removido
+// /// @param nome nome a ser alterado
+// /// @param morada morada a ser alterada
+// /// @param saldo saldo a ser alterado
+// /// @return * atualizado para o inicio da listaClientes 
+// cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
+// {
+//     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
+//     if (existeCliente(listaClientes, nif))
+//     {
+//         cliente *atual = listaClientes; //cria-se *atual para percorrer lista
+
+//         // percorre a lista até encontrar o cliente a ser alterado
+//         while ((atual != NULL) && (atual->nif != nif))
+//         {
+//             atual = atual->next;
+//         }
+//         //verificação caso seja diferente de NULL modifica
+//         if (atual != NULL)
+//         {
+//             // atualiza os dados do cliente
+//             strcpy(atual->nome, nome);
+//             strcpy(atual->morada, morada);
+//             atual->carteira.saldo = saldo;
+//         }
+//         return listaClientes; //* atualizado para o inicio da listaClientes 
+        
+//     } else return (listaClientes);
+// }
 
