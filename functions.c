@@ -23,7 +23,8 @@ cliente* loadDadosCliente(cliente *listaClientes)
         return listaClientes;
     }
 
-while (fgets(linha, 200, ficheiro) != NULL) {
+while (fgets(linha, 200, ficheiro) != NULL) 
+{
     sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
 
     listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
@@ -370,3 +371,98 @@ veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  floa
 
 
 //--------------------------------------------------------------FUNÇÕES PARA OS GESTORES-----------------------------------------------------------------------------------------------------------------------------------//
+
+/// @brief Função Load Dados do ficheiro
+/// @param listaGestores * para o inicio da listaGestores
+/// @return * para inicio da listaGestores
+gestor* loadDadosGestor(gestor *listaGestores)
+{
+     FILE *ficheiro; //declara um * para um ficheiro
+
+     char linha[200]; //string para ler cada linha do ficheiro.
+     int opId; 
+     char opNomeG [50];
+    
+        if ((ficheiro = fopen("listaGestores.txt", "r")) == NULL) // abre o arquivo "listaGestores.txt" em modo de leitura "r"
+        {
+         printf("Erro ao abrir o arquivo listaClientes.txt\n");
+         return listaGestores;
+        }
+
+        while (fgets(linha, 200, ficheiro) != NULL) 
+       {
+         sscanf(linha, "Id -> %d | Nome -> %[^\n]\n", &opId, opNomeG);
+
+         listaGestores = inserirGestor(listaGestores, opId, opNomeG);
+       }
+       fclose(ficheiro);//fecha o ficheiro
+       return listaGestores; //devolve o inicio da lista ligada   
+}
+
+
+void salvarDadosGestor(gestor *listaGestores)
+{
+    FILE *ficheiro; //declara um * para um ficheiro
+     ficheiro = fopen("listaGestores.txt", "w"); // abre o arquivo "listaGestores.txt" em modo de  "w"
+     
+     // Verifica se o arquivo foi aberto com sucesso
+     if (ficheiro != NULL)
+     {
+        for (gestor *atual = listaGestores; atual != NULL; atual = atual->next) //percorrer a listaGestores
+        {
+            fprintf(ficheiro, "Id -> %d | Nome -> %s\n", atual->id, atual->nome); //escreve os dados de cada Gestor no ficheiro
+        }
+     }
+    fclose(ficheiro); //fecha o ficheiro 
+}
+
+
+/// @brief Função Mostrar Dados Gestor
+/// @param listaGestores * para inicio da listaGestores
+void showDadosGestor(gestor *listaGestores)
+{
+    while (listaGestores != NULL)
+    {
+        printf("Id -> %d | nome -> %s\n", listaGestores->id, listaGestores->nome);
+        listaGestores = listaGestores->next; // Avança para o próximo nó da lista
+    }   
+}
+
+/// @brief Função  Existe Gestor
+/// @param listaGestores * para o inicio da listaGestores
+/// @param id do cliente a ser removido
+/// @return 1 se existir ou 0 caso não exista
+int existeGestor(gestor *listaGestores, int id)
+{
+    //percorre todos os elementos da lista ate o * apontar para NULL
+    while (listaGestores != NULL)
+    {
+        //compara valor do campo id da lista com o parametro id atribuido
+        if (listaGestores->id == id) return (1); //se forem iguais afirma que gestor foi encontrado
+        listaGestores = listaGestores->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+    }
+     return(0); //retorna 0, indicando que o gestor não existe na lista.
+}
+
+
+/// @brief Função Inserir Gestor
+/// @param listaGestores * para o inicio da listaGestores
+/// @param id do Gestor
+/// @param nome do Gestor
+/// @return * novo para o inicio da listaGestores
+gestor* inserirGestor(gestor *listaGestores, int id, char nome[])
+{
+ //verifica se já existe um Gestor com o mesmo id
+ if (!existeCliente(listaGestores, id))
+ { 
+    gestor *novo = malloc(sizeof(struct gestor));//aloca dinamicamente um novo bloco de memória do tamanho da struct gestor esse bloco memoria atribuido como novo
+    if (novo != NULL)//verificação 
+    {   
+        novo->id = id;
+        strcpy(novo->nome,nome);
+        novo->next=listaGestores;//faz com que o novo gestor aponte para o antigo início da lista, fica o novo início da lista.
+        return(novo); //return do *
+    }
+    
+ } else return(listaGestores); //função retorna o * para o início da listaGestores caso o id já exista.
+}

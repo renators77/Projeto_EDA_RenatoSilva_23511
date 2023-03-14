@@ -62,16 +62,16 @@ typedef struct veiculo
  * @return 
  */
 
-// Inserção de um novo registo
+// Inserção de um novo registo de cliente na `listaCliente´
 cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
 
-//Faz o load dos dados do ficheiro listaClientes.txt para a lista ligada.
+//Faz o load dos dados do ficheiro listaClientes.txt para a ´listaCliente´.
 cliente* loadDadosCliente(cliente *listaClientes);
 
-// Criar Dados  da lista ligada `listaClientes´ em ficheiro.
+// Salva os dados da ´listaClientes´ em ficheiro txt.
 void salvarDadosCliente(cliente *listaClientes);
 
-// Mostrar Dados  da lista ligada `listaClientes´ em ficheiro.
+// Mostra Dados do cliente na consola.
 void showDadosCliente(cliente *listaClientes);
 
 // Determinar existência do 'cliente' na lista ligada 'listaClientes'
@@ -90,17 +90,28 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
  * @return 
  */
 
-// Inserção de um novo registo de gestor na lista ligada `listaGestores´
-gestor* inserirGestor(gestor *gestores, char nome[], char password[]);
+// Inserção de um novo registo de gestor na `listaGestores´
+gestor* inserirGestor(gestor *listaGestores, int id, char nome[]);
 
-// listar na consola o conteúdo da lista ligada `gestores´
-void informacaoGestor(gestor *gestores, int id, char nome);
+//Faz o load dos dados do ficheiro listaGestores.txt para a ´listaGestores´.
+gestor* loadDadosGestor(gestor *listaGestores);
 
-// Determinar existência do 'gestor' na lista ligada 'gestores'
-int existeGestor(gestor *gestores, int id);
+// Salva os dados da ´listaGestores´ em ficheiro txt.
+void salvarDadosGestor(gestor *listaGestores);
 
-// Remover um gestor a partir do seu id
-gestor *removerGestor(gestor *gestores, int id);
+// Mostra Dados do gestor na consola.
+void showDadosGestor(gestor *listaGestores);
+
+// Determinar existência do 'gestor' na lista ligada 'listaGestor'
+int existeGestor(gestor *listaGestores, int id);
+
+// Remover um Gestor a partir do seu id
+gestor* removerGestor(gestor *listaGestor, int id);
+
+// Alterar dados de um Gestor
+gestor* alterarGestor(gestor *listaGestor, int id, char nome[]);
+
+
 
 
 /**
@@ -109,7 +120,7 @@ gestor *removerGestor(gestor *gestores, int id);
  * @return 
  */
 
-// Inserção de um novo registo de gestor na lista ligada `listaVeiculos´
+// Inserção de um novo registo de veiculo na lista ligada `listaVeiculos´
 veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
 
 //Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
