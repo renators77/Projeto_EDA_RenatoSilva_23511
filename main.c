@@ -34,6 +34,12 @@ cliente *listaClientes = NULL;
   char opTipo[50];
   float opBateria, opAutonomia, opCusto;
 
+  //Load dos dados da listaCliente
+  listaClientes = loadDadosCliente(listaClientes);
+
+  //Load dos dados da listaVeiculos
+  listaVeiculos = loadDadosVeiculo(listaVeiculos);
+
   do
   {
     system("cls");
@@ -42,15 +48,15 @@ cliente *listaClientes = NULL;
     printf("|--------------------------------------------------|\n");
     printf("| 1 - Salvar Dados Clientes                        |\n");
     printf("| 2 - Inserir Novo Cliente                         |\n");
-    printf("| 3 - Mostrar Dados Novos clientes inseridos       |\n");
-    printf("| 4 - Consultar Dados Cliente Guardados em Ficheiro|\n");
-    printf("| 5 - Remover Cliente                              |\n");
-    printf("| 6 - Alterar Cliente                              |\n");
+    printf("| 3 - Mostrar Dados Clientes Existentes            |\n");
+    printf("| 4 - Remover Cliente                              |\n");
+    printf("| 5 - Alterar Cliente                              |\n");
     printf("|--------------------------------------------------|\n");
-    printf("| 7 - Salvar Dados Veiculos                        |\n");
-    printf("| 8 - Inserir Novo Veiculo                         |\n");
-    printf("| 9 - Mostrar Dados Novos Veiculos Inseridos       |\n");
-    printf("| 10 - Consultar Dados Veiculo Guardado em Ficheiro|\n");
+    printf("| 6 - Salvar Dados Veiculos                        |\n");
+    printf("| 7 - Inserir Novo Veiculo                         |\n");
+    printf("| 8 - Mostrar Dados Veiculos Existentes            |\n");
+    printf("| 9 - Remover Veiculo                              |\n");
+    printf("| 10 - Alterar Veiculo                             |\n");
     printf("|--------------------------------------------------|\n");
     printf("|        Selecione 0 para sair                     |\n");
     printf("|--------------------------------------------------|\n");
@@ -115,14 +121,8 @@ cliente *listaClientes = NULL;
         showDadosCliente(listaClientes);
         system("pause");
         break;
-        
-      case 4:
-        system("cls");
-        listaClientes = loadDadosCliente(listaClientes);
-        system("pause");
-        break;
 
-      case 5:
+      case 4:
         system("cls");
         do {
              printf("nif do cliente que deseja remover (9 digitos) -> "); 
@@ -144,7 +144,7 @@ cliente *listaClientes = NULL;
         listaClientes = removerCliente(listaClientes, opNif);
         system("pause");
         break;
-      case 6:
+      case 5:
         system("cls");
         do {
              printf("nif do cliente que deseja alterar (9 digitos) -> "); 
@@ -187,13 +187,13 @@ cliente *listaClientes = NULL;
         system("pause");
         break;
 
-      case 7:
+      case 6:
         system("cls");
         salvarDadosVeiculo(listaVeiculos); 
         system("pause");
         break;
 
-      case 8:
+      case 7:
         system("cls");
         do {
              printf("Codigo do novo Veiculo-> "); 
@@ -246,15 +246,64 @@ cliente *listaClientes = NULL;
         system("pause");
         break;
 
-      case 9:
+      case 8:
         system("cls");
         showDadosVeiculo(listaVeiculos);
         system("pause");
         break;
-      
-      case 10:
+
+      case 9:
         system("cls");
-        listaVeiculos = loadDadosVeiculo(listaVeiculos);
+        do {
+             printf("Codigo do veiculo que deseja remover -> "); 
+             scanf("%d", &opCodigo);
+             getchar(); 
+             if (!existeVeiculo(listaVeiculos, opCodigo)) // Verifica se o codigo não existe
+             {
+               printf("Nao existe um veiculo com esse codigo! Insira um codigo existente.\n");
+               continue; // Reinicia o loop para pedir um novo codigo
+             }
+             break; // Sai do loop quando o codigo for valido e nao existir na lista
+        }  while (1);
+
+        listaVeiculos = removerVeiculo(listaVeiculos, opCodigo);
+        system("pause");
+        break;
+
+        case 10:
+          system("cls");
+          do {
+               printf("Codigo do veiculo que deseja alterar -> "); 
+               scanf("%d", &opCodigo);
+               getchar(); 
+               if (!existeVeiculo(listaVeiculos, opCodigo)) // Verifica se o codigo não existe
+               {
+                 printf("Nao existe um veiculo com esse codigo! Insira um codigo existente.\n");
+                 continue; // Reinicia o loop para pedir um novo codigo
+               }
+               break; // Sai do loop quando o codigo for valido e nao existir na lista
+          }  while (1);
+          do {
+               printf("Nova da bateria do veiculo -> ");
+               scanf("%f", &opBateria);
+               getchar(); 
+               break;
+          } while (1);
+          do  {
+               printf("Nova Autonomia do Veiculo -> ");
+               scanf("%f", &opAutonomia);
+               getchar(); 
+               break;
+          } while (1);
+          do {
+               printf("Novo Custo do veiculo -> ");
+               scanf("%f", &opCusto);
+               getchar(); 
+               break;
+          } while (1);
+            
+        listaVeiculos = alterarVeiculo(listaVeiculos, opCodigo, opBateria, opAutonomia, opCusto); 
+
         system("pause");
         break;
     }

@@ -227,7 +227,7 @@ void salvarDadosVeiculo(veiculo *listaVeiculos)
      {
         for (veiculo *atual = listaVeiculos; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro,"Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada cliente no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -256,7 +256,7 @@ int existeVeiculo(veiculo *listaVeiculos, int codigo)
     while (listaVeiculos != NULL)
     {
         //Compara o valor do campo codigo da lista ligada com o parametro do codigo atribuido.
-        if(listaVeiculos->codigo) return(1); //se forem iguais afirma que veiculo foi encontrado
+        if(listaVeiculos->codigo == codigo) return(1); //se forem iguais afirma que veiculo foi encontrado
         listaVeiculos = listaVeiculos->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
     }
      return(0);  //retorna 0, indicando que o veiculo não existe na lista.
@@ -299,13 +299,13 @@ veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
 /// @brief Função Remover Veiculo por Codigo
 /// @param listaVeiculos * para o inicio da listaVeiculos
 /// @param codigo codigo do veiculo
-/// @return 
+/// @return * atualizado para o inicio da listaVeiculos
 veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo)
 {
     //verifica se o veiculo a ser removido existe na lista ligada listaVeiculos
-    if (existeVeiculo(listaVeiculos,codigo))
+    if (existeVeiculo(listaVeiculos, codigo))
     {
-        veiculo *anterior=listaVeiculos, *atual=listaVeiculos, *aux; *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
+        veiculo *anterior=listaVeiculos, *atual=listaVeiculos, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
 
         if (atual == NULL) return (NULL); //verifica se a lista ligada listaVeiculos está vazia 
         else if (atual->codigo == codigo) //remoção do 1ºRegisto
@@ -316,46 +316,52 @@ veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo)
         }
         else
         {
-            while ((atual != NULL) && (atual->codigo != codigo)) //percorre a lista ligada listaVeiculos ate encontrar o codigo a ser removido ou ate chegar ao final da listaVeiculos
-            {
-              anterior->next = atual->next; // * atual encontra codigo a ser removido | Função atualiza os endereços dos * anterior e seguinte 
-              free(atual); //Liberta a memoria que estava a ser ocupada
-              return(listaVeiculos); //retorna o *listaVeiculos para o seu inicio
-            }   
-        } 
-    } else return(listaVeiculos); //devolve o inicio da lista ligada listaVeiculos
+         while ((atual != NULL) && (atual->codigo != codigo)) //percorre a listaVeiculos ate encontrar o codigo a ser removido ou até chegar ao final da listaVeiculos
+           {
+             anterior = atual;
+             atual = atual->next;
+            }
+         if (atual == NULL) return(listaVeiculos); //percorre a lista ligada listaVeiculos caso não exista o veiculo, dá return inicio listaVeiculo
+         else
+           {
+             anterior->next = atual->next; //* atual encontrar Codigo a ser removido | função atualiza os endereços dos * anterior e seguinte 
+             free(atual); //Liberta a memoria que estava a ser ocupada
+             return(listaVeiculos); //retorna o *lista ligada listaVeiculos para o seu inicio 
+            }        
+        }
+    }  else return(listaVeiculos); //devolve o inicio da lista ligada listaClientes
     
 }
 
-// /// @brief Função alterar Cliente por Nif
-// /// @param listaClientes * para o inicio da listaClientes
-// /// @param nif do cliente a ser removido
-// /// @param nome nome a ser alterado
-// /// @param morada morada a ser alterada
-// /// @param saldo saldo a ser alterado
-// /// @return * atualizado para o inicio da listaClientes 
-// cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
-// {
-//     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
-//     if (existeCliente(listaClientes, nif))
-//     {
-//         cliente *atual = listaClientes; //cria-se *atual para percorrer lista
+/// @brief Função alterar Veiculo por Codigo
+/// @param listaVeiculos * para o inicio da listaVeiculos
+/// @param codigo do veiculo a ser alterado
+/// @param tipo do veiculo a ser alterado
+/// @param bateria do veiculo a ser alterado
+/// @param autonomia do veiculo a ser alterado
+/// @param custo do veiculo a ser alterado
+/// @return * atualizado para o inicio da listaVeiculos 
+veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo)
+{
+    // verifica se o veiculo a ser alterado existe na lista ligada listaVeiculos
+    if (existeVeiculo(listaVeiculos, codigo))
+    {
+        veiculo *atual = listaVeiculos; //cria-se *atual para percorrer a lista ligada listaVeiculos
 
-//         // percorre a lista até encontrar o cliente a ser alterado
-//         while ((atual != NULL) && (atual->nif != nif))
-//         {
-//             atual = atual->next;
-//         }
-//         //verificação caso seja diferente de NULL modifica
-//         if (atual != NULL)
-//         {
-//             // atualiza os dados do cliente
-//             strcpy(atual->nome, nome);
-//             strcpy(atual->morada, morada);
-//             atual->carteira.saldo = saldo;
-//         }
-//         return listaClientes; //* atualizado para o inicio da listaClientes 
-        
-//     } else return (listaClientes);
-// }
-
+        //percorre a lista até encontrar o cliente a ser alterado
+        while ((atual != NULL) && (atual->codigo != codigo))
+        {
+            atual = atual->next;
+        }
+        //verificação casp seja diferente de NULL
+        if (atual != NULL)
+        {
+            //atualiza os dados do Veiculo
+            atual->bateria = bateria;
+            atual->autonomia = autonomia;
+            atual->custo = custo;
+        }
+        return listaVeiculos; //* atualizado para o inicio da listaVeiculos
+    
+    }else return (listaVeiculos);    
+}

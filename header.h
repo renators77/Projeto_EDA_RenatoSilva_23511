@@ -128,7 +128,7 @@ int existeVeiculo(veiculo *listaVeiculos, int codigo);
 veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
 
 // Alterar dados de um Cliente
-veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
+veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
 #endif
 
 

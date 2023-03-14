@@ -1,1 +1,2 @@
-Codigo -> 1 | Tipo -> Trotinete | Bateria -> 80.20 | Autonomia -> 30.33 | Custo -> 0.00
+Codigo -> 2 | Tipo -> trotinete | Bateria -> 30.00 | Autonomia -> 300.00 | Custo -> 0.30
+Codigo -> 1 | Tipo -> bicicleta | Bateria -> 20.00 | Autonomia -> 200.00 | Custo -> 0.20
