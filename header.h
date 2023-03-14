@@ -90,7 +90,7 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
  * @return 
  */
 
-// Inserção de um novo registo de gestor na lista ligada `gestores´
+// Inserção de um novo registo de gestor na lista ligada `listaGestores´
 gestor* inserirGestor(gestor *gestores, char nome[], char password[]);
 
 // listar na consola o conteúdo da lista ligada `gestores´
