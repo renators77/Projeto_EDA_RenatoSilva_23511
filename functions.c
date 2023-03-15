@@ -453,7 +453,7 @@ int existeGestor(gestor *listaGestores, int id)
 gestor* inserirGestor(gestor *listaGestores, int id, char nome[])
 {
  //verifica se já existe um Gestor com o mesmo id
- if (!existeCliente(listaGestores, id))
+ if (!existeGestor(listaGestores, id))
  { 
     gestor *novo = malloc(sizeof(struct gestor));//aloca dinamicamente um novo bloco de memória do tamanho da struct gestor esse bloco memoria atribuido como novo
     if (novo != NULL)//verificação 
@@ -465,4 +465,68 @@ gestor* inserirGestor(gestor *listaGestores, int id, char nome[])
     }
     
  } else return(listaGestores); //função retorna o * para o início da listaGestores caso o id já exista.
+}
+
+/// @brief Função Remover Gestor
+/// @param listaGestores * para o inicio da listaGestores
+/// @param id do gestor a ser removido
+/// @return * atualizado para o inicio da listaGestores 
+gestor* removerGestor(gestor *listaGestores, int id)
+{
+    // verifica se o Gestor a ser removido existe na lista ligada listaGestores
+    if (existeGestor(listaGestores, id)) 
+    {
+        gestor *anterior=listaGestores, *atual=listaGestores, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
+
+        if (atual== NULL) return (NULL); //verifica se a lista ligada listaGestores está vazia
+        else if (atual->id == id) //remoção do 1º Registo
+        {
+         aux = atual->next;
+         free(atual); //Liberta a memoria que estava a ser ocupada
+         return(aux); //atualiza para o endereço seguinte 
+        }
+        else
+        {
+         while ((atual != NULL) && (atual->id != id)) //percorre a listaGestores ate encontrar o id a ser removido ou até chegar ao final da listaGestores
+           {
+             anterior = atual;
+             atual = atual->next;
+            }
+         if (atual == NULL) return(listaGestores); //percorre a lista ligada listaGestores caso não exista o gestor return inicio listaGestores
+         else
+           {
+             anterior->next = atual->next; //* atual encontra id a ser removido | função atualiza os endereços dos * anterior e seguinte 
+             free(atual); //Liberta a memoria que estava a ser ocupada
+             return(listaGestores); //retorna o *lista ligada listaGestores para o seu inicio 
+            }        
+        }
+    }  else return(listaGestores); //devolve o inicio da lista ligada listaGestores
+}
+
+/// @brief Função Alterar Gestor
+/// @param listaGestores * para o inicio da listaGestores
+/// @param id do Gestor a ser alterado
+/// @param nome do gestor a ser alterado
+/// @return * atualizado para o inicio da listaGestores 
+gestor* alterarGestor(gestor *listaGestores, int id, char nome[])
+{
+    // verifica se o gestor a ser alterado existe na lista ligada listaGestores
+    if (existeGestor(listaGestores, id))
+    {
+        gestor *atual = listaGestores; //cria-se *atual para percorrer lista
+
+        // percorre a lista até encontrar o gestor a ser alterado
+        while ((atual != NULL) && (atual->id != id))
+        {
+            atual = atual->next;
+        }
+        //verificação caso seja diferente de NULL modifica
+        if (atual != NULL)
+        {
+            // atualiza os dados do gestpr
+            strcpy(atual->nome, nome);
+        }
+        return listaGestores; //* atualizado para o inicio da listaGestores
+        
+    } else return (listaGestores);
 }

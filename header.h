@@ -78,7 +78,7 @@ void showDadosCliente(cliente *listaClientes);
 int existeCliente(cliente *listaClientes, int nif);
 
 // Remover um Cliente a partir do seu Nif
-cliente *removerCliente(cliente *listaClientes, int nif);
+cliente* removerCliente(cliente *listaClientes, int nif);
 
 // Alterar dados de um Cliente
 cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
@@ -106,10 +106,10 @@ void showDadosGestor(gestor *listaGestores);
 int existeGestor(gestor *listaGestores, int id);
 
 // Remover um Gestor a partir do seu id
-gestor* removerGestor(gestor *listaGestor, int id);
+gestor* removerGestor(gestor *listaGestores, int id);
 
 // Alterar dados de um Gestor
-gestor* alterarGestor(gestor *listaGestor, int id, char nome[]);
+gestor* alterarGestor(gestor *listaGestores, int id, char nome[]);
 
 
 
@@ -126,19 +126,19 @@ veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
 //Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
 veiculo* loadDadosVeiculo(veiculo *listaVeiculos);
 
-// Criar Dados  da lista ligada `listaClientes´ em ficheiro.
+//Salva os  Dados  da lista ligada `listaClientes´ em ficheiro.
 void salvarDadosVeiculo(veiculo *listaVeiculos);
 
-// Mostrar Dados  da lista ligada `listaClientes´ em ficheiro.
+// Mostrar Dados  da lista ligada `listaClientes´ em consola.
 void showDadosVeiculo(veiculo *listaVeiculos);
 
-// Determinar existência do 'cliente' na lista ligada 'listaClientes'
+// Determinar existência do 'veiculo' na lista ligada 'listaVeiculos'
 int existeVeiculo(veiculo *listaVeiculos, int codigo);
 
-// Remover um Cliente a partir do seu Nif
+// Remover um Veiculo a partir do seu codigo
 veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
 
-// Alterar dados de um Cliente
+// Alterar dados de um Veiculo
 veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
 #endif
 
