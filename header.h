@@ -126,10 +126,10 @@ veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
 //Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
 veiculo* loadDadosVeiculo(veiculo *listaVeiculos);
 
-//Salva os  Dados  da lista ligada `listaClientes´ em ficheiro.
+//Salva os  Dados  da lista ligada `listaVeiculos´ em ficheiro.
 void salvarDadosVeiculo(veiculo *listaVeiculos);
 
-// Mostrar Dados  da lista ligada `listaClientes´ em consola.
+// Mostrar Dados  da lista ligada `listaVeiculos´ em consola.
 void showDadosVeiculo(veiculo *listaVeiculos);
 
 // Determinar existência do 'veiculo' na lista ligada 'listaVeiculos'
@@ -140,6 +140,15 @@ veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
 
 // Alterar dados de um Veiculo
 veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
+
+// Compara Autonomia dos Veiculos
+int compararAutonomia(void* data1, void* data2);
+
+// // Mostrar Dados da lista ligada ´listaVeiculos´ ordem decrescente de autonomia.
+// void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
+
+
+
 #endif
 
 

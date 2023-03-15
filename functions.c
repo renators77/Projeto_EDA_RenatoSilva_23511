@@ -367,6 +367,29 @@ veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  floa
     }else return (listaVeiculos);    
 }
 
+/// @brief Função que Compara Autonomia dos Veiculos para respectiva Ordenação na lista
+/// @param data1 * apontador generico
+/// @param data2 * apontador generico
+/// @return 
+int compararAutonomia(void* data1, void* data2)
+{
+    veiculo* v1 = (veiculo*) data1; //conversão do * genéricos para a struct veiculos
+    veiculo* v2 = (veiculo*) data2; //conversão do * genéricos para a struct veiculos
+    if (v1->autonomia < v2->autonomia) return(-1);
+    else if (v1->autonomia > v2->autonomia) return(1);
+    else return(0);
+}
+
+
+
+// void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
+// {
+//     while (listaVeiculos != NULL)
+//     {
+//         printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
+//         listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
+//     }   
+// }
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
 
 

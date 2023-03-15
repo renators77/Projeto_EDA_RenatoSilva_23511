@@ -62,20 +62,22 @@ int menuGestor()
   printf("| 1 - Salvar Dados Gestores                        |\n");
   printf("| 2 - Inserir Novo Gestor                          |\n");
   printf("| 3 - Mostrar Dados Gestores Existentes            |\n");
+  printf("| 4 - Remover Gestor                               |\n");
+  printf("| 5 - Alterar Gestor                               |\n");
   printf("|--------------------------------------------------|\n");
   printf("|   Zona De Gerenciamento do Cliente               |\n");
   printf("|--------------------------------------------------|\n");
-  printf("| 4 - Mostrar Dados Cliente Existentes             |\n");
-  printf("| 5 - Remover Cliente                              |\n");
-  printf("| 6 - Alterar Cliente                              |\n");
+  printf("| 6 - Mostrar Dados Cliente Existentes             |\n");
+  printf("| 7 - Remover Cliente                              |\n");
+  printf("| 8 - Alterar Cliente                              |\n");
   printf("|--------------------------------------------------|\n");
   printf("|   Zona De Gerenciamento de Veiculos              |\n");
   printf("|--------------------------------------------------|\n");
-  printf("| 7 - Salvar Dados Veiculos                        |\n");
-  printf("| 8 - Inserir Novo Veiculo                         |\n");
-  printf("| 9 - Mostrar Dados Veiculos Existentes            |\n");
-  printf("| 10 - Remover Veiculo                             |\n");
-  printf("| 11 - Alterar Veiculo                             |\n");
+  printf("| 9 - Salvar Dados Veiculos                        |\n");
+  printf("| 10 - Inserir Novo Veiculo                        |\n");
+  printf("| 11 - Mostrar Dados Veiculos Existentes           |\n");
+  printf("| 12 - Remover Veiculo                             |\n");
+  printf("| 13 - Alterar Veiculo                             |\n");
   printf("|--------------------------------------------------|\n");
   printf("|        Selecione 0 para sair                     |\n");
   printf("|--------------------------------------------------|\n");
@@ -118,6 +120,9 @@ cliente *listaClientes = NULL;
 
   //Load dos dados da listaVeiculos
   listaVeiculos = loadDadosVeiculo(listaVeiculos);
+
+  //Load dos dados da listaGestores
+  listaGestores = loadDadosGestor(listaGestores);
 
   do
   {
@@ -238,14 +243,57 @@ cliente *listaClientes = NULL;
            system("pause");
            system("cls");
            break;
-
+         
          case 4:
+           system("cls");
+           do {
+               printf("id do Gestor que deseja remover -> "); 
+               scanf("%d", &opId);
+               getchar(); 
+               if (!existeGestor(listaGestores, opId)) // Verifica se o id não existe
+               {
+                 printf("Nao existe um gestor com esse id! Insira um id existente.\n");
+                 continue; // Reinicia o loop para pedir um novo id
+               }
+               break; // Sai do loop quando o id for valido e nao existir na lista
+           }  while (1);
+
+         listaGestores = removerGestor(listaGestores, opId);
+         system("pause");
+         break;
+
+         case 5:
+           system("cls");
+           do {
+               printf("id do gestor que deseja alterar -> "); 
+               scanf("%d", &opId);
+               getchar(); 
+               if (!existeGestor(listaGestores, opId)) // Verifica se o Id não existe
+               {
+                 printf("Nao existe um Gestor com esse id! Insira um id existente.\n");
+                 continue; // Reinicia o loop para pedir um novo id
+               }
+               break; // Sai do loop quando o id for valido e nao existir na lista
+           }  while (1);
+           do {
+               printf("Novo Nome do Gestor -> ");
+               scanf(" %[^\n]s", opNomeG);
+               getchar(); 
+               break;
+            }  while (1);
+            
+         listaGestores = alterarGestor(listaGestores, opId, opNomeG);
+
+         system("pause");
+         break;
+
+         case 6:
            system("cls");
            showDadosCliente(listaClientes);
            system("pause");
            break;
 
-         case 5:
+         case 7:
            system("cls");
            do {
                printf("nif do cliente que deseja remover (9 digitos) -> "); 
@@ -268,7 +316,7 @@ cliente *listaClientes = NULL;
          system("pause");
          break;
 
-         case 6:
+         case 8:
            system("cls");
            do {
                printf("nif do cliente que deseja alterar (9 digitos) -> "); 
@@ -310,13 +358,13 @@ cliente *listaClientes = NULL;
          system("pause");
          break;
 
-         case 7:
+         case 9:
            system("cls");
            salvarDadosVeiculo(listaVeiculos); 
            system("pause");
            break;
 
-         case 8:
+         case 10:
            system("cls");
            do {
                printf("Codigo do novo Veiculo-> "); 
@@ -369,13 +417,13 @@ cliente *listaClientes = NULL;
          system("pause");
          break; 
 
-         case 9:
+         case 11:
            system("cls");
            showDadosVeiculo(listaVeiculos);
            system("pause");
            break;
 
-         case 10:
+         case 12:
            system("cls");
            do {
                printf("Codigo do veiculo que deseja remover -> "); 
@@ -393,7 +441,7 @@ cliente *listaClientes = NULL;
          system("pause");
          break;
 
-         case 11:
+         case 13:
            system("cls");
            do {
                printf("Codigo do veiculo que deseja alterar -> "); 
