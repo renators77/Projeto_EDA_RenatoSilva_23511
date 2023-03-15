@@ -141,11 +141,11 @@ veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
 // Alterar dados de um Veiculo
 veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
 
-// Compara Autonomia dos Veiculos
-int compararAutonomia(void* data1, void* data2);
+//Organiza os dados da lista pela autonomia
+void organizarPorAutonomia(veiculo *listaVeiculos);
 
-// // Mostrar Dados da lista ligada ´listaVeiculos´ ordem decrescente de autonomia.
-// void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
+// Mostrar Dados da lista ligada ´listaVeiculos´ ordem decrescente de autonomia.
+void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
 
 
 

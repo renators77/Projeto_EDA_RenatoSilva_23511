@@ -367,29 +367,57 @@ veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  floa
     }else return (listaVeiculos);    
 }
 
-/// @brief Função que Compara Autonomia dos Veiculos para respectiva Ordenação na lista
-/// @param data1 * apontador generico
-/// @param data2 * apontador generico
-/// @return 
-int compararAutonomia(void* data1, void* data2)
+/// @brief Função que organiza a listaVeiculos pela autonomia em ordem decrescente. Atraves do Algoritmo de Ordenação Bubble Sort.
+/// @param listaVeiculos *para o inicio da listaVeiculos
+void organizarPorAutonomia(veiculo *listaVeiculos) 
 {
-    veiculo* v1 = (veiculo*) data1; //conversão do * genéricos para a struct veiculos
-    veiculo* v2 = (veiculo*) data2; //conversão do * genéricos para a struct veiculos
-    if (v1->autonomia < v2->autonomia) return(-1);
-    else if (v1->autonomia > v2->autonomia) return(1);
-    else return(0);
+    veiculo *inicio = NULL, *seguinte = NULL; // *inicio percorre a lista encadeada a partir do início |  *Seguinte percorre a lista a partir do elemento seguinte ao *inicio
+    float aux; // *aux para armazenar temporariamente os valores de autonomia.
+
+    //Percorre a listaVeiculos até chegar ao Final da Mesma.
+    for (inicio = listaVeiculos; inicio != NULL; inicio = inicio->next) 
+    {
+        //Percorre a listaVeiculos até chegar ao Final da Mesma mas com o nódulo seguinte ao inicio.
+        for (seguinte = inicio->next; seguinte != NULL; seguinte = seguinte->next) 
+        {
+            //Comparação entre autonomia do nódulo do *seguinte com o do *inicio
+            if (inicio->autonomia < seguinte->autonomia) 
+            {
+                // troca os valores de autonomia entre os dois nódulos da lista
+                aux = inicio->autonomia;
+                inicio->autonomia = seguinte->autonomia;
+                seguinte->autonomia = aux;
+
+                // troca os valores de bateria entre os dois nodulos da lista
+                aux = inicio->bateria;
+                inicio->bateria = seguinte->bateria;
+                seguinte->bateria = aux;
+
+                // troca os valores de custo entre os dois nódulos da lista
+                aux = inicio->custo;
+                inicio->custo = seguinte->custo;
+                seguinte->custo = aux;
+
+                // troca os valores de tipo entre os dois nódulos da lista
+                char auxTipo[50];
+                strcpy(auxTipo, inicio->tipo);
+                strcpy(inicio->tipo, seguinte->tipo);
+                strcpy(seguinte->tipo, auxTipo);
+            }
+        }
+    }
 }
 
+void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
+{
+    organizarPorAutonomia(listaVeiculos);
 
-
-// void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
-// {
-//     while (listaVeiculos != NULL)
-//     {
-//         printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
-//         listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
-//     }   
-// }
+    while (listaVeiculos != NULL)
+    {
+        printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
+        listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
+    }   
+}
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
 
 

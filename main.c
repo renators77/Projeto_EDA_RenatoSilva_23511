@@ -78,6 +78,7 @@ int menuGestor()
   printf("| 11 - Mostrar Dados Veiculos Existentes           |\n");
   printf("| 12 - Remover Veiculo                             |\n");
   printf("| 13 - Alterar Veiculo                             |\n");
+  printf("| 14 - Mostrar Veiculos por Maior Autonomia        |\n");
   printf("|--------------------------------------------------|\n");
   printf("|        Selecione 0 para sair                     |\n");
   printf("|--------------------------------------------------|\n");
@@ -477,6 +478,11 @@ cliente *listaClientes = NULL;
 
          system("pause");
          break; 
+
+         case 14:
+            system("cls");
+            showDadosIteractiveVeiculos(listaVeiculos);
+            system("pause");
         }
        } while (opcaoG != 0);
        system("cls");
