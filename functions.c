@@ -581,3 +581,24 @@ gestor* alterarGestor(gestor *listaGestores, int id, char nome[])
         
     } else return (listaGestores);
 }
+
+//--------------------------------------------------------------FUNÇÕES PARA OS GESTORES-----------------------------------------------------------------------------------------------------------------------------------//
+
+//--------------------------------------------------------------FUNÇÕES PARA As Reservas-----------------------------------------------------------------------------------------------------------------------------------//
+
+
+
+/// @brief Função Existe Reserva
+/// @param listaReservas * para o inicio da listaReservas
+/// @param id da reserva a ser verificada
+/// @return 1 se existir ou 0 caso não exista
+int existeReserva(reserva *listaReservas, int idReserva)
+{
+    while (listaReservas != NULL)
+    {
+        //compara valor do campo id da lista com o parametro id atribuido
+        if (listaReservas->idReserva == idReserva) return (1); //se forem iguais afirma que a reserva foi encontrada
+        listaReservas = listaReservas->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+    }
+    return 0; // retorna 0 se a reserva não for encontrada
+}

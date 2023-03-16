@@ -116,6 +116,9 @@ cliente *listaClientes = NULL;
   int opId = 0;
   char opNomeG[50];
 
+  //Lista ligada vazia Reservas
+  reserva *listaReservas = NULL;
+
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
 

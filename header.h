@@ -55,6 +55,15 @@ typedef struct veiculo
     struct veiculo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 }veiculo;
 
+typedef struct reserva
+{
+    int idReserva; //Id da Reserva
+    cliente cliente; //Dados do cliente
+    veiculo veiculo; //Dados do veiculo
+    struct reserva *next;
+} reserva;
+
+
 
 /**
  * @brief Funções para o gerenciamento de Clientes
@@ -148,6 +157,28 @@ void organizarPorAutonomia(veiculo *listaVeiculos);
 void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
 
 
+/**
+ * @brief Funções para o gerenciamento de Reservas
+ * 
+ * @return 
+ */
+
+reserva *InserirReserva(reserva *listaReservas, cliente *listaClientes, veiculo *listaVeiculos);
+
+//Faz o load dos dados do ficheiro listaReservas.txt para a lista ligada.
+reserva* loadDadosReserva(reserva *listaReservas);
+
+//Salva os  Dados  da lista ligada `listaReservas´ em ficheiro.
+void salvarDadosReserva(reserva *listaReservas);
+
+// Mostrar Dados  da lista ligada `listaReservas´ em consola.
+void showDadosReserva(reserva *listaReservas);
+
+// Determinar existência da 'reserva' na lista ligada 'listaReservas'
+int existeReserva(reserva *listaReservas, int idReserva);
+
+// Remover uma Reserva a partir do seu id
+reserva* removerReserva(reserva *listaReservas, int id);
 
 #endif
 
