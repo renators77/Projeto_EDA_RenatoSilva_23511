@@ -28,6 +28,7 @@ typedef struct cliente
     char nome [50]; //nome do cliente
     carteira carteira; //saldo do cliente
     char morada [100];
+    char password[50];
     struct cliente *next; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
 
 }cliente;
@@ -51,7 +52,8 @@ typedef struct veiculo
     float bateria; // bateria (em %)
     float autonomia; // autonomia do veiculo
     float custo; // custo por minuto reservado
-    char localizacao[20]; // localização do meio de mobilidade (utilizando o what3words.com)
+    char geocodigo[20]; // localização do meio de mobilidade (utilizando o what3words.com)
+    int reservado; // 1 - Reservado | 0 - Disponivel
     struct veiculo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 }veiculo;
 
@@ -60,6 +62,8 @@ typedef struct reserva
     int idReserva; //Id da Reserva
     cliente cliente; //Dados do cliente
     veiculo veiculo; //Dados do veiculo
+    float custoPorMinuto; //para copiar do custo do veiculo
+    int estado; //1 - Em Andamento | 0 - Acabada
     struct reserva *next;
 } reserva;
 
@@ -157,13 +161,15 @@ void organizarPorAutonomia(veiculo *listaVeiculos);
 void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
 
 
+
 /**
  * @brief Funções para o gerenciamento de Reservas
  * 
  * @return 
  */
 
-reserva *InserirReserva(reserva *listaReservas, cliente *listaClientes, veiculo *listaVeiculos);
+//Inserção de um novo registo de Reserva na lista ligada ´listaReserva´
+reserva *inserirReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo, int estado);
 
 //Faz o load dos dados do ficheiro listaReservas.txt para a lista ligada.
 reserva* loadDadosReserva(reserva *listaReservas);
@@ -177,9 +183,9 @@ void showDadosReserva(reserva *listaReservas);
 // Determinar existência da 'reserva' na lista ligada 'listaReservas'
 int existeReserva(reserva *listaReservas, int idReserva);
 
-// Remover uma Reserva a partir do seu id
-reserva* removerReserva(reserva *listaReservas, int id);
+// Remover uma Reserva a partir do seu IdReserva.
+reserva* removerReserva(reserva *listaReservas, int IdReserva);
+
+
 
 #endif
-
-

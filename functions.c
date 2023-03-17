@@ -23,12 +23,12 @@ cliente* loadDadosCliente(cliente *listaClientes)
         return listaClientes;
     }
 
-while (fgets(linha, 200, ficheiro) != NULL) 
-{
+ while (fgets(linha, 200, ficheiro) != NULL) 
+ {
     sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
 
     listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
-}
+ }
     fclose(ficheiro);//fecha o ficheiro
     return listaClientes; //devolve o inicio da lista ligada
 }
@@ -179,6 +179,11 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
         return listaClientes; //* atualizado para o inicio da listaClientes 
         
     } else return (listaClientes);
+}
+
+void CarregaSaldo(cliente *listaClientes, int nif, int saldoCarregado)
+{
+    
 }
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE-------------------------------------------------------------------------------------------------------------------------------------//
@@ -584,9 +589,42 @@ gestor* alterarGestor(gestor *listaGestores, int id, char nome[])
 
 //--------------------------------------------------------------FUNÇÕES PARA OS GESTORES-----------------------------------------------------------------------------------------------------------------------------------//
 
-//--------------------------------------------------------------FUNÇÕES PARA As Reservas-----------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------FUNÇÕES PARA AS RESERVAS-----------------------------------------------------------------------------------------------------------------------------------//
 
 
+
+
+
+/// @brief Função Salvar Dados Reserva em ficheiro.txt
+/// @param listaReservas * para o inicio da lista ligada
+void salvarDadosReserva(reserva *listaReservas)
+{
+     FILE *ficheiro; //declara um * para um ficheiro
+     ficheiro = fopen("listaReservas.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de escrita "w"
+     
+     // Verifica se o arquivo foi aberto com sucesso
+     if (ficheiro != NULL)
+     {
+        for (reserva *atual = listaReservas; atual != NULL; atual = atual->next) //percorrer a listaClientes
+        {
+            fprintf(ficheiro, "Id da Reserva -> %d | Nif -> %d | Codigo Veiculo -> %d | Estado -> %d | Custo por (1m) %.2f\n", atual->idReserva, atual->cliente.nif, atual->veiculo.codigo, atual->estado, atual->custoPorMinuto); //escreve os dados de cada cliente no ficheiro
+        }
+     }
+    fclose(ficheiro); //fecha o ficheiro  
+}
+
+
+/// @brief Função Mostrar Dados Reserva
+/// @param listaReserva * para o inicio da listaReserva
+void showDadosReserva(reserva *listaReservas)
+{
+    while (listaReservas != NULL)
+    {
+        printf("Id da Reserva -> %d | Nif -> %d | Codigo Veiculo -> %d | Estado -> %d | Custo por (1m) %.2f\n", listaReservas->idReserva, listaReservas->cliente.nif, listaReservas->veiculo.codigo, listaReservas->estado, listaReservas->custoPorMinuto);
+        listaReservas = listaReservas->next; //Avança para o próximo nó da lista.
+    }
+    
+}
 
 /// @brief Função Existe Reserva
 /// @param listaReservas * para o inicio da listaReservas
@@ -602,3 +640,35 @@ int existeReserva(reserva *listaReservas, int idReserva)
     }
     return 0; // retorna 0 se a reserva não for encontrada
 }
+
+/// @brief Função Inserir Reserva
+/// @param listaClientes  * para o inicio da listaClientes
+/// @param listaVeiculos  * para o inicio da listaVeiculos
+/// @param listaReservas  * para o inicio da listaReservas
+/// @param idReserva da Reserva
+/// @param nif do Cliente
+/// @param codigo do veiculo
+/// @return novaReserva * para o inicio da listaReservas
+reserva *inserirReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo, int estado) 
+{
+        // encontra o veículo com o código especificado
+        veiculo *veiculoReserva = listaVeiculos;
+        while (veiculoReserva != NULL && veiculoReserva->codigo != codigo)
+        {
+            veiculoReserva = veiculoReserva->next; //Percorre a lista de veiculos
+        }
+
+        // aloca memoria para a nova reserva
+        reserva* novaReserva = (reserva*) malloc(sizeof(reserva));
+        novaReserva->idReserva = idReserva;
+        novaReserva->cliente.nif = nif;
+        novaReserva->veiculo.codigo = codigo;
+        novaReserva->custoPorMinuto = veiculoReserva->custo; // copia o custo do veículo
+        novaReserva->estado = 1; 
+
+        // insere a nova reserva no inicio da lista de reservas
+        novaReserva->next = listaReservas;
+        return(novaReserva);   
+}
+
+
