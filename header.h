@@ -3,7 +3,7 @@
  * @author Renato Silva (a23511@alunos.ipca.cpt)
  * @brief 
  * @version 0.1
- * @date 2022-03-23
+ * @date 2023-02-26
  * 
  * @copyright Copyright (c) 2023
  * https://github.com/renators77/Projeto_EDA_RenatoSilva_23511
@@ -172,7 +172,7 @@ void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
 reserva *inserirReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo, int estado);
 
 //Faz o load dos dados do ficheiro listaReservas.txt para a lista ligada.
-reserva* loadDadosReserva(reserva *listaReservas);
+reserva* loadDadosReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas);
 
 //Salva os  Dados  da lista ligada `listaReservas´ em ficheiro.
 void salvarDadosReserva(reserva *listaReservas);

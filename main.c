@@ -3,7 +3,7 @@
  * @author Renato Silva (a23511@alunos.ipca.cpt)
  * @brief 
  * @version 0.1
- * @date 2022-03-23
+ * @date 2023-02-26
  * 
  * @copyright Copyright (c) 2023
  * https://github.com/renators77/Projeto_EDA_RenatoSilva_23511
@@ -43,7 +43,7 @@ int menuCliente()
   printf("| 2 - Inserir Novo Cliente                         || 5 - Inserir Reserva                              |\n");
   printf("| 3 - Mostrar Dados Clientes Existentes            || 6 - Mostrar Dados Reservas Existentes            |\n");
   printf("|                                                  || 7 - Remover Reserva                              |\n");
-  printf("|--------------------------------------------------|| 8 - Alterar Reserva                              |\n");
+  printf("|                                                  || 8 - Alterar Reserva                              |\n");
   printf("|--------------------------------------------------||--------------------------------------------------|\n");
   printf("|                                        Selecione 0 para sair                                         |\n");
   printf("|--------------------------------------------------||--------------------------------------------------|\n");
@@ -62,9 +62,9 @@ int menuGestor()
   printf("| 1 - Salvar Dados Gestores                        || 6 - Mostrar Dados Cliente Existentes             || 9 - Salvar Dados Veiculos                        |\n");
   printf("| 2 - Inserir Novo Gestor                          || 7 - Remover Cliente                              || 10 - Inserir Novo Veiculo                        |\n");
   printf("| 3 - Mostrar Dados Gestores Existentes            || 8 - Alterar Cliente                              || 11 - Mostrar Dados Veiculos Existentes           |\n");
-  printf("| 4 - Remover Gestor                               ||--------------------------------------------------|| 12 - Remover Veiculo                             |\n");
-  printf("| 5 - Alterar Gestor                               ||--------------------------------------------------|| 13 - Alterar Veiculo                             |\n");
-  printf("|--------------------------------------------------||--------------------------------------------------|| 14 - Mostrar Veiculo por Maior Autonomia         |\n");
+  printf("| 4 - Remover Gestor                               ||                                                  || 12 - Remover Veiculo                             |\n");
+  printf("| 5 - Alterar Gestor                               ||                                                  || 13 - Alterar Veiculo                             |\n");
+  printf("|                                                  ||                                                  || 14 - Mostrar Veiculo por Maior Autonomia         |\n");
   printf("|--------------------------------------------------||--------------------------------------------------||--------------------------------------------------|\n");
   printf("|                                                                Selecione 0 para sair                                                                     |\n");
   printf("|----------------------------------------------------------------------------------------------------------------------------------------------------------|\n");
@@ -128,6 +128,9 @@ int main()
 
   //Load dos dados da listaGestores
   listaGestores = loadDadosGestor(listaGestores);
+
+//Load dos dados da listaReservas
+  listaReservas = loadDadosReserva(listaClientes, listaVeiculos, listaReservas);
 
   do
   {
@@ -255,6 +258,24 @@ int main()
            showDadosReserva(listaReservas);
            system("pause");
            break;
+         case 7:
+           system("cls");
+           do {
+               printf("Id da Reserva do que deseja remover -> "); 
+               scanf("%d", &opIdReserva);
+               getchar(); 
+               if (!existeReserva(listaReservas, opIdReserva)) // Verifica se o Id Reserva não existe
+               {
+                 printf("Nao existe uma Reserva com esse Id! Insira um Id existente.\n");
+                 continue; // Reinicia o loop para pedir um novo id
+               }
+               break; // Sai do loop quando o id for valido e nao existir na lista
+           }  while (1);
+
+           listaReservas = removerReserva(listaReservas, opIdReserva);
+           system("pause");
+           break;
+           
         }
       } while (opcaoC != 0);
       system("cls");
@@ -499,9 +520,9 @@ int main()
                break; // Sai do loop quando o codigo for valido e nao existir na lista
            }  while (1);
 
-         listaVeiculos = removerVeiculo(listaVeiculos, opCodigo);
-         system("pause");
-         break;
+           listaVeiculos = removerVeiculo(listaVeiculos, opCodigo);
+           system("pause");
+           break;
 
          case 13:
            system("cls");
@@ -545,58 +566,6 @@ int main()
             showDadosIteractiveVeiculos(listaVeiculos);
             system("pause");
             break;
-         
-        //  case 15:
-        //     system("cls");
-        //     do {
-        //          printf("id da nova reserva -> "); 
-        //          scanf("%d", &opIdReserva);
-        //          getchar(); 
-        //          if (existeReserva(listaReservas, opIdReserva)) // Verifica se o id da reserva ja existe
-        //          {
-        //            printf("Ja existe uma Reserva com esse Id! Insira um Id diferente.\n");
-        //            continue; // Reinicia o loop para pedir um novo Id
-        //          }
-        //          break; // Sai do loop quando o Id for valido e nao existir na lista
-        //      } while (1); 
-        //     do {
-        //          printf("nif do cliente que vai reservar (9 digitos) -> "); 
-        //          scanf("%d", &opNif);
-        //          getchar(); 
-        //          if (opNif < 100000000 || opNif > 999999999) // Verifica se o NIF tem 9 digitos
-        //          { 
-        //            printf("NIF invalido! Insira um NIF valido com 9 digitos.\n");
-        //            continue; // Reinicia o loop para pedir um novo NIF
-        //          }  
-        //          else if (!existeCliente(listaClientes, opNif)) // Verifica se o Id Nao existe
-        //          {
-        //            printf("Não existe um cliente com esse NIF! Insira um NIF diferente.\n");
-        //            continue; // Reinicia o loop para pedir um novo NIF
-        //          }
-        //          break; // Sai do loop quando o NIF for valido e existir na lista
-        //      } while (1); 
-        //     do {
-        //          printf("Codigo do veiculo que deseja Reservar -> "); 
-        //          scanf("%d", &opCodigo);
-        //          getchar(); 
-        //          if (!existeVeiculo(listaVeiculos, opCodigo)) // Verifica se o codigo não existe
-        //          {
-        //            printf("Nao existe um veiculo com esse codigo! Insira um codigo existente.\n");
-        //            continue; // Reinicia o loop para pedir um novo codigo
-        //          }
-        //          break; // Sai do loop quando o codigo for valido e nao existir na lista
-        //      } while (1);
-            
-        //    listaReservas = inserirReserva(listaClientes, listaVeiculos, listaReservas, opIdReserva, opNif, opCodigo, opEstado);
-
-        //    system("pause");
-        //    break;
-
-        //    case 16:
-        //      system("cls");
-        //      showDadosReserva(listaReservas);
-        //      system("pause");
-        //      break;
 
         }
        } while (opcaoG != 0);

@@ -1,3 +1,13 @@
+ /**
+ * @file functions.c
+ * @author Renato Silva (a23511@alunos.ipca.cpt)
+ * @brief 
+ * @version 0.1
+ * @date 2023-02-26
+ * 
+ * @copyright Copyright (c) 2023
+ * https://github.com/renators77/Projeto_EDA_RenatoSilva_23511
+ */
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -5,9 +15,13 @@
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE-------------------------------------------------------------------------------------------------------------------------------------//
 
-/// @brief Função Load dados do ficheiro
-/// @param listaClientes * para o inicio da listaClientes
-/// @return listaClientes devolve inicio da lista
+/**
+* @brief Função que Carrega dados de clientes de um Ficheiro.txt ´listaClientes.txt´
+
+* @param listaClientes * para o início da lista de clientes existente
+
+* @return * para o início da listaClientes
+*/
 cliente* loadDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
@@ -33,8 +47,12 @@ cliente* loadDadosCliente(cliente *listaClientes)
     return listaClientes; //devolve o inicio da lista ligada
 }
 
-/// @brief Função Salvar dados da lista cliente em Ficheiro.
-/// @param listaClientes * para o inicio da listaClientes
+/**
+ * @brief Função Salvar dados da lista cliente em Ficheiro.
+ * 
+ * @param listaClientes * para o inicio da listaClientes
+ * @param listaClientes pointer to the beginning of the list
+ */
 void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
@@ -52,8 +70,11 @@ void salvarDadosCliente(cliente *listaClientes)
     
 }
 
-/// @brief Função Mostrar dados do cliente
-/// @param listaClientes * para o inicio da listaClientes
+/**
+ * @brief Função Mostrar dados do cliente
+ * 
+ * @param listaClientes * para o inicio da listaClientes
+ */
 void showDadosCliente(cliente *listaClientes)
 {
     while (listaClientes != NULL)
@@ -64,10 +85,11 @@ void showDadosCliente(cliente *listaClientes)
 }
 
 /**
- * @brief  Existe clientes.
+ * @brief  Função Existe clientes.
  * 
  * @param listaClientes * para o inicio da listaClientes
  * @param nif do cliente a ser verificado
+ * 
  * @return 1 se existir ou 0 caso não exista
  */
 int existeCliente(cliente *listaClientes, int nif)
@@ -90,6 +112,7 @@ int existeCliente(cliente *listaClientes, int nif)
  * @param nif do cliente a ser inserido
  * @param nome do cliente a ser inserido
  * @param morada do cliente a ser inserido
+ * 
  * @return novo que aponta para o inicio da listaClientes
  */
 cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
@@ -113,10 +136,14 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
 }
 
 
-/// @brief Função Remover Cliente por Nif
-/// @param listaclientes * para o inicio da listaClientes
-/// @param nif do cliente a ser removido
-/// @return * atualizado para o inicio da listaClientes 
+/**
+ * @brief Função Remover Cliente por Nif
+ * 
+ * @param listaclientes * para o inicio da listaClientes
+ * @param nif do cliente a ser removido
+ * 
+ * @return * atualizado para o inicio da listaClientes 
+ */
 cliente *removerCliente(cliente *listaClientes, int nif)
 {
     // verifica se o cliente a ser removido existe na lista ligada listaClientes
@@ -149,13 +176,17 @@ cliente *removerCliente(cliente *listaClientes, int nif)
     }  else return(listaClientes); //devolve o inicio da lista ligada listaClientes
 }
 
-/// @brief Função alterar Cliente por Nif
-/// @param listaClientes * para o inicio da listaClientes
-/// @param nif do cliente a ser removido
-/// @param nome nome a ser alterado
-/// @param morada morada a ser alterada
-/// @param saldo saldo a ser alterado
-/// @return * atualizado para o inicio da listaClientes 
+/**
+ * @brief Função alterar Cliente por Nif
+ * 
+ * @param listaClientes * para o inicio da listaClientes
+ * @param nif do cliente a ser removido
+ * @param nome nome a ser alterado
+ * @param morada morada a ser alterada
+ * @param saldo saldo a ser alterado
+ * 
+ * @return * atualizado para o inicio da listaClientes 
+ */
 cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
 {
     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
@@ -181,10 +212,6 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
     } else return (listaClientes);
 }
 
-void CarregaSaldo(cliente *listaClientes, int nif, int saldoCarregado)
-{
-    
-}
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE-------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -192,9 +219,13 @@ void CarregaSaldo(cliente *listaClientes, int nif, int saldoCarregado)
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
 
 
-/// @brief Função Load dados do ficheiro
-/// @param listaVeiculos * para o inicio da listaClientes
-/// @return listaVeiculos devolve inicio da lista
+/**
+ * @brief Função Load dados do ficheiro
+ * 
+ * @param listaVeiculos * para o inicio da listaClientes
+ * 
+ * @return listaVeiculos devolve inicio da lista
+ */
 veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 {
     FILE *ficheiro; //declara um * para um ficheiro
@@ -221,8 +252,11 @@ veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 }
 
 
-/// @brief Função Salvar dados da lista Veiculos em ficheiro.
-/// @param listaVeiculos * para o inicio da lista ligada
+/**
+ * @brief Função Salvar dados da lista Veiculos em ficheiro.
+ * 
+ * @param listaVeiculos * para o inicio da lista ligada
+ */
 void salvarDadosVeiculo(veiculo *listaVeiculos)
 {
     FILE *ficheiro; //declara um * para um ficheiro
@@ -233,15 +267,19 @@ void salvarDadosVeiculo(veiculo *listaVeiculos)
      {
         for (veiculo *atual = listaVeiculos; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada veiculo no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
 }
 
 
-/// @brief Função Mostrar Dados Veiculos
-/// @param listaVeiculos * para o inicio da listaVeiculos
+
+/**
+ * @brief Função Mostrar Dados Veiculos
+ * 
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ */
 void showDadosVeiculo(veiculo *listaVeiculos)
 {
     while (listaVeiculos != NULL)
@@ -252,10 +290,15 @@ void showDadosVeiculo(veiculo *listaVeiculos)
     
 }
 
-/// @brief Existe Veiculos
-/// @param listaVeiculos * para o inicio da listaVeiculos
-/// @param codigo do veiculo a ser verificado
-/// @return 1 se existir ou 0 caso não exista
+
+/**
+ * @brief Existe Veiculos
+ * 
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ * @param codigo do veiculo a ser verificado
+ * 
+ * @return 1 se existir ou 0 caso não exista
+ */
 int existeVeiculo(veiculo *listaVeiculos, int codigo)
 {
     //percorre todos os elementos da lista ate o * apontar para NULL
@@ -270,14 +313,20 @@ int existeVeiculo(veiculo *listaVeiculos, int codigo)
 
 
 
-/// @brief Função Inserir Veiculo
-/// @param listaVeiculos * para o inicio da listaVeiculos
-/// @param codigo identificação do veiculo
-/// @param tipo do veiculo associado
-/// @param bateria do veiculo associado
-/// @param autonomia do veiculo associado
-/// @param custo do veiculo associado
-/// @return novo que aponta para o inicio da listaVeiculos
+
+/**
+ * 
+ * @brief Função Inserir Veiculo
+ * 
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ * @param codigo identificação do veiculo
+ * @param tipo do veiculo associado
+ * @param bateria do veiculo associado
+ * @param autonomia do veiculo associado
+ * @param custo do veiculo associado
+ * 
+ * @return novo que aponta para o inicio da listaVeiculos
+ */
 veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo)
 {
     //Verifica se já existe um Veiculo com o mesmo Codigo
@@ -302,10 +351,15 @@ veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
 }
 
 
-/// @brief Função Remover Veiculo por Codigo
-/// @param listaVeiculos * para o inicio da listaVeiculos
-/// @param codigo codigo do veiculo
-/// @return * atualizado para o inicio da listaVeiculos
+
+/**
+ * @brief Função Remover Veiculo por Codigo
+ * 
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ * @param codigo codigo do veiculo
+ * 
+ * @return * atualizado para o inicio da listaVeiculos
+ */
 veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo)
 {
     //verifica se o veiculo a ser removido existe na lista ligada listaVeiculos
@@ -339,14 +393,19 @@ veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo)
     
 }
 
-/// @brief Função alterar Veiculo por Codigo
-/// @param listaVeiculos * para o inicio da listaVeiculos
-/// @param codigo do veiculo a ser alterado
-/// @param tipo do veiculo a ser alterado
-/// @param bateria do veiculo a ser alterado
-/// @param autonomia do veiculo a ser alterado
-/// @param custo do veiculo a ser alterado
-/// @return * atualizado para o inicio da listaVeiculos 
+
+/**
+ * @brief Função alterar Veiculo por Codigo
+ * 
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ * @param codigo do veiculo a ser alterado
+ * @param tipo do veiculo a ser alterado
+ * @param bateria do veiculo a ser alterado
+ * @param autonomia do veiculo a ser alterado
+ * @param custo do veiculo a ser alterado
+ * 
+ * @return * atualizado para o inicio da listaVeiculos 
+ */
 veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo)
 {
     // verifica se o veiculo a ser alterado existe na lista ligada listaVeiculos
@@ -354,12 +413,12 @@ veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  floa
     {
         veiculo *atual = listaVeiculos; //cria-se *atual para percorrer a lista ligada listaVeiculos
 
-        //percorre a lista até encontrar o cliente a ser alterado
+        //percorre a lista até encontrar o veiculo a ser alterado
         while ((atual != NULL) && (atual->codigo != codigo))
         {
             atual = atual->next;
         }
-        //verificação casp seja diferente de NULL
+        //verificação caso seja diferente de NULL
         if (atual != NULL)
         {
             //atualiza os dados do Veiculo
@@ -372,8 +431,12 @@ veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  floa
     }else return (listaVeiculos);    
 }
 
-/// @brief Função que organiza a listaVeiculos pela autonomia em ordem decrescente. Atraves do Algoritmo de Ordenação Bubble Sort.
-/// @param listaVeiculos *para o inicio da listaVeiculos
+
+/**
+ * @brief Função que organiza a listaVeiculos pela autonomia em ordem decrescente. Atraves do Algoritmo de Ordenação Bubble Sort.
+ * 
+ * @param listaVeiculos *para o inicio da listaVeiculos
+ */
 void organizarPorAutonomia(veiculo *listaVeiculos) 
 {
     veiculo *inicio = NULL, *seguinte = NULL; // *inicio percorre a lista encadeada a partir do início |  *Seguinte percorre a lista a partir do elemento seguinte ao *inicio
@@ -413,6 +476,11 @@ void organizarPorAutonomia(veiculo *listaVeiculos)
     }
 }
 
+/**
+ * @brief Função que mostra os dados dos veículos da lista, ordenados por autonomia
+ * 
+ * @param listaVeiculos * para o primeiro elemento da listaVeiculos
+ */
 void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
 {
     organizarPorAutonomia(listaVeiculos);
@@ -420,7 +488,7 @@ void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
     while (listaVeiculos != NULL)
     {
         printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
-        listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
+        listaVeiculos = listaVeiculos->next; //Avança para o próximo elemento da lista.
     }   
 }
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
@@ -428,9 +496,14 @@ void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
 
 //--------------------------------------------------------------FUNÇÕES PARA OS GESTORES-----------------------------------------------------------------------------------------------------------------------------------//
 
-/// @brief Função Load Dados do ficheiro
-/// @param listaGestores * para o inicio da listaGestores
-/// @return * para inicio da listaGestores
+
+/**
+ * @brief Função Load Dados do ficheiro
+ * 
+ * @param listaGestores * para o inicio da listaGestores
+ * 
+ * @return * para inicio da listaGestores
+ */
 gestor* loadDadosGestor(gestor *listaGestores)
 {
      FILE *ficheiro; //declara um * para um ficheiro
@@ -456,10 +529,15 @@ gestor* loadDadosGestor(gestor *listaGestores)
 }
 
 
+/**
+ * @brief  Função Salvar dados da listaGestores em ficheiro.
+ * 
+ * @param listaGestores is a pointer to the first element of the list
+ */
 void salvarDadosGestor(gestor *listaGestores)
 {
     FILE *ficheiro; //declara um * para um ficheiro
-     ficheiro = fopen("listaGestores.txt", "w"); // abre o arquivo "listaGestores.txt" em modo de  "w"
+     ficheiro = fopen("listaGestores.txt", "w"); // abre o arquivo "listaGestores.txt" em modo de reescrita  "w"
      
      // Verifica se o arquivo foi aberto com sucesso
      if (ficheiro != NULL)
@@ -473,21 +551,30 @@ void salvarDadosGestor(gestor *listaGestores)
 }
 
 
-/// @brief Função Mostrar Dados Gestor
-/// @param listaGestores * para inicio da listaGestores
+
+/**
+ * @brief Função Mostrar Dados listaGestores em consola
+ * 
+ * @param listaGestores * para inicio da listaGestores
+ */
 void showDadosGestor(gestor *listaGestores)
 {
     while (listaGestores != NULL)
     {
         printf("Id -> %d | nome -> %s\n", listaGestores->id, listaGestores->nome);
-        listaGestores = listaGestores->next; // Avança para o próximo nó da lista
+        listaGestores = listaGestores->next; // Avança para o próximo elemento da lista
     }   
 }
 
-/// @brief Função  Existe Gestor
-/// @param listaGestores * para o inicio da listaGestores
-/// @param id do cliente a ser removido
-/// @return 1 se existir ou 0 caso não exista
+
+/**
+ * @brief Função  Existe Gestor
+ * 
+ * @param listaGestores * para o inicio da listaGestores
+ * @param id do gestor a ser removido
+ * 
+ * @return 1 se existir ou 0 caso não exista
+ */
 int existeGestor(gestor *listaGestores, int id)
 {
     //percorre todos os elementos da lista ate o * apontar para NULL
@@ -501,11 +588,16 @@ int existeGestor(gestor *listaGestores, int id)
 }
 
 
-/// @brief Função Inserir Gestor
-/// @param listaGestores * para o inicio da listaGestores
-/// @param id do Gestor
-/// @param nome do Gestor
-/// @return * novo para o inicio da listaGestores
+
+/**
+ * @brief Função Inserir Gestor na listaGestores
+ * 
+ * @param listaGestores * para o inicio da listaGestores
+ * @param id do Gestor
+ * @param nome do Gestor
+ * 
+ * @return * novo para o inicio da listaGestores
+ */
 gestor* inserirGestor(gestor *listaGestores, int id, char nome[])
 {
  //verifica se já existe um Gestor com o mesmo id
@@ -523,10 +615,15 @@ gestor* inserirGestor(gestor *listaGestores, int id, char nome[])
  } else return(listaGestores); //função retorna o * para o início da listaGestores caso o id já exista.
 }
 
-/// @brief Função Remover Gestor
-/// @param listaGestores * para o inicio da listaGestores
-/// @param id do gestor a ser removido
-/// @return * atualizado para o inicio da listaGestores 
+
+/**
+ * @brief Função Remover Gestor da listaGestores
+ * 
+ * @param listaGestores * para o inicio da listaGestores
+ * @param id do gestor a ser removido
+ * 
+ * @return * atualizado para o inicio da listaGestores 
+ */
 gestor* removerGestor(gestor *listaGestores, int id)
 {
     // verifica se o Gestor a ser removido existe na lista ligada listaGestores
@@ -559,11 +656,16 @@ gestor* removerGestor(gestor *listaGestores, int id)
     }  else return(listaGestores); //devolve o inicio da lista ligada listaGestores
 }
 
-/// @brief Função Alterar Gestor
-/// @param listaGestores * para o inicio da listaGestores
-/// @param id do Gestor a ser alterado
-/// @param nome do gestor a ser alterado
-/// @return * atualizado para o inicio da listaGestores 
+
+/**
+ * @brief Função Alterar Gestor da listaGestores
+ * 
+ * @param listaGestores * para o inicio da listaGestores
+ * @param id do Gestor a ser alterado
+ * @param nome do gestor a ser alterado
+ * 
+ * @return * atualizado para o inicio da listaGestores 
+ */
 gestor* alterarGestor(gestor *listaGestores, int id, char nome[])
 {
     // verifica se o gestor a ser alterado existe na lista ligada listaGestores
@@ -592,20 +694,55 @@ gestor* alterarGestor(gestor *listaGestores, int id, char nome[])
 //--------------------------------------------------------------FUNÇÕES PARA AS RESERVAS-----------------------------------------------------------------------------------------------------------------------------------//
 
 
+/**
+ * @brief Função que lê um ficheiro e insere os dados na listaReservas
+ * 
+ * @param listaClientes * para o inicio da listaClientes
+ * @param listaVeiculos * para o inicio da listaVeiculos
+ * @param listaReservas * para o inicio da listaReservas
+ * 
+ * @return * para o inicio da listaReservas
+ */
+reserva* loadDadosReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas)
+{
+    FILE *ficheiro;
+
+     char linha[200]; //string para ler cada linha do ficheiro.
+    int opIdReserva = 0, opNif = 0, opCodigo = 0, opEstado = 0;
+    float opCustoPorMinuto = 0;
+
+    if ((ficheiro = fopen("listaReservas.txt", "r")) == NULL) //Abre o arquivo "listaReservas.txt" em modo de leitura "r"
+    {
+        printf("Erro ao abrir o arquivo listaReservas.txt\n");
+        return listaReservas;
+    }
+    
+    while (fgets(linha, 200, ficheiro) != NULL)
+    {
+        sscanf(linha, "Id da Reserva -> %d | Nif -> %d | Codigo Veiculo -> %d | Estado -> %d | Custo por (1m) %.2f\n", &opIdReserva, &opNif, &opCodigo, &opEstado, &opCustoPorMinuto);
+
+         listaReservas = inserirReserva(listaClientes, listaVeiculos, listaReservas, opIdReserva, opNif, opCodigo, opEstado);
+    }
+    fclose(ficheiro);//fecha o ficheiro
+    return listaReservas; //devolve o inicio da lista ligada
+}
 
 
 
-/// @brief Função Salvar Dados Reserva em ficheiro.txt
-/// @param listaReservas * para o inicio da lista ligada
+/**
+ * @brief Função Salvar Dados Reserva em ficheiro.txt
+ * 
+ * @param listaReservas * para o inicio da lista ligada
+ */
 void salvarDadosReserva(reserva *listaReservas)
 {
      FILE *ficheiro; //declara um * para um ficheiro
-     ficheiro = fopen("listaReservas.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de escrita "w"
+     ficheiro = fopen("listaReservas.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de rescrita "w"
      
      // Verifica se o arquivo foi aberto com sucesso
      if (ficheiro != NULL)
      {
-        for (reserva *atual = listaReservas; atual != NULL; atual = atual->next) //percorrer a listaClientes
+        for (reserva *atual = listaReservas; atual != NULL; atual = atual->next) //percorrer a listaReservas
         {
             fprintf(ficheiro, "Id da Reserva -> %d | Nif -> %d | Codigo Veiculo -> %d | Estado -> %d | Custo por (1m) %.2f\n", atual->idReserva, atual->cliente.nif, atual->veiculo.codigo, atual->estado, atual->custoPorMinuto); //escreve os dados de cada cliente no ficheiro
         }
@@ -614,22 +751,31 @@ void salvarDadosReserva(reserva *listaReservas)
 }
 
 
-/// @brief Função Mostrar Dados Reserva
-/// @param listaReserva * para o inicio da listaReserva
+
+/**
+ * @brief Função Mostrar Dados Reserva
+ * 
+ * @param listaReserva * para o inicio da listaReserva
+ */
 void showDadosReserva(reserva *listaReservas)
 {
     while (listaReservas != NULL)
     {
         printf("Id da Reserva -> %d | Nif -> %d | Codigo Veiculo -> %d | Estado -> %d | Custo por (1m) %.2f\n", listaReservas->idReserva, listaReservas->cliente.nif, listaReservas->veiculo.codigo, listaReservas->estado, listaReservas->custoPorMinuto);
-        listaReservas = listaReservas->next; //Avança para o próximo nó da lista.
+        listaReservas = listaReservas->next; //Avança para o próximo elemento da lista.
     }
     
 }
 
-/// @brief Função Existe Reserva
-/// @param listaReservas * para o inicio da listaReservas
-/// @param id da reserva a ser verificada
-/// @return 1 se existir ou 0 caso não exista
+
+/**
+ * @brief Função Verifica se Existe IdReserva
+ * 
+ * @param listaReservas * para o inicio da listaReservas
+ * @param id da reserva a ser verificada
+ * 
+ * @return 1 se existir ou 0 caso não exista
+ */
 int existeReserva(reserva *listaReservas, int idReserva)
 {
     while (listaReservas != NULL)
@@ -641,34 +787,80 @@ int existeReserva(reserva *listaReservas, int idReserva)
     return 0; // retorna 0 se a reserva não for encontrada
 }
 
-/// @brief Função Inserir Reserva
-/// @param listaClientes  * para o inicio da listaClientes
-/// @param listaVeiculos  * para o inicio da listaVeiculos
-/// @param listaReservas  * para o inicio da listaReservas
-/// @param idReserva da Reserva
-/// @param nif do Cliente
-/// @param codigo do veiculo
-/// @return novaReserva * para o inicio da listaReservas
+
+/**
+ * @brief Função Inserir Reserva na lista Ligada listaReservas
+ * 
+ * @param listaClientes  * para o inicio da listaClientes
+ * @param listaVeiculos  * para o inicio da listaVeiculos
+ * @param listaReservas  * para o inicio da listaReservas
+ * @param idReserva da Reserva
+ * @param nif do Cliente
+ * @param codigo do veiculo
+ * 
+ * @return novaReserva * para o inicio da listaReservas
+ */
 reserva *inserirReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo, int estado) 
 {
-        // encontra o veículo com o código especificado
-        veiculo *veiculoReserva = listaVeiculos;
-        while (veiculoReserva != NULL && veiculoReserva->codigo != codigo)
-        {
-            veiculoReserva = veiculoReserva->next; //Percorre a lista de veiculos
-        }
+    // encontra o veículo com o código especificado
+    veiculo *veiculoReserva = listaVeiculos;
+    while (veiculoReserva != NULL && veiculoReserva->codigo != codigo)
+    {
+        veiculoReserva = veiculoReserva->next; //Percorre a lista de veiculos
+    }
 
-        // aloca memoria para a nova reserva
-        reserva* novaReserva = (reserva*) malloc(sizeof(reserva));
-        novaReserva->idReserva = idReserva;
-        novaReserva->cliente.nif = nif;
-        novaReserva->veiculo.codigo = codigo;
-        novaReserva->custoPorMinuto = veiculoReserva->custo; // copia o custo do veículo
-        novaReserva->estado = 1; 
+    //aloca dinamicamente um novo bloco de memória do tamanho da struct cliente esse bloco memoria atribuido como novo
+    reserva* novaReserva = (reserva*) malloc(sizeof(reserva));
+    novaReserva->idReserva = idReserva;
+    novaReserva->cliente.nif = nif;
+    novaReserva->veiculo.codigo = codigo;
+    novaReserva->custoPorMinuto = veiculoReserva->custo; // copia o custo do veículo
+    novaReserva->estado = 1; 
 
-        // insere a nova reserva no inicio da lista de reservas
-        novaReserva->next = listaReservas;
-        return(novaReserva);   
+    // insere a nova reserva no inicio da lista de reservas
+    novaReserva->next = listaReservas;
+    return(novaReserva);  //return do * 
 }
 
 
+/**
+ * @brief Função remove uma reserva da lista ligada listaReservas.
+ * 
+ * @param listaReservas * para o inicio da listaReservas
+ * @param IdReserva da reserva a ser removida
+ * 
+ * @return * para o inicio da listaReservas
+ */
+reserva* removerReserva(reserva *listaReservas, int IdReserva)
+{
+    // verifica se a Reserva a ser removido existe na lista ligada listaReserva
+    if (existeReserva(listaReservas, IdReserva))
+    {
+        reserva *anterior = listaReservas, *atual = listaReservas, *aux; //*anterior para manter a referencia do * anterior que se pretende remover| atual percorre a lista | * aux mantem temporariamente a referencia ao nó seguinte e ao nó a ser removido 
+
+        if (atual == NULL) return (NULL); //verifica se a lista ligada listaReservas está vazia
+        else if (atual->idReserva == IdReserva) //remoção do 1º Registo
+        {
+         aux = atual->next;
+         free(atual); //Liberta a memoria que estava a ser ocupada
+         return(aux); //atualiza para o endereço seguinte   
+        }
+        else
+        {
+         while ((atual != NULL) && (atual->idReserva != IdReserva)) //percorre a listaReservas ate encontrar o idReservas a ser removido ou até chegar ao final da listaReservas
+           {
+             anterior = atual;
+             atual = atual->next;
+            }
+         if (atual == NULL) return(listaReservas); //percorre a lista ligada listaReservas caso não exista a reserva return inicio listaReservas
+         else
+           {
+             anterior->next = atual->next; //* atual encontra idReserva a ser removido | função atualiza os endereços dos * anterior e seguinte 
+             free(atual); //Liberta a memoria que estava a ser ocupada
+             return(listaReservas); //retorna o *lista ligada listaReservas para o seu inicio 
+            }   
+        }
+        
+    }
+    
+}
