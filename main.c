@@ -275,6 +275,55 @@ int main()
            listaReservas = removerReserva(listaReservas, opIdReserva);
            system("pause");
            break;
+
+         case 8:
+
+           system("cls");
+           do {
+               printf("Id da Reserva que deseja alterar -> "); 
+               scanf("%d", &opIdReserva);
+               getchar(); 
+               if (!existeReserva(listaReservas, opIdReserva)) // Verifica se o idReserva não existe
+               {
+                 printf("Nao existe uma Reserva com esse Id! Insira um id existente.\n");
+                 continue; // Reinicia o loop para pedir um novo Id da reserva
+               }
+               break; // Sai do loop quando o id for valido e existir na lista
+            } while (1);
+           do {
+               printf("Nif do novo cliente para a reserva (9 digitos) -> "); 
+               scanf("%d", &opNif);
+               getchar(); 
+               if (opNif < 100000000 || opNif > 999999999) // Verifica se o NIF tem 9 digitos
+               { 
+                 printf("NIF invalido! Insira um NIF valido com 9 digitos.\n");
+                 continue; // Reinicia o loop para pedir um novo NIF
+               } 
+               else if (!existeCliente(listaClientes, opNif)) // Verifica se o NIF não existe
+               {
+                 printf("Nao existe um cliente com esse NIF! Insira um NIF existente.\n");
+                 continue; // Reinicia o loop para pedir um novo NIF
+               }
+               break; // Sai do loop quando o NIF for valido e nao existir na lista
+            } while (1);
+           do {
+               printf("Codigo do novo Veiculo para a reserva-> "); 
+               scanf("%d", &opCodigo);
+               getchar(); 
+               if (!existeVeiculo(listaVeiculos, opCodigo)) // Verifica se o codigo não existe
+               {
+                 printf("Não existe um veiculo com esse codigo! Insira um codigo diferente.\n");
+                 continue; // Reinicia o loop para pedir um novo codigo
+               }
+               break; // Sai do loop quando o codigo for valido e nao existir na lista
+            } while (1); 
+
+            
+         listaReservas = alterarReserva(listaClientes, listaVeiculos, listaReservas, opIdReserva, opNif, opCodigo); 
+
+         system("pause");
+         break; 
+           
            
         }
       } while (opcaoC != 0);

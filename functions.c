@@ -864,3 +864,40 @@ reserva* removerReserva(reserva *listaReservas, int IdReserva)
     }
     
 }
+
+reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo)
+{
+    // verifica se a reserva a ser alterada existe na lista ligada listaReservas
+    if (existeReserva(listaReservas, idReserva))
+    {
+        reserva *atual = listaReservas;//cria-se *atual para percorrer lista
+        
+        // percorre a lista até encontrar a reserva a ser alterada
+        while ((atual != NULL) && (atual->idReserva != idReserva))
+        {
+            atual = atual->next;
+        }
+        
+        // encontra o veículo com o código especificado
+        veiculo *veiculoReserva = listaVeiculos;
+
+        // percorre a lista até encontrar o veiculo a ser alterado
+        while (veiculoReserva != NULL && veiculoReserva->codigo != codigo)
+        {
+         veiculoReserva = veiculoReserva->next; //Percorre a lista de veiculos
+        }
+        
+        //verificação caso seja diferente de NULL modifica
+        if (atual != NULL)
+        {
+            // atualiza os dados da reseerva
+            atual->cliente.nif = nif;
+            atual->veiculo.codigo = codigo;
+            atual->custoPorMinuto = veiculoReserva->custo;
+        }
+        return listaReservas; //* atualizado para o inicio da listaReservas
+        
+         
+    }else return (listaReservas);
+    
+}

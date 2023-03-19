@@ -186,6 +186,9 @@ int existeReserva(reserva *listaReservas, int idReserva);
 // Remover uma Reserva a partir do seu IdReserva.
 reserva* removerReserva(reserva *listaReservas, int IdReserva);
 
+//Alterar Dados de uma Reserva
+reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo);
+
 
 
 #endif
