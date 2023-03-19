@@ -865,6 +865,19 @@ reserva* removerReserva(reserva *listaReservas, int IdReserva)
     
 }
 
+
+/**
+ * @brief Função que Procura uma reserva com um determinado id e, caso a encontre, atualiza o cliente e a viatura da reserva
+ * 
+ * @param listaClientes * para a listaClientes
+ * @param listaVeiculos * para a listaVeiculos
+ * @param listaReservas * para a listaReservas
+ * @param idReserva da reserva a ser alterada
+ * @param nif cliente a ser alterado
+ * @param codigo do veiculo
+ * 
+ * @return * da listaReservas
+ */
 reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo)
 {
     // verifica se a reserva a ser alterada existe na lista ligada listaReservas
