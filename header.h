@@ -30,6 +30,7 @@ typedef struct cliente
     carteira carteira; //saldo do cliente
     char morada [100];
     char password[50];
+    char localizacao[TAM];
     struct cliente *next; //permite obter uma lista ligada atraves dos * que guardam o endereço de memória de outra variável. 
 
 }cliente;
@@ -53,7 +54,7 @@ typedef struct veiculo
     float bateria; // bateria (em %)
     float autonomia; // autonomia do veiculo
     float custo; // custo por minuto reservado
-    char geocodigo[20]; // localização do meio de mobilidade (utilizando o what3words.com)
+    char localizacao[TAM]; // localização do meio de mobilidade (utilizando o what3words.com)
     int reservado; // 1 - Reservado | 0 - Disponivel
     struct veiculo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 }veiculo;
@@ -72,20 +73,19 @@ typedef struct reserva
 // Associar uma lista ligada aos seus vertices adjacentes
 typedef struct caminho
 {
-    char vertice[TAM]; // geocódigo what3words
+    char localizacao[TAM]; // geocódigo what3words
     float peso; //distancia a percorrer de um ponto a outro ponto 
     struct caminho *next;
 } caminho;
 
-typedef struct local
+typedef struct grafo
 {
-    char vertice[TAM]; // geocódigo what3words
-    caminho caminhos;  //Dados dos caminhos
-    veiculo veiculos;  //Dados dos clientes
-    cliente clientes;  //Dados dos veiculos
-    struct local *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
-} * Grafo;
-
+    char localizao[TAM]; // geocódigo what3words
+    caminho *caminhos;  //Dados dos caminhos * da struct caminho
+    veiculo *veiculos;  //Dados dos clientes * da struct veiculo
+    cliente *clientes;  //Dados dos veiculos * da struct cliente
+    struct grafo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
+} grafo;
 
 
 
@@ -100,7 +100,7 @@ typedef struct local
  */
 
 // Inserção de um novo registo de cliente na `listaCliente´
-cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
+cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], char localCliente[],float saldo);
 
 //Faz o load dos dados do ficheiro listaClientes.txt para a ´listaCliente´.
 cliente* loadDadosCliente(cliente *listaClientes);
@@ -118,7 +118,43 @@ int existeCliente(cliente *listaClientes, int nif);
 cliente* removerCliente(cliente *listaClientes, int nif);
 
 // Alterar dados de um Cliente
-cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo);
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], char localCliente[],float saldo);
+
+
+/**
+ * @brief Funções para o gerenciamento de Veiculos
+ * 
+ * @return 
+ */
+
+// Inserção de um novo registo de veiculo na lista ligada `listaVeiculos´
+veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], char localVeiculo[],float bateria,  float autonomia,  float custo);
+
+//Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
+veiculo* loadDadosVeiculo(veiculo *listaVeiculos);
+
+//Salva os  Dados  da lista ligada `listaVeiculos´ em ficheiro.
+void salvarDadosVeiculo(veiculo *listaVeiculos);
+
+// Mostrar Dados  da lista ligada `listaVeiculos´ em consola.
+void showDadosVeiculo(veiculo *listaVeiculos);
+
+// Determinar existência do 'veiculo' na lista ligada 'listaVeiculos'
+int existeVeiculo(veiculo *listaVeiculos, int codigo);
+
+// Remover um Veiculo a partir do seu codigo
+veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
+
+// Alterar dados de um Veiculo
+veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
+
+//Organiza os dados da lista pela autonomia
+void organizarPorAutonomia(veiculo *listaVeiculos);
+
+// Mostrar Dados da lista ligada ´listaVeiculos´ ordem decrescente de autonomia.
+void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
+
+
 
 
 /**
@@ -148,41 +184,6 @@ gestor* removerGestor(gestor *listaGestores, int id);
 // Alterar dados de um Gestor
 gestor* alterarGestor(gestor *listaGestores, int id, char nome[]);
 
-
-
-
-/**
- * @brief Funções para o gerenciamento de Veiculos
- * 
- * @return 
- */
-
-// Inserção de um novo registo de veiculo na lista ligada `listaVeiculos´
-veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo);
-
-//Faz o load dos dados do ficheiro listaVeiculos.txt para a lista ligada.
-veiculo* loadDadosVeiculo(veiculo *listaVeiculos);
-
-//Salva os  Dados  da lista ligada `listaVeiculos´ em ficheiro.
-void salvarDadosVeiculo(veiculo *listaVeiculos);
-
-// Mostrar Dados  da lista ligada `listaVeiculos´ em consola.
-void showDadosVeiculo(veiculo *listaVeiculos);
-
-// Determinar existência do 'veiculo' na lista ligada 'listaVeiculos'
-int existeVeiculo(veiculo *listaVeiculos, int codigo);
-
-// Remover um Veiculo a partir do seu codigo
-veiculo* removerVeiculo(veiculo *listaVeiculos, int codigo);
-
-// Alterar dados de um Veiculo
-veiculo* alterarVeiculo(veiculo *listaVeiculos, int codigo, float bateria,  float autonomia,  float custo);
-
-//Organiza os dados da lista pela autonomia
-void organizarPorAutonomia(veiculo *listaVeiculos);
-
-// Mostrar Dados da lista ligada ´listaVeiculos´ ordem decrescente de autonomia.
-void showDadosIteractiveVeiculos(veiculo *listaVeiculos);
 
 
 
@@ -220,8 +221,16 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
  * @return 
  */
 
-// Devolve 1 em caso de sucesso ou 0 caso contrário
-Grafo* criarVertice(Grafo *listaLocais, char novoId[]);
+//Inserção de um novo local do Grafo na lista ligada ´listaLocais´
+grafo* inserirLocalizacao(grafo *listaLocais, char novoLocal[]);
+
+// Determinar existência da 'localizacao' na lista ligada 'listaLocais'
+int existeLocalizacao(grafo *listaLocais, char localizacao[]);
+
+// Mostrar Dados  da lista ligada `listaLocais´ em consola.
+void showDadosLocalizacao(grafo *listaLocais);
+
+
 
 
 #endif

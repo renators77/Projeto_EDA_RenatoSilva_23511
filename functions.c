@@ -28,7 +28,7 @@ cliente* loadDadosCliente(cliente *listaClientes)
 
     char linha[200]; //string para ler cada linha do ficheiro.
     int opNif; 
-    char opNome[50], opMorada[100];
+    char opNome[50], opMorada[100], opLocalC[50];
     float opSaldo;
     
     if ((ficheiro = fopen("listaClientes.txt", "r")) == NULL) // abre o arquivo "listaClientes.txt" em modo de leitura "r"
@@ -39,9 +39,9 @@ cliente* loadDadosCliente(cliente *listaClientes)
 
     while (fgets(linha, 200, ficheiro) != NULL) 
     {
-        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
+        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|] | Localizacao -> %[^|] | Saldo -> %f\n", &opNif, opNome, opMorada, opLocalC, &opSaldo);
 
-        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
+        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opLocalC, opSaldo);
     }
     fclose(ficheiro);//fecha o ficheiro
     return listaClientes; //devolve o inicio da lista ligada
@@ -63,7 +63,7 @@ void salvarDadosCliente(cliente *listaClientes)
      {
         for (cliente *atual = listaClientes; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s | Saldo -> %.2f\n", atual->nif, atual->nome, atual->morada, atual->carteira.saldo); //escreve os dados de cada cliente no ficheiro
+            fprintf(ficheiro, "Nif -> %d | Nome -> %s | Morada -> %s | Localizacao -> %s | Saldo -> %.2f \n", atual->nif, atual->nome, atual->morada, atual->localizacao, atual->carteira.saldo); //escreve os dados de cada cliente no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -79,7 +79,7 @@ void showDadosCliente(cliente *listaClientes)
 {
     while (listaClientes != NULL)
     {
-        printf("nif -> %d | nome -> %s | Morada -> %s | Saldo -> %.2f\n", listaClientes->nif, listaClientes->nome, listaClientes->morada, listaClientes->carteira.saldo);
+        printf("nif -> %d | nome -> %s | Morada -> %s | Localizacao -> %s | Saldo -> %.2f \n", listaClientes->nif, listaClientes->nome, listaClientes->morada, listaClientes->localizacao ,listaClientes->carteira.saldo);
         listaClientes = listaClientes->next; // Avança para o próximo nó da lista
     }   
 }
@@ -112,10 +112,11 @@ int existeCliente(cliente *listaClientes, int nif)
  * @param nif do cliente a ser inserido
  * @param nome do cliente a ser inserido
  * @param morada do cliente a ser inserido
- * 
+ * @param localCliente do cliente a ser inserido
+ * @param saldo do cliente a ser inserido
  * @return novo que aponta para o inicio da listaClientes
  */
-cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
+cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morada[], char localCliente[], float saldo)
 {
     //verifica se já existe um cliente com o mesmo nif
  if (!existeCliente(listaClientes, nif))
@@ -127,6 +128,7 @@ cliente* inserirCliente(cliente *listaClientes, int nif, char nome[], char morad
         strcpy(novo->nome,nome);
         strcpy(novo->morada,morada);
         novo->carteira.saldo = saldo;
+        strcpy(novo->localizacao,localCliente);
         novo->next=listaClientes;//faz com que o novo cliente aponte para o antigo início da lista, fica o novo início da lista.
         return(novo); //return do *
     }
@@ -183,11 +185,12 @@ cliente *removerCliente(cliente *listaClientes, int nif)
  * @param nif do cliente a ser removido
  * @param nome nome a ser alterado
  * @param morada morada a ser alterada
+ * @param localCliente localizacao a ser alterada
  * @param saldo saldo a ser alterado
  * 
  * @return * atualizado para o inicio da listaClientes 
  */
-cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], float saldo)
+cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morada[], char localCliente[],float saldo)
 {
     // verifica se o cliente a ser alterado existe na lista ligada listaClientes
     if (existeCliente(listaClientes, nif))
@@ -205,6 +208,7 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
             // atualiza os dados do cliente
             strcpy(atual->nome, nome);
             strcpy(atual->morada, morada);
+            strcpy(atual->localizacao, localCliente);
             atual->carteira.saldo = saldo;
         }
         return listaClientes; //* atualizado para o inicio da listaClientes 
@@ -232,7 +236,7 @@ veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 
     char linha[200]; //string para ler cada linha do ficheiro.
     int opCodigo; 
-    char opTipo[50];
+    char opTipo[50], opLocalV[50];
     float opBateria, opAutonomia, opCusto;
     
     if ((ficheiro = fopen("listaVeiculos.txt", "r")) == NULL) // abre o arquivo "listaVeiculo.txt" em modo de leitura "r"
@@ -243,9 +247,9 @@ veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 
     while (fgets(linha, 200, ficheiro) != NULL) 
     {
-     sscanf(linha, "Codigo -> %d | Tipo -> %[^|]| Bateria -> %f | Autonomia -> %f | Custo -> %f\n", &opCodigo, opTipo, &opBateria, &opAutonomia, &opCusto);
+     sscanf(linha, "Codigo -> %d | Tipo -> %[^|] | Localizacao -> %[^|] | Bateria -> %f | Autonomia -> %f | Custo -> %f\n", &opCodigo, opTipo, opLocalV, &opBateria, &opAutonomia, &opCusto);
 
-     listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opBateria, opAutonomia, opCusto);
+     listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opLocalV, opBateria, opAutonomia, opCusto);
     }
     fclose(ficheiro);//fecha o ficheiro
     return listaVeiculos; //devolve o inicio da lista ligada
@@ -267,7 +271,7 @@ void salvarDadosVeiculo(veiculo *listaVeiculos)
      {
         for (veiculo *atual = listaVeiculos; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada veiculo no ficheiro
+            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Localizacao -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->localizacao ,atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada veiculo no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -284,7 +288,7 @@ void showDadosVeiculo(veiculo *listaVeiculos)
 {
     while (listaVeiculos != NULL)
     {
-        printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
+        printf("Codigo -> %d | Tipo -> %s | Localizacao -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->localizacao ,listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
         listaVeiculos = listaVeiculos->next; //Avança para o próximo nó da lista.
     }
     
@@ -321,13 +325,14 @@ int existeVeiculo(veiculo *listaVeiculos, int codigo)
  * @param listaVeiculos * para o inicio da listaVeiculos
  * @param codigo identificação do veiculo
  * @param tipo do veiculo associado
+ * @param localVeiculo do veiculo a ser inserido
  * @param bateria do veiculo associado
  * @param autonomia do veiculo associado
  * @param custo do veiculo associado
  * 
  * @return novo que aponta para o inicio da listaVeiculos
  */
-veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float bateria,  float autonomia,  float custo)
+veiculo* inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], char localVeiculo[],float bateria,  float autonomia,  float custo)
 {
     //Verifica se já existe um Veiculo com o mesmo Codigo
     if (!existeVeiculo(listaVeiculos, codigo))
@@ -338,6 +343,7 @@ veiculo *inserirVeiculo(veiculo *listaVeiculos, int codigo, char tipo[], float b
         {
             novo->codigo = codigo;
             strcpy(novo->tipo,tipo);
+            strcpy(novo->localizacao,localVeiculo);
             novo->bateria = bateria;
             novo->autonomia = autonomia;
             novo->custo = custo;
@@ -471,6 +477,12 @@ void organizarPorAutonomia(veiculo *listaVeiculos)
                 strcpy(auxTipo, inicio->tipo);
                 strcpy(inicio->tipo, seguinte->tipo);
                 strcpy(seguinte->tipo, auxTipo);
+
+                // troca os valores de localizacao entre os dois nódulos da lista
+                char auxTipo2[50];
+                strcpy(auxTipo2, inicio->localizacao);
+                strcpy(inicio->tipo, seguinte->localizacao);
+                strcpy(seguinte->tipo, auxTipo2);
             }
         }
     }
@@ -487,7 +499,7 @@ void showDadosIteractiveVeiculos(veiculo *listaVeiculos)
 
     while (listaVeiculos != NULL)
     {
-        printf("Codigo -> %d | Tipo -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
+        printf("Codigo -> %d | Tipo -> %s | Localizacao -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", listaVeiculos->codigo, listaVeiculos->tipo, listaVeiculos->localizacao, listaVeiculos->bateria, listaVeiculos->autonomia, listaVeiculos->custo);
         listaVeiculos = listaVeiculos->next; //Avança para o próximo elemento da lista.
     }   
 }
@@ -918,4 +930,62 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 //--------------------------------------------------------------FUNÇÕES PARA AS RESERVAS-----------------------------------------------------------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------FUNÇÕES PARA O GRAFO-----------------------------------------------------------------------------------------------------------------------------------//
+
+/**
+ * A função verifica se um determinado local existe em uma lista vinculada de locais.
+ * 
+ * @param listaLocais * para o inicio da listaLocalizacao
+ * @param localizacao da localizacao a ser verificada
+ * 
+ * @return 1 se existir ou 0 caso não exista
+ */
+int existeLocalizacao(grafo *listaLocais, char localizacao[])
+{
+    //percorre todos os elementos da lista ate o * apontar para NULL
+    while (listaLocais != NULL)
+    {
+        //Compara o valor do campo codigo da lista ligada com o parametro do codigo atribuido.
+        if(listaLocais->localizao == localizacao) return (1); //se forem iguais afirma que veiculo foi encontrado
+        listaLocais = listaLocais->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+    }
+    return (0); //retorna 0, indicando que o veiculo não existe na lista.
+}
+
+
+/**
+ * Esta função insere um novo local na struct do grafo, caso ainda não exista.
+ * 
+ * @param listaLocais * para o inicio da listaLocais
+ * @param novoLocal a string que representa o nome do novo local a ser inserido no grafo.
+ * 
+ * @return novo * para o início da lista do (grafo) atualizado, com uma nova localização
+ */
+grafo* inserirLocalizacao(grafo *listaLocais, char novoLocal[])
+{
+    //verifica se já existe um local com o mesmo local
+ if (!existeLocalizacao(listaLocais, novoLocal))
+ {
+    grafo *novo = malloc(sizeof(struct grafo));//aloca dinamicamente um novo bloco de memória do tamanho da struct grafo esse bloco memoria atribuido como novo
+    if (novo != NULL)//verifica
+    {
+        strcpy(novo->localizao,novoLocal);
+        novo->veiculos = NULL;
+        novo->clientes = NULL;
+        novo->next = NULL; //faz com que o novo local aponte para o antigo início da lista, fica o novo início da lista.
+        return(novo);//return do *
+
+    }
+ }else return(listaLocais); //função retorna o * para o início da listaLocais caso o local ja exista.
+ 
+}
+
+void showDadosLocalizacao(grafo *listaLocais)
+{
+    while (listaLocais != NULL)
+    {
+        printf("Localizacao -> %s\n", listaLocais->localizao);
+        listaLocais = listaLocais->next; // Avança para o próximo nó da lista
+    }
+    
+}
 

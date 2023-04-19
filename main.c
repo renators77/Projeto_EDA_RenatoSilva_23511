@@ -90,7 +90,7 @@ int main()
 
   //Clientes
    int opNif = 0;
-  char opNome[50], opMorada[100];
+  char opNome[50], opMorada[100], opLocalC[50];
   float opSaldo;
 
   //Gestores
@@ -100,12 +100,15 @@ int main()
 
   //Veiculos
   int opCodigo = 0;
-  char opTipo[50];
+  char opTipo[50], opLocalV[50];
   float opBateria, opAutonomia, opCusto;
 
   //Reservas
   int opIdReserva = 0;
   int opEstado = 0;
+
+  //Locais
+  char opLocal[50];
 
   
   //Lista ligada vazia clientes
@@ -121,7 +124,7 @@ int main()
   reserva *listaReservas = NULL;
 
   //Lista ligada vazia Grafo
-  Grafo listaLocais = NULL;
+  grafo *listaLocais = NULL;
 
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
@@ -186,14 +189,30 @@ int main()
                break;
            } while (1);
            do {
+               printf("Localizacao do novo Cliente -> ");
+               scanf(" %[^\n]s", opLocalC);
+               getchar(); 
+               // Verifica se a entrada tem o formato correto
+               char palavra1[50], palavra2[50], palavra3[50];
+               if (sscanf(opLocalC, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+               {
+                  printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                  continue; // Reinicia o loop para pedir uma nova localização
+               }
+               // A localização tem o formato correto, podemos sair do loop
+               break;
+           }  while (1);
+           do {
                printf("Saldo da carteira do novo cliente -> ");
                scanf("%f", &opSaldo);
                getchar(); 
                break;
            } while (1);
+
+
         
             
-           listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
+           listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opLocalC, opSaldo);
 
            system("pause");
            break;
@@ -482,13 +501,27 @@ int main()
                break;
            }  while (1);
            do {
+               printf("Nova Localizacao do Cliente -> ");
+               scanf(" %[^\n]s", opLocalC);
+               getchar(); 
+               // Verifica se a entrada tem o formato correto
+               char palavra1[50], palavra2[50], palavra3[50];
+               if (sscanf(opLocalC, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+               {
+                  printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                  continue; // Reinicia o loop para pedir uma nova localização
+               }
+               // A localização tem o formato correto, podemos sair do loop
+               break;
+           }  while (1);
+           do {
                printf("Saldo da carteira do novo cliente -> ");
                scanf("%f", &opSaldo);
                getchar(); 
                break;
            }  while (1);
             
-         listaClientes = alterarCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
+         listaClientes = alterarCliente(listaClientes, opNif, opNome, opMorada, opLocalC, opSaldo);
 
          system("pause");
          break;
@@ -525,6 +558,20 @@ int main()
                break;
            }  while (1);
            do {
+               printf("Localizacao do novo Veiculo -> ");
+               scanf(" %[^\n]s", opLocalV);
+               getchar(); 
+               // Verifica se a entrada tem o formato correto
+               char palavra1[50], palavra2[50], palavra3[50];
+               if (sscanf(opLocalV, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+               {
+                  printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                  continue; // Reinicia o loop para pedir uma nova localização
+               }
+               // A localização tem o formato correto, podemos sair do loop
+               break;
+           }  while (1);
+           do {
                printf("Bateria do novo veiculo (0-100) -> ");
                if (scanf("%f", &opBateria) != 1 || opBateria < 0 || opBateria > 100) 
                {
@@ -547,7 +594,7 @@ int main()
                break;
            } while (1);
             
-         listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opBateria, opAutonomia, opCusto);
+         listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opLocalV, opBateria, opAutonomia, opCusto);
 
          system("pause");
          break; 
@@ -618,6 +665,34 @@ int main()
             showDadosIteractiveVeiculos(listaVeiculos);
             system("pause");
             break;
+
+         case 15:
+            system("cls");
+            do {
+                 printf("Nova Localizacao -> ");
+                 scanf(" %[^\n]s", opLocal);
+                 getchar(); 
+                 // Verifica se o tipo de veiculo e valido
+                 if (strcmp(opLocal, "thesaurus.sharers.blizzards") != 0 && strcmp(opLocal, "dimly.nuttier.pitch") != 0 && strcmp(opLocal, "babbled.trifling.consoled") != 0)
+                 {
+                   printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards ).\n");
+                   continue; // Reinicia o loop para pedir um novo tipo de veiculo
+                 }
+                 break;
+            }   while (1);
+            
+            listaLocais = inserirLocalizacao(listaLocais, opLocal);
+
+            system("pause");
+            break; 
+
+         case 16:
+            system("cls");
+            showDadosLocalizacao(listaLocais);
+            system("pause");
+            break;
+            
+            
 
         }
        } while (opcaoG != 0);

@@ -1,3 +1,0 @@
-Id da Reserva -> 3 | Nif -> 123456777 | Codigo Veiculo -> 3 | Estado -> 1 | Custo por (1m) 0.10
-Id da Reserva -> 2 | Nif -> 123456788 | Codigo Veiculo -> 2 | Estado -> 1 | Custo por (1m) 0.20
-Id da Reserva -> 1 | Nif -> 123456789 | Codigo Veiculo -> 1 | Estado -> 1 | Custo por (1m) 0.30

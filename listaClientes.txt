@@ -1,4 +1,2 @@
-Nif -> 123456666 | Nome -> Daniel Pereira | Morada -> Rua da Nossa Senhora | Saldo -> 10.22
-Nif -> 123456777 | Nome -> Joao Penedos | Morada -> Rua da Eduarda | Saldo -> 50.22
-Nif -> 123456788 | Nome -> Mario Pinto | Morada -> Rua Do Amparo | Saldo -> 100.22
-Nif -> 123456789 | Nome -> Renato Silva | Morada -> Rua Manuel Lopes | Saldo -> 200.22
+Nif -> 123456789 | Nome -> Renato Silva | Morada -> Rua Manuel Lopes | Localizacao -> teste.teste.teste | Saldo -> 120.22 
+Nif -> 123456788 | Nome -> Mario Pinto | Morada -> Rua da Maria | Localizacao -> Polo.Da.EST | Saldo -> 100.90 
