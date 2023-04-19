@@ -13,6 +13,7 @@
 //permite que o código gerado entre o parametro #ifndef e #endif seja excluido durante o processo de compilação sendo compilado apenas 1 vez
 #ifndef _HEADER
 #define _HEADER
+#define TAM 50
 #include <stdio.h>
 
 typedef struct carteira
@@ -66,6 +67,29 @@ typedef struct reserva
     int estado; //1 - Em Andamento | 0 - Acabada
     struct reserva *next;
 } reserva;
+
+// Representação de um grafo orientado e pesado
+// Associar uma lista ligada aos seus vertices adjacentes
+typedef struct caminho
+{
+    char vertice[TAM]; // geocódigo what3words
+    float peso; //distancia a percorrer de um ponto a outro ponto 
+    struct caminho *next;
+} caminho;
+
+typedef struct local
+{
+    char vertice[TAM]; // geocódigo what3words
+    caminho caminhos;  //Dados dos caminhos
+    veiculo veiculos;  //Dados dos clientes
+    cliente clientes;  //Dados dos veiculos
+    struct local *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
+} * Grafo;
+
+
+
+
+
 
 
 
@@ -189,6 +213,15 @@ reserva* removerReserva(reserva *listaReservas, int IdReserva);
 //Alterar Dados de uma Reserva
 reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva* listaReservas, int idReserva, int nif, int codigo);
 
+
+/**
+ * @brief Funções para o gerenciamento do Grafo
+ * 
+ * @return 
+ */
+
+// Devolve 1 em caso de sucesso ou 0 caso contrário
+Grafo* criarVertice(Grafo *listaLocais, char novoId[]);
 
 
 #endif

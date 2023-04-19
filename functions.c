@@ -37,12 +37,12 @@ cliente* loadDadosCliente(cliente *listaClientes)
         return listaClientes;
     }
 
- while (fgets(linha, 200, ficheiro) != NULL) 
- {
-    sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
+    while (fgets(linha, 200, ficheiro) != NULL) 
+    {
+        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|]| Saldo -> %f\n", &opNif, opNome, opMorada, &opSaldo);
 
-    listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
- }
+        listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opSaldo);
+    }
     fclose(ficheiro);//fecha o ficheiro
     return listaClientes; //devolve o inicio da lista ligada
 }
@@ -815,7 +815,7 @@ reserva *inserirReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
     novaReserva->cliente.nif = nif;
     novaReserva->veiculo.codigo = codigo;
     novaReserva->custoPorMinuto = veiculoReserva->custo; // copia o custo do veículo
-    novaReserva->estado = 1; 
+    novaReserva->estado = 1;
 
     // insere a nova reserva no inicio da lista de reservas
     novaReserva->next = listaReservas;
@@ -914,3 +914,8 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
     }else return (listaReservas);
     
 }
+
+//--------------------------------------------------------------FUNÇÕES PARA AS RESERVAS-----------------------------------------------------------------------------------------------------------------------------------//
+
+//--------------------------------------------------------------FUNÇÕES PARA O GRAFO-----------------------------------------------------------------------------------------------------------------------------------//
+

@@ -120,6 +120,9 @@ int main()
   //Lista ligada vazia Reservas
   reserva *listaReservas = NULL;
 
+  //Lista ligada vazia Grafo
+  Grafo listaLocais = NULL;
+
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
 
