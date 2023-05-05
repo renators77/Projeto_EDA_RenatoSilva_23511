@@ -939,13 +939,13 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
  * 
  * @return 1 se existir ou 0 caso não exista
  */
-int existeLocalizacao(grafo *listaLocais, char localizacao[])
+int existeLocalizacao(local *listaLocais, char localizacao[])
 {
     //percorre todos os elementos da lista ate o * apontar para NULL
     while (listaLocais != NULL)
     {
         //Compara o valor do campo codigo da lista ligada com o parametro do codigo atribuido.
-        if(listaLocais->localizao == localizacao) return (1); //se forem iguais afirma que veiculo foi encontrado
+        if(listaLocais->localizacao == localizacao) return (1); //se forem iguais afirma que veiculo foi encontrado
         listaLocais = listaLocais->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
     }
     return (0); //retorna 0, indicando que o veiculo não existe na lista.
@@ -960,32 +960,44 @@ int existeLocalizacao(grafo *listaLocais, char localizacao[])
  * 
  * @return novo * para o início da lista do (grafo) atualizado, com uma nova localização
  */
-grafo* inserirLocalizacao(grafo *listaLocais, char novoLocal[])
+local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[])
 {
-    //verifica se já existe um local com o mesmo local
- if (!existeLocalizacao(listaLocais, novoLocal))
- {
-    grafo *novo = malloc(sizeof(struct grafo));//aloca dinamicamente um novo bloco de memória do tamanho da struct grafo esse bloco memoria atribuido como novo
-    if (novo != NULL)//verifica
+    // Encontra o veículo com o local especificado
+    veiculo *veiculoLocal = listaVeiculos;
+    while (veiculoLocal != NULL && !strcmp(veiculoLocal->localizacao, novoLocal))
     {
-        strcpy(novo->localizao,novoLocal);
-        novo->veiculos = NULL;
-        novo->clientes = NULL;
-        novo->next = NULL; //faz com que o novo local aponte para o antigo início da lista, fica o novo início da lista.
-        return(novo);//return do *
-
+        veiculoLocal = veiculoLocal->next; //Percorre a lista de veiculos
     }
- }else return(listaLocais); //função retorna o * para o início da listaLocais caso o local ja exista.
- 
+
+    // Encontra o cliente com o local especificado
+    cliente *clienteLocal = listaClientes;
+    while (clienteLocal != NULL && !strcmp(clienteLocal->localizacao, novoLocal))
+    {
+        clienteLocal = clienteLocal->next; //Percorre a lista de clientes
+    }
+
+    //Aloca dinamicamente um novo bloco de memória do tamanho da struct local esse bloco memoria atribuido como novo
+    local* novo = malloc(sizeof(struct local));
+    strcpy(novo->localizacao, novoLocal);
+    novo->codigoVeiculo = veiculoLocal->codigo;
+    novo->nifCliente = clienteLocal->nif;
+
+    // Insere o novo local no inicio da lista de locais
+    novo->next = listaLocais;
+    listaLocais = novo;
+
+   
+    return novo;  //return do * 
 }
 
-void showDadosLocalizacao(grafo *listaLocais)
-{
+void showDadosLocalizacao(local *listaLocais)
+{   
     while (listaLocais != NULL)
     {
-        printf("Localizacao -> %s\n", listaLocais->localizao);
+        printf("Localizacao -> %s | CodigoVeiculo -> %d | Nif -> %d\n", listaLocais->localizacao, listaLocais->codigoVeiculo, listaLocais->nifCliente);
         listaLocais = listaLocais->next; // Avança para o próximo nó da lista
     }
     
 }
+
 

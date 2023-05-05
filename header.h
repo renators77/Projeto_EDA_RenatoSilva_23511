@@ -71,21 +71,21 @@ typedef struct reserva
 
 // Representação de um grafo orientado e pesado
 // Associar uma lista ligada aos seus vertices adjacentes
-typedef struct caminho
+typedef struct  localAdjacente
 {
     char localizacao[TAM]; // geocódigo what3words
     float peso; //distancia a percorrer de um ponto a outro ponto 
-    struct caminho *next;
-} caminho;
+    struct localAdjacente *next;
+} localAdjacente;
 
-typedef struct grafo
+typedef struct local
 {
-    char localizao[TAM]; // geocódigo what3words
-    caminho *caminhos;  //Dados dos caminhos * da struct caminho
-    veiculo *veiculos;  //Dados dos clientes * da struct veiculo
-    cliente *clientes;  //Dados dos veiculos * da struct cliente
-    struct grafo *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
-} grafo;
+    char localizacao[TAM]; // geocódigo what3words
+    localAdjacente *localAdjacentes;  //Dados dos caminhos * da struct caminho
+    int codigoVeiculo; //para copiar o codigo do veiculo da struct veiculo
+    int nifCliente; //para copiar o nif do cliente da struct cliente
+    struct local *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
+} local;
 
 
 
@@ -222,13 +222,13 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
  */
 
 //Inserção de um novo local do Grafo na lista ligada ´listaLocais´
-grafo* inserirLocalizacao(grafo *listaLocais, char novoLocal[]);
+local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[]);
 
 // Determinar existência da 'localizacao' na lista ligada 'listaLocais'
-int existeLocalizacao(grafo *listaLocais, char localizacao[]);
+int existeLocalizacao(local *listaLocais, char localizacao[]);
 
 // Mostrar Dados  da lista ligada `listaLocais´ em consola.
-void showDadosLocalizacao(grafo *listaLocais);
+void showDadosLocalizacao(local *listaLocais);
 
 
 

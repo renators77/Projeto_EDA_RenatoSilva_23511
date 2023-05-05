@@ -124,7 +124,7 @@ int main()
   reserva *listaReservas = NULL;
 
   //Lista ligada vazia Grafo
-  grafo *listaLocais = NULL;
+  local *listaLocais = NULL;
 
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
@@ -668,23 +668,26 @@ int main()
 
          case 15:
             system("cls");
-            do {
-                 printf("Nova Localizacao -> ");
-                 scanf(" %[^\n]s", opLocal);
-                 getchar(); 
-                 // Verifica se o tipo de veiculo e valido
-                 if (strcmp(opLocal, "thesaurus.sharers.blizzards") != 0 && strcmp(opLocal, "dimly.nuttier.pitch") != 0 && strcmp(opLocal, "babbled.trifling.consoled") != 0)
-                 {
-                   printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards ).\n");
-                   continue; // Reinicia o loop para pedir um novo tipo de veiculo
-                 }
-                 break;
-            }   while (1);
-            
-            listaLocais = inserirLocalizacao(listaLocais, opLocal);
+           do {
+               printf("Nova Localizacao -> ");
+               scanf(" %[^\n]s", opLocal);
+               getchar(); 
+               // Verifica se a entrada tem o formato correto
+               char palavra1[50], palavra2[50], palavra3[50];
+               if (sscanf(opLocal, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+               {
+                  printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                  continue; // Reinicia o loop para pedir uma nova localização
+               }
+               // A localização tem o formato correto, podemos sair do loop
+               break;
+           }  while (1);
+           
+            listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
 
             system("pause");
             break; 
+
 
          case 16:
             system("cls");
