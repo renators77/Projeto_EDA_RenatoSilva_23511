@@ -69,12 +69,25 @@ typedef struct reserva
     struct reserva *next;
 } reserva;
 
+typedef struct nifClientes {
+    int nif;
+    struct nifClientes *next;
+} nifClientes;
+
+typedef struct codigoVeiculos {
+    int codigo;
+    struct codigoVeiculos *next;
+} codigoVeiculos;
+
+
 // Representação de um grafo orientado e pesado
 // Associar uma lista ligada aos seus vertices adjacentes
 typedef struct  localAdjacente
 {
     char localizacao[TAM]; // geocódigo what3words
     float peso; //distancia a percorrer de um ponto a outro ponto 
+    nifClientes *nifCliente;
+    codigoVeiculos *codigoVeiculo;
     struct localAdjacente *next;
 } localAdjacente;
 

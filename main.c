@@ -126,6 +126,12 @@ int main()
   //Lista ligada vazia Grafo
   local *listaLocais = NULL;
 
+ //Lista ligada vazia armazena nif Clientes
+  nifClientes *listaNifClientes = NULL;
+
+ //Lista ligada vazia armazena codigo Veiculos
+codigoVeiculos *listaCodigoVeiculos = NULL;
+
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
 
