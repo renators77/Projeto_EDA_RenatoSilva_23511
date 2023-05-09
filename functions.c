@@ -964,30 +964,25 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local 
 {
     // Encontra o veículo com o local especificado
     veiculo *veiculoLocal = listaVeiculos;
-    while (veiculoLocal != NULL && !strcmp(veiculoLocal->localizacao, novoLocal))
-    {
-        veiculoLocal = veiculoLocal->next; //Percorre a lista de veiculos
-    }
-
-    // Encontra o cliente com o local especificado
     cliente *clienteLocal = listaClientes;
-    while (clienteLocal != NULL && !strcmp(clienteLocal->localizacao, novoLocal))
+    while (veiculoLocal != NULL  && !strcmp(veiculoLocal->localizacao, novoLocal) && clienteLocal != NULL && !strcmp(clienteLocal->localizacao, novoLocal))
     {
+        
+        veiculoLocal = veiculoLocal->next; //Percorre a lista de veiculos
         clienteLocal = clienteLocal->next; //Percorre a lista de clientes
-    }
+    }  
+        //Aloca dinamicamente um novo bloco de memória do tamanho da struct local esse bloco memoria atribuido como novo
+        local* novo = malloc(sizeof(struct local));
+        strcpy(novo->localizacao, novoLocal);
+        novo->codigoVeiculo = veiculoLocal->codigo;
+        novo->nifCliente = clienteLocal->nif;
 
-    //Aloca dinamicamente um novo bloco de memória do tamanho da struct local esse bloco memoria atribuido como novo
-    local* novo = malloc(sizeof(struct local));
-    strcpy(novo->localizacao, novoLocal);
-    novo->codigoVeiculo = veiculoLocal->codigo;
-    novo->nifCliente = clienteLocal->nif;
-
-    // Insere o novo local no inicio da lista de locais
-    novo->next = listaLocais;
-    listaLocais = novo;
-
-   
-    return novo;  //return do * 
+        // Insere o novo local no inicio da lista de locais
+        novo->next = listaLocais;
+        listaLocais = novo;
+         
+        
+        return novo;  //return do *
 }
 
 void showDadosLocalizacao(local *listaLocais)
