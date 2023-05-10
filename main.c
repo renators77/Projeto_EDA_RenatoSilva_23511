@@ -685,6 +685,11 @@ codigoVeiculos *listaCodigoVeiculos = NULL;
                   printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
                   continue; // Reinicia o loop para pedir uma nova localização
                }
+               else if (existeLocalizacao(listaLocais, opLocal)) // Verifica se o id da reserva ja existe
+               {
+                  printf("Ja existe uma localizacao! Insira uma diferente.\n");
+                  continue; // Reinicia o loop para pedir uma nova localizacao
+               }
                // A localização tem o formato correto, podemos sair do loop
                break;
            }  while (1);
@@ -700,9 +705,13 @@ codigoVeiculos *listaCodigoVeiculos = NULL;
             showDadosLocalizacao(listaLocais);
             system("pause");
             break;
-            
-            
 
+         case 17: 
+         system("cls");
+         salvarDadosLocalizacao(listaLocais);
+         system("pause");
+         break;
+            
         }
        } while (opcaoG != 0);
        system("cls");

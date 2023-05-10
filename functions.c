@@ -57,9 +57,9 @@ cliente* loadDadosCliente(cliente *listaClientes)
 void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
-     ficheiro = fopen("listaClientes.txt", "a"); // abre o arquivo "listaClientes.txt" em modo de escrita "a"
+     ficheiro = fopen("listaClientes.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de reecrista "w"
      
-     // Verifica se o arquivo foi aberto com sucesso
+     // Verifica se o ficheiro foi aberto com sucesso
      if (ficheiro != NULL)
      {
         for (cliente *atual = listaClientes; atual != NULL; atual = atual->next) //percorrer a listaClientes
@@ -222,22 +222,6 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
 
 
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
-
-
-    //Caso Seja necessario uso isto.
-
-    // void trim(char *s) 
-    // {
-    //  char *ptr = s;
-    //  int len = strlen(ptr);
-
-    //  while (isspace(ptr[len - 1])) ptr[--len] = 0;
-    //  while (*ptr && isspace(*ptr)) ++ptr, --len;
-
-    //  memmove(s, ptr, len + 1);
-    // }
-
-    // trim(opLocalV); // remove leading and trailing spaces from opLocalV
 
 
 /**
@@ -947,6 +931,48 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 //--------------------------------------------------------------FUNÇÕES PARA AS RESERVAS-----------------------------------------------------------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------FUNÇÕES PARA O GRAFO-----------------------------------------------------------------------------------------------------------------------------------//
+
+void salvarDadosLocalizacao(local* listaLocais)
+{
+    
+    FILE *ficheiro;  //declara um * para um ficheiro
+    ficheiro = fopen("listaLocais.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de reescrita "w"
+
+    // Verifica se o ficheiro foi aberto corretamente
+    if (ficheiro != NULL) 
+    {
+
+        // Percorre a lista de locais e escreve cada localização no arquivo
+        for (local *localAtual = listaLocais; localAtual != NULL; localAtual = localAtual->next) //percorrer a listaLocais
+        {
+        {
+            fprintf(ficheiro, "Localizacao-> %s ", localAtual->localizacao);
+
+            // Escreve os códigos dos veículos 
+            fprintf(ficheiro, "| Codigo Veiculos ->  ");
+
+            for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) 
+            {
+                fprintf(ficheiro, "%d ", codigoAtual->codigo);
+            }
+
+            fprintf(ficheiro, "| Nif Clientes ->  ");
+
+            // Escreve os NIFs dos clientes
+            for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
+            {
+                fprintf(ficheiro, "%d ", nifAtual->nif);
+            }
+
+            fprintf(ficheiro, "\n"); // Pula para a próxima linha
+        }
+        
+        fclose(ficheiro); // Fecha o arquivo
+        }
+    }
+}
+
+
 
 /**
  * A função verifica se um determinado local existe em uma lista vinculada de locais.

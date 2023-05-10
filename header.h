@@ -235,13 +235,14 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 //Inserção de um novo local do Grafo na lista ligada ´listaLocais´
 local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[]);
 
-// Determinar existência da 'localizacao' na lista ligada 'listaLocais'
-int existeLocalizacao(local *listaLocais, char localizacao[]);
+//Salva os Dados da lista ligada 'listaLocais' em ficheiro.
+void salvarDadosLocalizacao(local* listaLocais);
 
 // Mostrar Dados  da lista ligada `listaLocais´ em consola.
 void showDadosLocalizacao(local *listaLocais);
 
-
+// Determinar existência da 'localizacao' na lista ligada 'listaLocais'
+int existeLocalizacao(local *listaLocais, char localizacao[]);
 
 
 #endif
