@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "header.h"
+#include <ctype.h>
 
 //--------------------------------------------------------------FUNÇÕES PARA O CLIENTE-------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -39,7 +40,7 @@ cliente* loadDadosCliente(cliente *listaClientes)
 
     while (fgets(linha, 200, ficheiro) != NULL) 
     {
-        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|] | Localizacao -> %[^|] | Saldo -> %f\n", &opNif, opNome, opMorada, opLocalC, &opSaldo);
+        sscanf(linha, "Nif -> %d | Nome -> %[^|]| Morada -> %[^|] | Localizacao -> %49s | Saldo -> %f\n", &opNif, opNome, opMorada, opLocalC, &opSaldo);
 
         listaClientes = inserirCliente(listaClientes, opNif, opNome, opMorada, opLocalC, opSaldo);
     }
@@ -56,7 +57,7 @@ cliente* loadDadosCliente(cliente *listaClientes)
 void salvarDadosCliente(cliente *listaClientes)
 {
     FILE *ficheiro; //declara um * para um ficheiro
-     ficheiro = fopen("listaClientes.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de escrita "a"
+     ficheiro = fopen("listaClientes.txt", "a"); // abre o arquivo "listaClientes.txt" em modo de escrita "a"
      
      // Verifica se o arquivo foi aberto com sucesso
      if (ficheiro != NULL)
@@ -223,23 +224,38 @@ cliente* alterarCliente(cliente *listaClientes, int nif, char nome[], char morad
 //--------------------------------------------------------------FUNÇÕES PARA OS VEICULOS-----------------------------------------------------------------------------------------------------------------------------------//
 
 
+    //Caso Seja necessario uso isto.
+
+    // void trim(char *s) 
+    // {
+    //  char *ptr = s;
+    //  int len = strlen(ptr);
+
+    //  while (isspace(ptr[len - 1])) ptr[--len] = 0;
+    //  while (*ptr && isspace(*ptr)) ++ptr, --len;
+
+    //  memmove(s, ptr, len + 1);
+    // }
+
+    // trim(opLocalV); // remove leading and trailing spaces from opLocalV
+
+
 /**
- * @brief Função Load dados do ficheiro
- * 
- * @param listaVeiculos * para o inicio da listaClientes
- * 
- * @return listaVeiculos devolve inicio da lista
- */
+* @brief Função que Carrega dados de clientes de um Ficheiro.txt ´listaClientes.txt´
+
+* @param listaClientes * para o início da lista de clientes existente
+
+* @return * para o início da listaClientes
+*/
 veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 {
-    FILE *ficheiro; //declara um * para um ficheiro
-
-    char linha[200]; //string para ler cada linha do ficheiro.
+    FILE *ficheiro;
+    char linha[200];
     int opCodigo; 
     char opTipo[50], opLocalV[50];
     float opBateria, opAutonomia, opCusto;
     
-    if ((ficheiro = fopen("listaVeiculos.txt", "r")) == NULL) // abre o arquivo "listaVeiculo.txt" em modo de leitura "r"
+    if ((ficheiro = fopen("listaVeiculos.txt", "r")) == NULL)
     {
         printf("Erro ao abrir o arquivo listaVeiculos.txt\n");
         return listaVeiculos;
@@ -247,12 +263,13 @@ veiculo* loadDadosVeiculo(veiculo *listaVeiculos)
 
     while (fgets(linha, 200, ficheiro) != NULL) 
     {
-     sscanf(linha, "Codigo -> %d | Tipo -> %[^|] | Localizacao -> %[^|] | Bateria -> %f | Autonomia -> %f | Custo -> %f\n", &opCodigo, opTipo, opLocalV, &opBateria, &opAutonomia, &opCusto);
+        sscanf(linha, "Codigo -> %d | Tipo -> %[^|] | Localizacao -> %49s | Bateria -> %f | Autonomia -> %f | Custo -> %f\n", &opCodigo, opTipo, opLocalV, &opBateria, &opAutonomia, &opCusto);
 
-     listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opLocalV, opBateria, opAutonomia, opCusto);
+        listaVeiculos = inserirVeiculo(listaVeiculos, opCodigo, opTipo, opLocalV, opBateria, opAutonomia, opCusto);
     }
-    fclose(ficheiro);//fecha o ficheiro
-    return listaVeiculos; //devolve o inicio da lista ligada
+    
+    fclose(ficheiro);
+    return listaVeiculos;
 }
 
 
@@ -271,7 +288,7 @@ void salvarDadosVeiculo(veiculo *listaVeiculos)
      {
         for (veiculo *atual = listaVeiculos; atual != NULL; atual = atual->next) //percorrer a listaClientes
         {
-            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Localizacao -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->localizacao ,atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada veiculo no ficheiro
+            fprintf(ficheiro, "Codigo -> %d | Tipo -> %s | Localizacao -> %s | Bateria -> %.2f | Autonomia -> %.2f | Custo -> %.2f\n", atual->codigo, atual->tipo, atual->localizacao, atual->bateria, atual->autonomia, atual->custo); //escreve os dados de cada veiculo no ficheiro
         }
      }
     fclose(ficheiro); //fecha o ficheiro
@@ -963,36 +980,71 @@ int existeLocalizacao(local *listaLocais, char localizacao[])
 local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[])
 {
     // Encontra o veículo com o local especificado
+    local* novo = malloc(sizeof(struct local));
+    strcpy(novo->localizacao, novoLocal);
+    
     veiculo *veiculoLocal = listaVeiculos;
-    cliente *clienteLocal = listaClientes;
-    while (veiculoLocal != NULL  && !strcmp(veiculoLocal->localizacao, novoLocal) && clienteLocal != NULL && !strcmp(clienteLocal->localizacao, novoLocal))
+    while ((veiculoLocal != NULL))
     {
-        
-        veiculoLocal = veiculoLocal->next; //Percorre a lista de veiculos
-        clienteLocal = clienteLocal->next; //Percorre a lista de clientes
-    }  
-        //Aloca dinamicamente um novo bloco de memória do tamanho da struct local esse bloco memoria atribuido como novo
-        local* novo = malloc(sizeof(struct local));
-        strcpy(novo->localizacao, novoLocal);
-        novo->codigoVeiculo = veiculoLocal->codigo;
-        novo->nifCliente = clienteLocal->nif;
+        if (!strcmp(veiculoLocal->localizacao, novoLocal))
+        {
+            codigoVeiculos *codigoLocal = malloc(sizeof(struct codigoVeiculos));
+            codigoLocal->codigo = veiculoLocal->codigo;
+            codigoLocal->next = novo->codigoVeiculo;
+            novo->codigoVeiculo = codigoLocal;
+        }
 
-        // Insere o novo local no inicio da lista de locais
-        novo->next = listaLocais;
+        veiculoLocal = veiculoLocal->next; // Percorre a lista de veículos
+    }
+
+    cliente *clienteLocal = listaClientes;
+    while ((clienteLocal != NULL))   
+    {
+       if (!strcmp(clienteLocal->localizacao, novoLocal))
+       {
+            nifClientes *nifLocal = malloc(sizeof(struct nifClientes));
+            nifLocal->nif = clienteLocal->nif;
+            nifLocal->next = novo->nifCliente;
+            novo->nifCliente = nifLocal;
+        }
+        
+        clienteLocal = clienteLocal->next; //Percorre a lista de clientes
+
+    }
+
+        novo->next = listaLocais; 
         listaLocais = novo;
          
-        
         return novo;  //return do *
+        
 }
+
 
 void showDadosLocalizacao(local *listaLocais)
-{   
-    while (listaLocais != NULL)
-    {
-        printf("Localizacao -> %s | CodigoVeiculo -> %d | Nif -> %d\n", listaLocais->localizacao, listaLocais->codigoVeiculo, listaLocais->nifCliente);
-        listaLocais = listaLocais->next; // Avança para o próximo nó da lista
+{
+    local *atual = listaLocais;
+
+    while (atual != NULL) {
+        printf("Localizacao -> %s | ", atual->localizacao);
+
+        // Imprime os códigos dos veículos associados à localização
+        codigoVeiculos *codigoAtual = atual->codigoVeiculo;
+        printf("CodigoVeiculo -> ");
+        while (codigoAtual != NULL) {
+            printf("%d ", codigoAtual->codigo);
+            codigoAtual = codigoAtual->next;
+        }
+
+        // Imprime os NIFs dos clientes associados à localização
+        nifClientes *nifAtual = atual->nifCliente;
+        printf("| Nif -> ");
+        while (nifAtual != NULL) {
+            printf("%d ", nifAtual->nif);
+            nifAtual = nifAtual->next;
+        }
+
+        printf("\n");
+
+        atual = atual->next;
     }
-    
 }
-
-

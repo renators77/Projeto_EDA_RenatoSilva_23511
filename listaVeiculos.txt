@@ -1,2 +1,6 @@
-Codigo -> 1 | Tipo -> scooter | Localizacao -> Polo.Da.EST | Bateria -> 90.00 | Autonomia -> 100.00 | Custo -> 0.30
-Codigo -> 5 | Tipo -> trotinete   | Localizacao -> teste.teste.teste   | Bateria -> 90.00 | Autonomia -> 95.00 | Custo -> 0.20
+Codigo -> 6 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 85.00 | Custo -> 0.22
+Codigo -> 5 | Tipo -> scooter   | Localizacao -> Polo.Da.EST | Bateria -> 90.00 | Autonomia -> 100.00 | Custo -> 0.30
+Codigo -> 4 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 90.00 | Autonomia -> 95.00 | Custo -> 0.20
+Codigo -> 3 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 90.00 | Custo -> 0.22
+Codigo -> 2 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 90.00 | Autonomia -> 95.00 | Custo -> 0.20
+Codigo -> 1 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 90.00 | Custo -> 0.22

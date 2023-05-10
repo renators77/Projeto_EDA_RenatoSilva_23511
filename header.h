@@ -86,8 +86,6 @@ typedef struct  localAdjacente
 {
     char localizacao[TAM]; // geocódigo what3words
     float peso; //distancia a percorrer de um ponto a outro ponto 
-    nifClientes *nifCliente;
-    codigoVeiculos *codigoVeiculo;
     struct localAdjacente *next;
 } localAdjacente;
 
@@ -95,8 +93,8 @@ typedef struct local
 {
     char localizacao[TAM]; // geocódigo what3words
     localAdjacente *localAdjacentes;  //Dados dos caminhos * da struct caminho
-    int codigoVeiculo; //para copiar o codigo do veiculo da struct veiculo
-    int nifCliente; //para copiar o nif do cliente da struct cliente
+    nifClientes *nifCliente; //para copiar o nif do cliente da struct cliente
+    codigoVeiculos *codigoVeiculo;//para copiar o codigo do veiculo da struct veiculo
     struct local *next;//ao armazenar num * o próximo nó permite-nos percorrer a lista.
 } local;
 

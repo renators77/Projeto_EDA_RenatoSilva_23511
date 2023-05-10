@@ -1,2 +1,3 @@
+Nif -> 111111111 | Nome -> Joao Penedos | Morada -> Rua da Eduarda | Localizacao -> teste.teste.teste | Saldo -> 20.00 
+Nif -> 123456788 | Nome -> Mario Pinto  | Morada -> Rua da Maria | Localizacao -> Polo.Da.EST  | Saldo -> 100.90 
 Nif -> 123456789 | Nome -> Renato Silva | Morada -> Rua Manuel Lopes | Localizacao -> teste.teste.teste | Saldo -> 120.22 
-Nif -> 123456788 | Nome -> Mario Pinto | Morada -> Rua da Maria | Localizacao -> Polo.Da.EST | Saldo -> 100.90 
