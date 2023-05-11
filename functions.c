@@ -991,31 +991,32 @@ void salvarDadosLocalizacao(local* listaLocais)
         // Percorre a lista de locais e escreve cada localização no ficheiro
         for (local *localAtual = listaLocais; localAtual != NULL; localAtual = localAtual->next) //percorrer a listaLocais
         {
-        {
-            fprintf(ficheiro, "Localizacao-> %s ", localAtual->localizacao);
+            {
+                fprintf(ficheiro, "Localizacao-> %s ", localAtual->localizacao);
 
             
-            fprintf(ficheiro, "| Codigo Veiculos ->  ");
+                fprintf(ficheiro, "| Codigo Veiculos ->  ");
 
-            // Percorre a lista ligada de codigoVeiculos e escreve cada codigo existente no ficheiro
-            for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) //percorrer a listaLocais
-            {
-                fprintf(ficheiro, "%d ", codigoAtual->codigo);
+                // Percorre a lista ligada de codigoVeiculos e escreve cada codigo existente no ficheiro
+                for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) //percorrer a listaLocais
+                {
+                    fprintf(ficheiro, "%d ", codigoAtual->codigo);
+                }
+
+                fprintf(ficheiro, "| Nif Clientes ->  ");
+
+                // Percorre a lista ligada de nifClientes e escreve cada nif existente no ficheiro
+                for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
+                {
+                    fprintf(ficheiro, "%d ", nifAtual->nif);
+                }
+
+                fprintf(ficheiro, "\n"); // Pula para a próxima linha
+
             }
-
-            fprintf(ficheiro, "| Nif Clientes ->  ");
-
-            // Percorre a lista ligada de nifClientes e escreve cada nif existente no ficheiro
-            for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
-            {
-                fprintf(ficheiro, "%d ", nifAtual->nif);
-            }
-
-            fprintf(ficheiro, "\n"); // Pula para a próxima linha
         }
-        
-        fclose(ficheiro); // Fecha o arquivo
-        }
+
+     fclose(ficheiro); // Fecha o arquivo
     }
 }
 
@@ -1091,7 +1092,7 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
         }
         clienteLocal = clienteLocal->next;//Percorrer a listaClientes
     }
-    
+
     novo->next = listaLocais;
     return(novo);
 }
