@@ -970,6 +970,14 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
     return listaLocais;
 }
 
+
+
+/**
+ * Função salva os dados dos locais, incluindo o nome do local, códigos de veículos associados,
+  * e NIFs de cliente associados, para um ficheiro de texto.
+ * 
+ * @param listaLocais  * para o inicio da listaLocalizacao
+ */
 void salvarDadosLocalizacao(local* listaLocais)
 {
     
@@ -980,23 +988,24 @@ void salvarDadosLocalizacao(local* listaLocais)
     if (ficheiro != NULL) 
     {
 
-        // Percorre a lista de locais e escreve cada localização no arquivo
+        // Percorre a lista de locais e escreve cada localização no ficheiro
         for (local *localAtual = listaLocais; localAtual != NULL; localAtual = localAtual->next) //percorrer a listaLocais
         {
         {
             fprintf(ficheiro, "Localizacao-> %s ", localAtual->localizacao);
 
-            // Escreve os códigos dos veículos 
+            
             fprintf(ficheiro, "| Codigo Veiculos ->  ");
 
-            for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) 
+            // Percorre a lista ligada de codigoVeiculos e escreve cada codigo existente no ficheiro
+            for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) //percorrer a listaLocais
             {
                 fprintf(ficheiro, "%d ", codigoAtual->codigo);
             }
 
             fprintf(ficheiro, "| Nif Clientes ->  ");
 
-            // Escreve os NIFs dos clientes
+            // Percorre a lista ligada de nifClientes e escreve cada nif existente no ficheiro
             for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
             {
                 fprintf(ficheiro, "%d ", nifAtual->nif);
@@ -1025,65 +1034,92 @@ int existeLocalizacao(local *listaLocais, char localizacao[])
     //percorre todos os elementos da lista ate o * apontar para NULL
     while (listaLocais != NULL)
     {
-        //Compara o valor do campo codigo da lista ligada com o parametro do codigo atribuido.
-        if(listaLocais->localizacao == localizacao) return (1); //se forem iguais afirma que veiculo foi encontrado
-        listaLocais = listaLocais->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
+        //Compara o valor do campo localizacao da lista ligada com o parametro de localizacao atribuido.
+        if(strcmp(listaLocais->localizacao, localizacao) == 0) return (1); 
+        listaLocais = listaLocais->next; 
     }
-    return (0); //retorna 0, indicando que o veiculo não existe na lista.
+    return (0); //retorna 0, indicando que a localizacao não existe na lista.
 }
+
+
 
 
 /**
  * Esta função insere um novo local na struct do grafo, caso ainda não exista.
  * 
- * @param listaLocais * para o inicio da listaLocais
+ * @param listaClientes  * para o inicio da listaClientes
+ * @param listaVeiculos  * para o inicio da listaVeiculos
+ * @param listaLocais  * para o inicio da listaLocais
  * @param novoLocal a string que representa o nome do novo local a ser inserido no grafo.
  * 
  * @return novo * para o início da lista do (grafo) atualizado, com uma nova localização
  */
-local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[])
+local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local* listaLocais, char novoLocal[])
 {
-    // Encontra o veículo com o local especificado
-    local* novo = malloc(sizeof(struct local));
+
+    // Create a new location struct
+    local* novo = malloc(sizeof(local));
     strcpy(novo->localizacao, novoLocal);
-    
-    veiculo *veiculoLocal = listaVeiculos;
-    while ((veiculoLocal != NULL))
+    novo->nifCliente = NULL;
+    novo->codigoVeiculo = NULL;
+    novo->next = NULL;
+
+    // Encontrar os veiculos com a localizacao
+    veiculo* veiculoLocal = listaVeiculos;
+    while (veiculoLocal != NULL)
     {
-        if (!strcmp(veiculoLocal->localizacao, novoLocal))
+        if (strcmp(veiculoLocal->localizacao, novoLocal))
         {
-            codigoVeiculos *codigoLocal = malloc(sizeof(struct codigoVeiculos));
+            codigoVeiculos* codigoLocal = malloc(sizeof(codigoVeiculos));
             codigoLocal->codigo = veiculoLocal->codigo;
             codigoLocal->next = novo->codigoVeiculo;
             novo->codigoVeiculo = codigoLocal;
         }
-
-        veiculoLocal = veiculoLocal->next; // Percorre a lista de veículos
+        veiculoLocal = veiculoLocal->next; //Percorre a lista de Veiculos
     }
 
-    cliente *clienteLocal = listaClientes;
-    while ((clienteLocal != NULL))   
+    //Encontrar os clientes com a localizacao
+    cliente* clienteLocal = listaClientes;
+    while (clienteLocal != NULL)
     {
-       if (!strcmp(clienteLocal->localizacao, novoLocal))
-       {
-            nifClientes *nifLocal = malloc(sizeof(struct nifClientes));
+        if (strcmp(clienteLocal->localizacao, novoLocal))
+        {
+            nifClientes* nifLocal = malloc(sizeof(nifClientes));
             nifLocal->nif = clienteLocal->nif;
             nifLocal->next = novo->nifCliente;
             novo->nifCliente = nifLocal;
         }
-        
-        clienteLocal = clienteLocal->next; //Percorre a lista de clientes
-
+        clienteLocal = clienteLocal->next;//Percorrer a listaClientes
     }
 
-        novo->next = listaLocais; 
+    // Adicionar a nova localizacao para o final da lista
+    if (listaLocais == NULL)
+    {
         listaLocais = novo;
-         
-        return novo;  //return do *
-        
+    }
+    else
+    {
+        local* atual = listaLocais;
+        while (atual->next != NULL)
+        {
+            atual = atual->next;
+        }
+        atual->next = novo;
+    }
+
+    return listaLocais;
 }
 
 
+
+/**
+ * The function prints the location, vehicle codes, and client NIFs associated with each element in a
+ * linked list of locations.
+ * 
+ * @param listaLocais a pointer to the first node of a linked list of "local" structs, which contain
+ * information about a location, including its name and the codes of vehicles and NIFs associated with
+ * it.
+ */
 void showDadosLocalizacao(local *listaLocais)
 {
     local *atual = listaLocais;
