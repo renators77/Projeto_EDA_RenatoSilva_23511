@@ -1057,7 +1057,7 @@ int existeLocalizacao(local *listaLocais, char localizacao[])
 local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local* listaLocais, char novoLocal[])
 {
 
-    // Create a new location struct
+    //aloca dinamicamente um novo bloco de memória do tamanho da struct local esse bloco memoria atribuido como novo
     local* novo = malloc(sizeof(local));
     strcpy(novo->localizacao, novoLocal);
     novo->nifCliente = NULL;
@@ -1068,7 +1068,7 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
     veiculo* veiculoLocal = listaVeiculos;
     while (veiculoLocal != NULL)
     {
-        if (strcmp(veiculoLocal->localizacao, novoLocal))
+        if (!strcmp(veiculoLocal->localizacao, novoLocal))
         {
             codigoVeiculos* codigoLocal = malloc(sizeof(codigoVeiculos));
             codigoLocal->codigo = veiculoLocal->codigo;
@@ -1082,7 +1082,7 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
     cliente* clienteLocal = listaClientes;
     while (clienteLocal != NULL)
     {
-        if (strcmp(clienteLocal->localizacao, novoLocal))
+        if (!strcmp(clienteLocal->localizacao, novoLocal))
         {
             nifClientes* nifLocal = malloc(sizeof(nifClientes));
             nifLocal->nif = clienteLocal->nif;
@@ -1091,23 +1091,9 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
         }
         clienteLocal = clienteLocal->next;//Percorrer a listaClientes
     }
-
-    // Adicionar a nova localizacao para o final da lista
-    if (listaLocais == NULL)
-    {
-        listaLocais = novo;
-    }
-    else
-    {
-        local* atual = listaLocais;
-        while (atual->next != NULL)
-        {
-            atual = atual->next;
-        }
-        atual->next = novo;
-    }
-
-    return listaLocais;
+    
+    novo->next = listaLocais;
+    return(novo);
 }
 
 
