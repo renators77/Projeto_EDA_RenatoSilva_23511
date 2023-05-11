@@ -932,6 +932,44 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 
 //--------------------------------------------------------------FUNÇÕES PARA O GRAFO-----------------------------------------------------------------------------------------------------------------------------------//
 
+
+
+
+
+
+
+local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais)
+{
+    FILE *ficheiro;
+    char linha[200];
+    char opLocal[50];
+    char opCodigo[50];
+    char opNif[50];
+
+    if ((ficheiro = fopen("listaLocais.txt", "r")) == NULL)
+    {
+        printf("Erro ao abrir o ficheiro listaLocais.txt\n");
+        return listaLocais;
+    }
+
+    while (fgets(linha, 200, ficheiro) != NULL)
+    {
+        // Usamos o sscanf para extrair a localização da linha
+        if (sscanf(linha, "%[^|]|%[^|]|%[^|\n]", opLocal, opCodigo, opNif) != 3)
+        {
+            printf("Erro ao ler linha do arquivo: %s\n", linha);
+            continue;
+        }
+
+        // Chamamos a função inserirLocalizacao para adicionar a nova localização à lista
+        listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
+
+    }
+
+    fclose(ficheiro);
+    return listaLocais;
+}
+
 void salvarDadosLocalizacao(local* listaLocais)
 {
     

@@ -141,8 +141,11 @@ codigoVeiculos *listaCodigoVeiculos = NULL;
   //Load dos dados da listaGestores
   listaGestores = loadDadosGestor(listaGestores);
 
-//Load dos dados da listaReservas
+  //Load dos dados da listaReservas
   listaReservas = loadDadosReserva(listaClientes, listaVeiculos, listaReservas);
+
+  //Load dos dados da listaLocais
+  listaLocais = loadDadosLocalizacao(listaClientes, listaVeiculos, listaLocais);
 
   do
   {
