@@ -235,6 +235,11 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 //Inserção de um novo local do Grafo na lista ligada ´listaLocais´
 local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais, char novoLocal[]);
 
+//Inserção dos codigos dos veiculos associados a uma localizacao na lista ligada ´listaCodigoVeiculos´
+codigoVeiculos* inserirCodigoVeiculo(codigoVeiculos *listaCodigoVeiculos, int codigo);
+
+nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif);
+
 //Faz o load dos dados do ficheiro listaLocais.txt para a lista ligada.
 local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais);
 

@@ -938,13 +938,11 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 
 
 
-local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais)
+local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local* listaLocais)
 {
-    FILE *ficheiro;
+    FILE* ficheiro;
     char linha[200];
-    char opLocal[50];
-    char opCodigo[50];
-    char opNif[50];
+    char opLocal[50], opCodigo[50], opNif[50];
 
     if ((ficheiro = fopen("listaLocais.txt", "r")) == NULL)
     {
@@ -954,23 +952,46 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
 
     while (fgets(linha, 200, ficheiro) != NULL)
     {
-        // Usamos o sscanf para extrair a localização da linha
+        // Usamos o sscanf para extrair a localização, códigos de veículos e nifs de clientes da linha
         if (sscanf(linha, "%[^|]|%[^|]|%[^|\n]", opLocal, opCodigo, opNif) != 3)
         {
-            printf("Erro ao ler linha do arquivo: %s\n", linha);
+            printf("Erro ao ler linha do ficheiro: %s\n", linha);
             continue;
         }
 
         // Chamamos a função inserirLocalizacao para adicionar a nova localização à lista
         listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
 
+        // Separamos a string de códigos de veículos em tokens utilizando a função strtok()
+        char* token = strtok(opCodigo, ";");
+        while (token != NULL)
+        {
+            int codigo = atoi(token); // Convertemos o token em inteiro utilizando a função atoi()
+            listaLocais->codigoVeiculo = inserirCodigoVeiculo(listaLocais->codigoVeiculo, codigo);
+            token = strtok(NULL, ";");
+        }
+
+        // Separamos a string de nifs de clientes em tokens utilizando a função strtok()
+        token = strtok(opNif, ";");
+        while (token != NULL)
+        {
+            int nif = atoi(token); // Convertemos o token em inteiro utilizando a função atoi()
+            listaLocais->nifCliente = inserirNifCliente(listaLocais->nifCliente, nif);
+            token = strtok(NULL, ";");
+        }
+        
     }
 
     fclose(ficheiro);
     return listaLocais;
 }
 
-
+        // codigoVeiculos *codigoAtual = atual->codigoVeiculo;
+        // printf("CodigoVeiculo -> ");
+        // while (codigoAtual != NULL) {
+        //     printf("%d;", codigoAtual->codigo);
+        //     codigoAtual = codigoAtual->next;
+        // }
 
 /**
  * Função salva os dados dos locais, incluindo o nome do local, códigos de veículos associados,
@@ -992,23 +1013,23 @@ void salvarDadosLocalizacao(local* listaLocais)
         for (local *localAtual = listaLocais; localAtual != NULL; localAtual = localAtual->next) //percorrer a listaLocais
         {
             {
-                fprintf(ficheiro, "Localizacao-> %s ", localAtual->localizacao);
+                fprintf(ficheiro, "%s|", localAtual->localizacao);
 
             
-                fprintf(ficheiro, "| Codigo Veiculos ->  ");
+                // fprintf(ficheiro, "| Codigo Veiculos ->  ");
 
                 // Percorre a lista ligada de codigoVeiculos e escreve cada codigo existente no ficheiro
                 for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) //percorrer a listaLocais
                 {
-                    fprintf(ficheiro, "%d ", codigoAtual->codigo);
+                    fprintf(ficheiro, "%d;", codigoAtual->codigo);
                 }
 
-                fprintf(ficheiro, "| Nif Clientes ->  ");
+                // fprintf(ficheiro, "| Nif Clientes ->  ");
 
                 // Percorre a lista ligada de nifClientes e escreve cada nif existente no ficheiro
                 for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
                 {
-                    fprintf(ficheiro, "%d ", nifAtual->nif);
+                    fprintf(ficheiro, "|%d;", nifAtual->nif);
                 }
 
                 fprintf(ficheiro, "\n"); // Pula para a próxima linha
@@ -1118,7 +1139,7 @@ void showDadosLocalizacao(local *listaLocais)
         codigoVeiculos *codigoAtual = atual->codigoVeiculo;
         printf("CodigoVeiculo -> ");
         while (codigoAtual != NULL) {
-            printf("%d ", codigoAtual->codigo);
+            printf("%d;", codigoAtual->codigo);
             codigoAtual = codigoAtual->next;
         }
 
@@ -1126,7 +1147,7 @@ void showDadosLocalizacao(local *listaLocais)
         nifClientes *nifAtual = atual->nifCliente;
         printf("| Nif -> ");
         while (nifAtual != NULL) {
-            printf("%d ", nifAtual->nif);
+            printf("%d;", nifAtual->nif);
             nifAtual = nifAtual->next;
         }
 
@@ -1134,4 +1155,51 @@ void showDadosLocalizacao(local *listaLocais)
 
         atual = atual->next;
     }
+}
+
+
+/**
+ * Esta função insere um novo * com um determinado codigo numa lista ligada de listaCodigoVeiculos.
+ * 
+ * @param listaCodigoVeiculos a pointer to the head of a linked list of codigoVeiculos structs.
+ * @param codigo  que representa o codigo do veiculo associado a um local no grafo.
+ * 
+ * @return novo * para o inicio da listaCodigoVeiculos
+ */
+codigoVeiculos* inserirCodigoVeiculo(codigoVeiculos *listaCodigoVeiculos, int codigo)
+{
+    
+    codigoVeiculos *novo = malloc(sizeof(struct codigoVeiculos)); //aloca dinamicamente um novo bloco de memória do tamanho da struct codigoVeiculos esse bloco memoria atribuido como novo
+    if (novo != NULL) //verificação 
+    {
+        novo->codigo = codigo;
+        novo->next = listaCodigoVeiculos; //faz com que o novo codigo aponte para o antigo início da lista, fica o novo início da lista
+        return novo; //return do *
+    }
+
+    return listaCodigoVeiculos; //Caso falhe retorna * original da lista ligada.
+}
+
+
+
+/**
+ * Esta função insere um novo * com um determinado NIF numa lista ligada de clientes NIF.
+ * 
+ * @param listaNifClientes * para o inicio da listaClientes
+ * @param nif que representa o nif do cliente associado a um local no grafo.
+ * 
+ * @return novo * para o inicio da listaNifClientes
+ */
+nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif)
+{
+    nifClientes *novo = malloc(sizeof(struct nifClientes)); //aloca dinamicamente um novo bloco de memória do tamanho da struct nifClientes esse bloco memoria atribuido como novo
+    if (novo != NULL) //verificação 
+    {
+        novo->nif = nif;
+        novo->next = listaNifClientes; //faz com que o novo nif aponte para o antigo início da lista, fica o novo início da lista
+        return novo; //return do *
+    }
+
+    return listaNifClientes; //Caso falhe retorna * original da lista ligada.
+
 }
