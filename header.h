@@ -84,7 +84,8 @@ typedef struct codigoVeiculos {
 // Associar uma lista ligada aos seus vertices adjacentes
 typedef struct  localAdjacente
 {
-    char localizacao[TAM]; // geocódigo what3words
+    char localOrigem[TAM]; // geocódigo what3words
+    char localDestino[TAM]; // geocódigo what3words
     float peso; //distancia a percorrer de um ponto a outro ponto 
     struct localAdjacente *next;
 } localAdjacente;
@@ -251,6 +252,10 @@ void showDadosLocalizacao(local *listaLocais);
 
 // Determinar existência da 'localizacao' na lista ligada 'listaLocais'
 int existeLocalizacao(local *listaLocais, char localizacao[]);
+
+//Inserção de um peso entre o local e o local adjacente ao local no grafo.
+localAdjacente* inserirLocalAdjacente( localAdjacente *listaLocaisAdjacentes, char localOrigem[], char localDestino[], float peso);
+
 
 
 #endif

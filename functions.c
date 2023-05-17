@@ -943,6 +943,9 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
     FILE* ficheiro;
     char linha[200];
     char opLocal[50], opCodigo[50], opNif[50];
+    listaClientes = NULL;
+    listaVeiculos = NULL;
+
 
     if ((ficheiro = fopen("listaLocais.txt", "r")) == NULL)
     {
@@ -961,7 +964,9 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
 
         // Chamamos a função inserirLocalizacao para adicionar a nova localização à lista
         listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
-
+        
+        
+        
         // Separamos a string de códigos de veículos em tokens utilizando a função strtok()
         char* token = strtok(opCodigo, ";");
         while (token != NULL)
@@ -986,12 +991,6 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
     return listaLocais;
 }
 
-        // codigoVeiculos *codigoAtual = atual->codigoVeiculo;
-        // printf("CodigoVeiculo -> ");
-        // while (codigoAtual != NULL) {
-        //     printf("%d;", codigoAtual->codigo);
-        //     codigoAtual = codigoAtual->next;
-        // }
 
 /**
  * Função salva os dados dos locais, incluindo o nome do local, códigos de veículos associados,
@@ -1024,12 +1023,12 @@ void salvarDadosLocalizacao(local* listaLocais)
                     fprintf(ficheiro, "%d;", codigoAtual->codigo);
                 }
 
-                // fprintf(ficheiro, "| Nif Clientes ->  ");
+                fprintf(ficheiro, "|");
 
                 // Percorre a lista ligada de nifClientes e escreve cada nif existente no ficheiro
                 for (nifClientes *nifAtual = localAtual->nifCliente; nifAtual != NULL; nifAtual = nifAtual->next) 
                 {
-                    fprintf(ficheiro, "|%d;", nifAtual->nif);
+                    fprintf(ficheiro, "%d;", nifAtual->nif);
                 }
 
                 fprintf(ficheiro, "\n"); // Pula para a próxima linha
@@ -1203,3 +1202,60 @@ nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif)
     return listaNifClientes; //Caso falhe retorna * original da lista ligada.
 
 }
+
+localAdjacente* inserirLocalAdjacente(localAdjacente *listaLocaisAdjacentes, char localOrigem[], char localDestino[], float peso)
+{
+    local *listaLocais = listaLocais;
+
+    while (listaLocais != NULL)
+    {
+        if (!strcmp(listaLocais->localizacao, localOrigem))
+        {
+            listaLocais = listaLocais->next;
+        }
+    }
+     
+    while (listaLocais != NULL)
+    {
+        if (!strcmp(listaLocais->localizacao, localDestino))
+        {
+            listaLocais = listaLocais->next;
+        }
+    }
+
+     localAdjacente *novo = malloc(sizeof(struct localAdjacente));
+     if (novo != NULL)
+     {
+        strcpy(novo->localOrigem, localOrigem);
+        strcpy(novo->localDestino, localDestino);
+        novo->peso = peso;
+
+        novo->next = listaLocaisAdjacentes;
+        return(novo); //return do * 
+
+     }
+}
+
+
+// local* inserirLocalAdjacente(local* listaLocais, char localOrigem[], char localDestino[], float peso)
+// {
+//     if (existeLocalizacao(listaLocais, localOrigem) && existeLocalizacao(listaLocais, localDestino))
+//     {
+//         while (strcmp(listaLocais->localizacao, localOrigem) != 0) listaLocais = listaLocais->next;
+        
+//         local* novo = malloc(sizeof(local));
+//         strcpy(novo->localizacao, localOrigem); 
+
+//         localAdjacente *novoAdjacente = malloc(sizeof(struct localAdjacente));
+//         if (novoAdjacente != NULL)
+//         {
+//             strcpy(novoAdjacente->localizacao, localDestino);
+//             novoAdjacente->peso = peso;
+//             novoAdjacente->next = listaLocais->localAdjacentes;
+//             listaLocais->localAdjacentes = novoAdjacente;
+//         }   
+//     }
+
+//     return listaLocais;
+// }
+

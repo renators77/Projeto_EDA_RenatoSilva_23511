@@ -1,3 +1,8 @@
-Nif -> 111111111 | Nome -> Joao Penedos | Morada -> Rua da Eduarda | Localizacao -> teste.teste.teste | Saldo -> 20.00 
-Nif -> 123456788 | Nome -> Mario Pinto  | Morada -> Rua da Maria | Localizacao -> Polo.Da.EST  | Saldo -> 100.90 
-Nif -> 123456789 | Nome -> Renato Silva | Morada -> Rua Manuel Lopes | Localizacao -> teste.teste.teste | Saldo -> 120.22 
+Nif -> 111111116 | Nome -> Filipe Soares | Morada -> Rua da Pipa | Localizacao -> Polo.Da.CNT | Saldo -> 20.00 
+Nif -> 111111115 | Nome -> Bruno Lima | Morada -> Rua da Bruna | Localizacao -> Polo.Da.ESD | Saldo -> 20.00 
+Nif -> 111111114 | Nome -> Vasco Reis | Morada -> Rua da Carina | Localizacao -> Polo.Da.CNT | Saldo -> 20.00 
+Nif -> 111111113 | Nome -> Pedro Fernandes | Morada -> Rua da Andreia | Localizacao -> Polo.Da.ESD | Saldo -> 20.00 
+Nif -> 111111112 | Nome -> Hugo Xavier  | Morada -> Rua da Carolina | Localizacao -> Polo.Da.EST | Saldo -> 20.00 
+Nif -> 111111111 | Nome -> Joao Penedos | Morada -> Rua da Eduarda | Localizacao -> Polo.Da.ESG | Saldo -> 20.00 
+Nif -> 123456788 | Nome -> Mario Pinto  | Morada -> Rua da Maria | Localizacao -> Polo.Da.EST | Saldo -> 100.90 
+Nif -> 123456789 | Nome -> Renato Silva | Morada -> Rua Manuel Lopes | Localizacao -> Polo.Da.ESG | Saldo -> 120.22 

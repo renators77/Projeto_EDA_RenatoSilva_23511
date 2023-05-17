@@ -130,7 +130,9 @@ int main()
   nifClientes *listaNifClientes = NULL;
 
  //Lista ligada vazia armazena codigo Veiculos
-codigoVeiculos *listaCodigoVeiculos = NULL;
+ codigoVeiculos *listaCodigoVeiculos = NULL;
+
+ localAdjacente *listaLocaisAdjacentes = NULL;
 
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
@@ -714,6 +716,12 @@ codigoVeiculos *listaCodigoVeiculos = NULL;
          salvarDadosLocalizacao(listaLocais);
          system("pause");
          break;
+         
+         case 18: 
+         system("cls");
+         system("pause");
+         break;
+         
             
         }
        } while (opcaoG != 0);

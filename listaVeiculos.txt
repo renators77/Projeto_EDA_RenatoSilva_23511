@@ -1,6 +1,14 @@
-Codigo -> 6 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 85.00 | Custo -> 0.22
-Codigo -> 5 | Tipo -> scooter   | Localizacao -> Polo.Da.EST | Bateria -> 90.00 | Autonomia -> 100.00 | Custo -> 0.30
-Codigo -> 4 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 90.00 | Autonomia -> 95.00 | Custo -> 0.20
-Codigo -> 3 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 90.00 | Custo -> 0.22
-Codigo -> 2 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 90.00 | Autonomia -> 95.00 | Custo -> 0.20
-Codigo -> 1 | Tipo -> trotinete | Localizacao -> teste.teste.teste | Bateria -> 80.00 | Autonomia -> 90.00 | Custo -> 0.22
+Codigo -> 14| Tipo -> trotinete | Localizacao -> Polo.Da.CNT | Bateria -> 95.00 | Autonomia -> 95.00 | Custo -> 0.92
+Codigo -> 13| Tipo -> trotinete | Localizacao -> Polo.Da.CNT | Bateria -> 94.00 | Autonomia -> 94.00 | Custo -> 0.92
+Codigo -> 12| Tipo -> trotinete | Localizacao -> Polo.Da.ESD | Bateria -> 93.00 | Autonomia -> 93.00 | Custo -> 0.93
+Codigo -> 11| Tipo -> trotinete | Localizacao -> Polo.Da.ESD | Bateria -> 92.00 | Autonomia -> 92.00 | Custo -> 0.92
+Codigo -> 10| Tipo -> scooter   | Localizacao -> Polo.Da.EST | Bateria -> 91.00 | Autonomia -> 91.00 | Custo -> 0.91
+Codigo -> 9 | Tipo -> bicicleta | Localizacao -> Polo.Da.EST | Bateria -> 90.00 | Autonomia -> 90.00 | Custo -> 0.90
+Codigo -> 8 | Tipo -> bicicleta | Localizacao -> Polo.Da.EST | Bateria -> 80.00 | Autonomia -> 80.00 | Custo -> 0.80
+Codigo -> 7 | Tipo -> scooter   | Localizacao -> Polo.Da.EST | Bateria -> 70.00 | Autonomia -> 70.00 | Custo -> 0.70
+Codigo -> 6 | Tipo -> trotinete | Localizacao -> Polo.Da.ESG | Bateria -> 60.00 | Autonomia -> 60.00 | Custo -> 0.60
+Codigo -> 5 | Tipo -> scooter   | Localizacao -> Polo.Da.EST | Bateria -> 50.00 | Autonomia -> 50.00 | Custo -> 0.50
+Codigo -> 4 | Tipo -> trotinete | Localizacao -> Polo.Da.ESG | Bateria -> 40.00 | Autonomia -> 40.00 | Custo -> 0.40
+Codigo -> 3 | Tipo -> trotinete | Localizacao -> Polo.Da.ESG | Bateria -> 30.00 | Autonomia -> 30.00 | Custo -> 0.30
+Codigo -> 2 | Tipo -> trotinete | Localizacao -> Polo.Da.ESG | Bateria -> 20.00 | Autonomia -> 20.00 | Custo -> 0.20
+Codigo -> 1 | Tipo -> trotinete | Localizacao -> Polo.Da.ESG | Bateria -> 10.00 | Autonomia -> 10.00 | Custo -> 0.10
