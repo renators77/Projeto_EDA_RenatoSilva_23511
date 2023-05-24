@@ -23,6 +23,7 @@ int menu()
   printf("|--------------------------------------------------|\n");
   printf("| 1 - Entrar Como Cliente                          |\n");
   printf("| 2 - Entrar Como Gestor                           |\n");
+  printf("| 3 - Gerenciar o Grafo                            |\n");
   printf("|--------------------------------------------------|\n");
   printf("|        Selecione 0 para sair                     |\n");
   printf("|--------------------------------------------------|\n");
@@ -66,15 +67,37 @@ int menuGestor()
   printf("| 5 - Alterar Gestor                               ||                                                  || 13 - Alterar Veiculo                             |\n");
   printf("|                                                  ||                                                  || 14 - Mostrar Veiculo por Maior Autonomia         |\n");
   printf("|--------------------------------------------------||--------------------------------------------------||--------------------------------------------------|\n");
-  printf("|                                                                Selecione 0 para sair                                                                     |\n");
+  printf("|                                                                   Selecione 0 para sair                                                                  |\n");
   printf("|----------------------------------------------------------------------------------------------------------------------------------------------------------|\n");
- 
+
   printf("Indique qual a opcao:\n"); 
   scanf("%d", &opcaoG);
   system("cls");
 	return(opcaoG);
 }
 
+int menuGrafo()
+{
+  int opcaoGrafo;
+
+  printf("|--------------------------------------------------|\n");
+  printf("|        Zona De Gerenciamento do Grafo            |\n");
+  printf("|--------------------------------------------------|\n");
+  printf("| 1 - Inserir Localizacao                          |\n");
+  printf("| 2 - Mostrar Dados Localizacao Existentes         |\n");
+  printf("| 3 - Salvar Dados Localizacao                     |\n");
+  printf("| 4 - Criar Arestas entre Localizacoes             |\n");
+  printf("| 5 - Mostrar Dados Arestas entre Localizacoes     |\n");
+  printf("|--------------------------------------------------|\n");
+  printf("|        Selecione 0 para sair                     |\n");
+  printf("|--------------------------------------------------|\n");
+
+  printf("Indique qual a opcao:\n");
+  scanf("%d", &opcaoGrafo);
+  system("cls");
+	return(opcaoGrafo);
+
+}
 
 
 /**
@@ -86,7 +109,7 @@ int main()
 {
 
   //MENUS
-  int opcao = 0, opcaoC = 0, opcaoG = 0;
+  int opcao = 0, opcaoC = 0, opcaoG = 0, opcaoGrafo = 0;
 
   //Clientes
    int opNif = 0;
@@ -108,7 +131,8 @@ int main()
   int opEstado = 0;
 
   //Locais
-  char opLocal[50];
+  char opLocal[50], opOrigem[50], opDestino[50];
+  float opPeso;
 
   
   //Lista ligada vazia clientes
@@ -125,6 +149,9 @@ int main()
 
   //Lista ligada vazia Grafo
   local *listaLocais = NULL;
+
+//Lista ligada vazia Grafo para definir os pesos entre vertices
+  local *listaPesoLocais = NULL;
 
  //Lista ligada vazia armazena nif Clientes
   nifClientes *listaNifClientes = NULL;
@@ -148,6 +175,19 @@ int main()
 
   //Load dos dados da listaLocais
   listaLocais = loadDadosLocalizacao(listaClientes, listaVeiculos, listaLocais);
+
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.ESG", "Polo.Da.ESD", 4);
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.CNT", "Polo.Da.EST", 5);
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.EST", "Polo.Da.ESG", 1);
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.ESD", "Polo.Da.CNT", 5);
+
+
+
+  // listaLocais = loadDadosArestas(listaLocais);
+  
+
+
+  
 
   do
   {
@@ -676,57 +716,125 @@ int main()
             showDadosIteractiveVeiculos(listaVeiculos);
             system("pause");
             break;
-
-         case 15:
-            system("cls");
-           do {
-               printf("Nova Localizacao -> ");
-               scanf(" %[^\n]s", opLocal);
-               getchar(); 
-               // Verifica se a entrada tem o formato correto
-               char palavra1[50], palavra2[50], palavra3[50];
-               if (sscanf(opLocal, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
-               {
-                  printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
-                  continue; // Reinicia o loop para pedir uma nova localização
-               }
-               else if (existeLocalizacao(listaLocais, opLocal)) // Verifica se o id da reserva ja existe
-               {
-                  printf("Ja existe uma localizacao! Insira uma diferente.\n");
-                  continue; // Reinicia o loop para pedir uma nova localizacao
-               }
-               // A localização tem o formato correto, podemos sair do loop
-               break;
-           }  while (1);
            
-            listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
-
-            system("pause");
-            break; 
-
-
-         case 16:
-            system("cls");
-            showDadosLocalizacao(listaLocais);
-            system("pause");
-            break;
-
-         case 17: 
-         system("cls");
-         salvarDadosLocalizacao(listaLocais);
-         system("pause");
-         break;
-         
-         case 18: 
-         system("cls");
-         system("pause");
-         break;
-         
-            
         }
        } while (opcaoG != 0);
        system("cls");
        break;
+
+     case 3:
+      system("cls");
+      do
+      {
+       opcaoGrafo = menuGrafo();
+       switch (opcaoGrafo){
+         case 1:
+           system("cls");
+           do {
+                 printf("Nova Localizacao -> ");
+                 scanf(" %[^\n]s", opLocal);
+                 getchar(); 
+                 // Verifica se a entrada tem o formato correto
+                 char palavra1[50], palavra2[50], palavra3[50];
+                 if (sscanf(opLocal, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+                 {
+                   printf("Tipo de localizacao invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                   continue; // Reinicia o loop para pedir uma nova localização
+                 }
+                 else if (existeLocalizacao(listaLocais, opLocal)) // Verifica se o id da reserva ja existe
+                 {
+                   printf("Ja existe uma localizacao! Insira uma diferente.\n");
+                   continue; // Reinicia o loop para pedir uma nova localizacao
+                 }
+                 // A localização tem o formato correto, podemos sair do loop
+                 break;
+             }  while (1);
+           
+             listaLocais = inserirLocalizacao(listaClientes, listaVeiculos, listaLocais, opLocal);
+
+             system("pause");
+             break;
+
+         case 2:
+           system("cls");
+           showDadosLocalizacao(listaLocais);
+           system("pause");
+           system("cls");
+           break;
+        
+         case 3: 
+           system("cls");
+           salvarDadosLocalizacao(listaLocais);
+           system("pause");
+           break;
+         
+         case 4: 
+           system("cls");
+           do {
+                 printf("localizacao de Origem -> ");
+                 scanf(" %[^\n]s", opOrigem);
+                 getchar(); 
+                 // Verifica se a entrada tem o formato correto
+                 char palavra1[50], palavra2[50], palavra3[50];
+                 if (sscanf(opOrigem, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+                 {
+                   printf("Tipo de localizacao de origem invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                   continue; // Reinicia o loop para pedir uma nova localização
+                 }
+                 else if (!existeLocalizacao(listaLocais, opOrigem)) // Verifica se o id da reserva ja existe
+                 {
+                   printf("Nao existe essa localizacao! Insira uma diferente.\n");
+                   continue; // Reinicia o loop para pedir uma nova localizacao
+                 }
+                 // A localização tem o formato correto, podemos sair do loop
+                 break;
+             }  while (1);
+           do {
+                 printf("localizacao de Destino -> ");
+                 scanf(" %[^\n]s", opDestino);
+                 getchar(); 
+                 // Verifica se a entrada tem o formato correto
+                 char palavra1[50], palavra2[50], palavra3[50];
+                 if (sscanf(opDestino, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+                 {
+                   printf("Tipo de localizacao de destino invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+                   continue; // Reinicia o loop para pedir uma nova localização
+                 }
+                 else if (!existeLocalizacao(listaLocais, opDestino)) // Verifica se o id da reserva ja existe
+                 {
+                   printf("Nao existe essa localizacao! Insira uma diferente.\n");
+                   continue; // Reinicia o loop para pedir uma nova localizacao
+                 }
+                 // A localização tem o formato correto, podemos sair do loop
+                 break;
+             }  while (1);
+           do {
+                 printf("Distancia entre locais-> ");
+                 scanf("%f", &opPeso);
+                 getchar(); 
+                 break;
+             }  while (1);
+
+           listaLocais = criarAresta(listaLocais, listaPesoLocais, opOrigem, opDestino, opPeso);
+           system("pause");
+           break;
+
+         case 5: 
+         system("cls");
+         showDadosLocalAdjacente(listaPesoLocais);
+         system("pause");
+         system("cls");
+         break;
+        
+         
+         
+        }
+
+      } while (opcaoGrafo != 0);
+       system("cls");
+       break;
+
+         
 
     }
 
