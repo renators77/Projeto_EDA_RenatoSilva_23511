@@ -159,7 +159,8 @@ int main()
  //Lista ligada vazia armazena codigo Veiculos
  codigoVeiculos *listaCodigoVeiculos = NULL;
 
- localAdjacente *listaLocaisAdjacentes = NULL;
+ //Lista ligada vazia armazena local Adjacente
+ localAdjacente *listaLocalAdjacente = NULL;
 
   //Load dos dados da listaCliente
   listaClientes = loadDadosCliente(listaClientes);
@@ -176,19 +177,14 @@ int main()
   //Load dos dados da listaLocais
   listaLocais = loadDadosLocalizacao(listaClientes, listaVeiculos, listaLocais);
 
+  //Load dos dados da listaPesoLocais
+  listaPesoLocais = loadDadosArestas(listaLocais, listaPesoLocais);
+
+  //Load dos dados da listaPesoLocais
   listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.ESG", "Polo.Da.ESD", 4);
-  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.CNT", "Polo.Da.EST", 5);
-  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.EST", "Polo.Da.ESG", 1);
-  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.ESD", "Polo.Da.CNT", 5);
-
-
-
-  // listaLocais = loadDadosArestas(listaLocais);
-  
-
-
-  
-
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.EST", "Polo.Da.ESG", 5);
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.CNT", "Polo.Da.ESD", 6);
+  listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, "Polo.Da.ESG", "Polo.Da.CNT", 7);
   do
   {
     opcao = menu();
@@ -825,6 +821,43 @@ int main()
          system("pause");
          system("cls");
          break;
+
+        //  case 6:
+        //  system("cls");
+        //   do {
+        //          printf("localizacao de Origem -> ");
+        //          scanf(" %[^\n]s", opOrigem);
+        //          getchar(); 
+        //          // Verifica se a entrada tem o formato correto
+        //          char palavra1[50], palavra2[50], palavra3[50];
+        //          if (sscanf(opOrigem, "%49[^.].%49[^.].%49[^.]", palavra1, palavra2, palavra3) != 3)
+        //          {
+        //            printf("Tipo de localizacao de origem invalida! Insira um tipo de localizacao valida (ex: thesaurus.sharers.blizzards).\n");
+        //            continue; // Reinicia o loop para pedir uma nova localização
+        //          }
+        //          else if (!existeLocalizacao(listaLocais, opOrigem)) // Verifica se o id da reserva ja existe
+        //          {
+        //            printf("Nao existe essa localizacao! Insira uma diferente.\n");
+        //            continue; // Reinicia o loop para pedir uma nova localizacao
+        //          }
+        //          // A localização tem o formato correto, podemos sair do loop
+        //          break;
+        //      }  while (1);
+        //   do {
+        //          printf("Raio-> ");
+        //          scanf("%f", &opPeso);
+        //          getchar(); 
+        //          break;
+        //      }  while (1);
+
+        //      ShowVeiculosRaio(listaLocais,listaPesoLocais, opOrigem, opPeso);
+
+          
+         
+         system("pause");
+         system("cls");
+         break;
+
         
          
          

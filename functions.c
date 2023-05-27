@@ -939,25 +939,24 @@ reserva* alterarReserva(cliente* listaClientes, veiculo* listaVeiculos, reserva*
 
 
 /**
- * This function loads data from a file and creates a linked list of locations, with associated vehicle
- * codes and client NIFs.
+ * Esta função faz load dos dados um ficheiro e cria uma lista ligada de locais, com codigos e NIFs de cliente associados.
  * 
- * @param listaClientes a pointer to a linked list of clients
- * @param listaVeiculos A pointer to a linked list of vehicles.
- * @param listaLocais A pointer to the head of a linked list of locations.
+ * @param listaClientes * para a lista Clientes
+ * @param listaVeiculos * para a lista Veiculos
+ * @param listaLocais * para a lista Locais
  * 
- * @return a pointer to the updated list of locations (local*).
+ * @return * lista Locais
  */
 local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local* listaLocais)
 {
-    FILE* ficheiro;
-    char linha[200];
+    FILE* ficheiro;  //declara um * para um ficheiro
+    char linha[200]; //string para ler cada linha do ficheiro.
     char opLocal[50], opCodigo[50], opNif[50];
     listaClientes = NULL;
     listaVeiculos = NULL;
 
 
-    if ((ficheiro = fopen("listaLocais.txt", "r")) == NULL)
+    if ((ficheiro = fopen("listaLocais.txt", "r")) == NULL) // abre o arquivo "listaLocais.txt" em modo de leitura "r"
     {
         printf("Erro ao abrir o ficheiro listaLocais.txt\n");
         return listaLocais;
@@ -997,33 +996,53 @@ local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, loca
         
     }
 
-    fclose(ficheiro);
-    return listaLocais;
+    fclose(ficheiro); //fecha o ficheiro
+    return listaLocais; //devolve o inicio da lista ligada
 }
 
-// local* loadDadosArestas(local *listaLocais)
-// {
-//     FILE *ficheiro;
-//     char linha[200];
-//     char opLocalOrigem[50], opLocalDestino[50];
-//     float opPeso; 
-    
-//     if ((ficheiro = fopen("listaDistanciaLocais.txt", "r")) == NULL)
-//     {
-//         printf("Erro ao abrir o arquivo listaDistanciaLocais.txt\n");
-//         return listaLocais;
-//     }
 
-//     while (fgets(linha, 200, ficheiro) != NULL) 
-//     {
-//         sscanf(linha, "%[^|]|%[^|]|%.2f\n", opLocalOrigem, opLocalDestino, &opPeso);
 
-//         listaLocais = criarAresta(listaLocais, opLocalOrigem, opLocalDestino, opPeso);
-//     }
+/**
+ * A função faz load dos dados de um ficheiro txt contendo informações sobre a distância entre locais e cria um grafo com arestas pesadas.
+ * 
+ * @param listaLocais * para listaLocais
+ * @param listaPesoLocais * para listaPesoLocais, onde representa uma conexão entre dois locais e tem um peso (distância) associado a ele.
+ * 
+ * @return * para o inicio da listaPesoLocais
+ */
+local* loadDadosArestas( local *listaLocais, local *listaPesoLocais) 
+{
+    FILE *ficheiro; //declara um * para um ficheiro
+
+    char linha[200]; //string para ler cada linha do ficheiro.
+    char opLocalOrigem[50], opLocalDestino[50];
+    float opPeso;
+    char buffer[50];
+    listaLocais = NULL;
     
-//     fclose(ficheiro);
-//     return listaLocais;
-// }
+    if ((ficheiro = fopen("listaDistanciaLocais.txt", "r")) == NULL) // abre o arquivo "listaDistanciaLocais.txt" em modo de leitura "r"
+    {
+        printf("Erro ao abrir o ficheiro listaDistanciaLocais.txt\n");
+        return listaPesoLocais;
+    }
+
+    while (fgets(linha, 200, ficheiro) != NULL) 
+    {
+
+        // Usamos o sscanf para extrair a localizaçãoOrigem, localizacaoDestino e o peso entre ambas em cada linha do txt
+        if ( sscanf(linha, "%[^|]|%[^,],%f\n", opLocalOrigem, opLocalDestino, &opPeso) !=3)
+        {
+            printf("Erro ao ler linha do ficheiro: %s\n", linha);
+            continue;
+        }
+        
+        listaPesoLocais = criarAresta(listaLocais, listaPesoLocais, opLocalOrigem, opLocalDestino, opPeso);
+
+    }
+     fclose(ficheiro);//fecha o ficheiro
+     return listaPesoLocais; //devolve o inicio da lista ligada
+}
+
 
 /**
  * Função salva os dados dos locais, incluindo o nome do local, códigos de veículos associados, e NIFs de cliente associados, para um ficheiro de texto.
@@ -1034,7 +1053,7 @@ void salvarDadosLocalizacao(local* listaLocais)
 {
     
     FILE *ficheiro;  //declara um * para um ficheiro
-    ficheiro = fopen("listaLocais.txt", "w"); // abre o arquivo "listaClientes.txt" em modo de reescrita "w"
+    ficheiro = fopen("listaLocais.txt", "w"); // abre o arquivo "listaLocais.txt" em modo de reescrita "w"
 
     // Verifica se o ficheiro foi aberto corretamente
     if (ficheiro != NULL) 
@@ -1046,11 +1065,8 @@ void salvarDadosLocalizacao(local* listaLocais)
             {
                 fprintf(ficheiro, "%s|", localAtual->localizacao);
 
-            
-                // fprintf(ficheiro, "| Codigo Veiculos ->  ");
-
                 // Percorre a lista ligada de codigoVeiculos e escreve cada codigo existente no ficheiro
-                for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next) //percorrer a listaLocais
+                for (codigoVeiculos *codigoAtual = localAtual->codigoVeiculo; codigoAtual != NULL; codigoAtual = codigoAtual->next)
                 {
                     fprintf(ficheiro, "%d;", codigoAtual->codigo);
                 }
@@ -1063,12 +1079,12 @@ void salvarDadosLocalizacao(local* listaLocais)
                     fprintf(ficheiro, "%d;", nifAtual->nif);
                 }
 
-                fprintf(ficheiro, "\n"); // Pula para a próxima linha
+                fprintf(ficheiro, "\n"); // salta para a próxima linha
 
             }
         }
 
-     fclose(ficheiro); // Fecha o arquivo
+     fclose(ficheiro); // Fecha o ficheiro
     }
 }
 
@@ -1088,8 +1104,8 @@ int existeLocalizacao(local *listaLocais, char localizacao[])
     while (listaLocais != NULL)
     {
         //Compara o valor do campo localizacao da lista ligada com o parametro de localizacao atribuido.
-        if(strcmp(listaLocais->localizacao, localizacao) == 0) return (1); 
-        listaLocais = listaLocais->next; 
+        if(strcmp(listaLocais->localizacao, localizacao) == 0) return (1); //se forem iguais afirma que localizacao foi encontrado
+        listaLocais = listaLocais->next; //Caso contrário, a função avança para o próximo elemento da lista, apontado pelo campo next do elemento atual.
     }
     return (0); //retorna 0, indicando que a localizacao não existe na lista.
 }
@@ -1126,7 +1142,7 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
             codigoVeiculos* codigoLocal = malloc(sizeof(codigoVeiculos));
             codigoLocal->codigo = veiculoLocal->codigo;
             codigoLocal->next = novo->codigoVeiculo;
-            novo->codigoVeiculo = codigoLocal;
+            novo->codigoVeiculo = codigoLocal; //atualiza a lista de codigo local conforme a localizacao
         }
         veiculoLocal = veiculoLocal->next; //Percorre a lista de Veiculos
     }
@@ -1140,19 +1156,19 @@ local* inserirLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local*
             nifClientes* nifLocal = malloc(sizeof(nifClientes));
             nifLocal->nif = clienteLocal->nif;
             nifLocal->next = novo->nifCliente;
-            novo->nifCliente = nifLocal;
+            novo->nifCliente = nifLocal;  //atualiza a lista de nifs local conforme a localizacao
         }
         clienteLocal = clienteLocal->next;//Percorrer a listaClientes
     }
 
-    novo->next = listaLocais;
-    return(novo);
+    novo->next = listaLocais; //adiciona o novo local ao inicio da lista
+    return(novo); //retorna o novo local com as informacoes
 }
 
 
 
 /**
- * A função imprime a localização, códigos das viaturas e NIFs de cliente associados a cada elemento de lista de locais.
+ * A função faz show dos dados  da localização, código de veiculos e NIFs de cliente associados a cada elemento de lista de locais.
  * 
  * @param listaLocais * para o inicio da listaLocais
  */
@@ -1233,6 +1249,29 @@ nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif)
 
 }
 
+/**
+ * Esta função insere um novo * com um determinado localAdjacente numa lista ligada de local Adjacente.
+ * 
+ * @param listaLocaisAdjacentes * para o inicio da listaLocalAdjacente
+ * @param localDestino que representa o local adjacente a outro local
+ * @param peso que representa a distancia entre 2 locais
+ * 
+ * @return novo * para o inicio da listaLocalAdjacente
+ */
+localAdjacente* inserirLocalAdjacente(localAdjacente *listaLocalAdjacente, char localDestino[], float peso)
+{
+    localAdjacente *novo = malloc(sizeof(struct localAdjacente)); //aloca dinamicamente um novo bloco de memória do tamanho da struct localAdjacente esse bloco memoria atribuido como novo
+    if (novo != NULL) //verificação 
+    {
+        novo->localDestino;
+        novo->peso;
+        novo->next = listaLocalAdjacente; //faz com que o novo localDestino aponte para o antigo início da lista, fica o novo início da lista
+        return novo; //return do *
+    }
+
+    return listaLocalAdjacente; //Caso falhe retorna * original da lista ligada.
+    
+}
 
 /**
  * Esta função cria uma nova aresta entre dois locais e define o peso entre a origem e o destino
@@ -1246,21 +1285,23 @@ nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif)
  * @return * para o inicio da listaPesoLocais
  */
 local* criarAresta(local* listaLocais, local* listaPesoLocais, char localOrigem[], char localDestino[], float peso)
-{
+{   
     local* origem = listaLocais;
     while (origem != NULL && !strcmp(origem->localizacao, localOrigem))
     {
-        origem = origem->next;
+        origem = origem->next; //percorrer a lista locais
     }
 
     local* destino = listaLocais;
     while (destino != NULL && !strcmp(destino->localizacao, localDestino))
     {
-        destino = destino->next;
+        destino = destino->next; //percorrer a lista de locais 
     }
 
     if (origem != NULL && destino != NULL)
     {
+        origem->localAdjacentes = NULL; //garante apenas a nova aresta criada entre 2 locais.
+
          localAdjacente* novoAdjacente = malloc(sizeof(localAdjacente));
 
          strcpy(novoAdjacente->localDestino, localDestino);
@@ -1280,11 +1321,9 @@ local* criarAresta(local* listaLocais, local* listaPesoLocais, char localOrigem[
 
 
 /**
- * The function prints the location and adjacent locations with their respective weights.
+ * A função faz show dos dados  do localOrigem, localDestino  e peso  associado.
  * 
- * @param listaPesoLocais a pointer to the head of a linked list of local structures, where each local
- * structure contains information about a location and its adjacent locations with their respective
- * weights.
+ * @param listaPesoLocais * para o inicio da lispaPesoLocais
  */
 void showDadosLocalAdjacente(local *listaPesoLocais)
 {
@@ -1293,18 +1332,59 @@ void showDadosLocalAdjacente(local *listaPesoLocais)
     while (atual != NULL) {
         printf("Localizacao -> %s | ", atual->localizacao);
 
-        // Imprime os códigos dos veículos associados à localização
+        // Imprime os locaisAdjacente associados ao localO0rigem
         localAdjacente *localDestino = atual->localAdjacentes;
         printf(" Local Destino-> ");
         while (localDestino != NULL) {
-            printf("%s,%f;", localDestino->localDestino, localDestino->peso);
+            printf(" %s, Peso: %.2f;", localDestino->localDestino, localDestino->peso);
             localDestino = localDestino->next;
         }
+        
         printf("\n");
 
         atual = atual->next;
     }
 }
 
+// void ShowVeiculosRaio(local* listaPesoLocais, local* listaLocais, char localOrigem[], float raio)
+// {
+//     // Encontrar o local de origem na lista pesoLocais
+//     local* origem = listaPesoLocais;
+//     while (origem != NULL && strcmp(origem->localizacao, localOrigem) != 0)
+//     {
+//         origem = origem->next;
+//     }
 
+//     if (origem != NULL)
+//     {
+//         // Percorrer a lista de localAdjacentes do local de origem
+//         localAdjacente* adjacente = origem->localAdjacentes;
+//         while (adjacente != NULL)
+//         {
+//             // Verificar se o peso é menor ou igual ao raio definido
+//             if (adjacente->peso <= raio)
+//             {
+//                 // Encontrar o local de destino na lista de locais
+//                 local* destino = listaLocais;
+//                 while (destino != NULL && strcmp(destino->localizacao, adjacente->localDestino) != 0)
+//                 {
+//                     destino = destino->next;
+//                 }
+
+//                 if (destino != NULL)
+//                 {
+//                     // Imprimir os códigos dos veículos associados ao local de destino
+//                     codigoVeiculo *codigo = destino->codigosVeiculos;
+//                     while (codigo != NULL)
+//                     {
+//                         printf("Local: %s | Veículo: %d\n", destino->localizacao, codigo->codigo);
+//                         codigo = codigo->next;
+//                     }
+//                 }
+//             }
+
+//             adjacente = adjacente->next;
+//         }
+//     }
+// }
 

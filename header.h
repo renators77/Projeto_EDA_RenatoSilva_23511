@@ -240,8 +240,12 @@ codigoVeiculos* inserirCodigoVeiculo(codigoVeiculos *listaCodigoVeiculos, int co
 
 nifClientes* inserirNifCliente(nifClientes *listaNifClientes, int nif);
 
+localAdjacente* inserirLocalAdjacente(localAdjacente *listaLocaisAdjacentes, char localDestino[], float peso);
+
 //Faz o load dos dados do ficheiro listaLocais.txt para a lista ligada.
 local* loadDadosLocalizacao(cliente* listaClientes, veiculo* listaVeiculos, local *listaLocais);
+
+local* loadDadosArestas( local *listaLocais, local *listaPesoLocais);
 
 //Salva os Dados da lista ligada 'listaLocais' em ficheiro.
 void salvarDadosLocalizacao(local* listaLocais);
@@ -258,6 +262,6 @@ local* criarAresta(local* listaLocais, local *listaPesoLocais,char localOrigem[]
 // Mostrar Dados da lista ligada `listaPesoLocais´ em consola.
 void showDadosLocalAdjacente(local* listaPesoLocais);
 
-
+// void ShowVeiculosRaio(local *listaLocais,local *listaPesoLocais, char localOrigem[], float raio);
 
 #endif
